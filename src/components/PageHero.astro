@@ -1,0 +1,103 @@
+---
+import LatticeBand from './LatticeBand.astro';
+import Ornament from './Ornament.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  /** Brotkrumen ohne Startseite */
+  breadcrumbs?: { name: string; href: string }[];
+}
+
+const { eyebrow, title, lead, breadcrumbs = [] } = Astro.props;
+---
+
+<section class="page-hero bg-damask">
+  <div class="container page-hero__inner">
+    {
+      breadcrumbs.length > 0 && (
+        <nav class="breadcrumbs" aria-label="Brotkrumen">
+          <ol>
+            <li>
+              <a href="/">Startseite</a>
+            </li>
+            {breadcrumbs.map((crumb, i) => (
+              <li>
+                {i === breadcrumbs.length - 1 ? (
+                  <span aria-current="page">{crumb.name}</span>
+                ) : (
+                  <a href={crumb.href}>{crumb.name}</a>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )
+    }
+    <Ornament size={38} class="page-hero__ornament" />
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1 set:html={title} />
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</section>
+<LatticeBand />
+
+<style>
+  .page-hero {
+    padding-block: clamp(2rem, 5vw, 3.5rem) clamp(2.5rem, 6vw, 4.5rem);
+    text-align: center;
+  }
+
+  .page-hero__inner {
+    max-width: calc(52rem + 2 * var(--gutter));
+  }
+
+  .page-hero :global(.page-hero__ornament) {
+    margin-bottom: 1rem;
+  }
+
+  .page-hero h1 {
+    margin-bottom: 0.35em;
+  }
+
+  .page-hero .lead {
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  .page-hero :global(.btn-row) {
+    justify-content: center;
+    margin-top: 1.75rem;
+  }
+
+  .breadcrumbs {
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .breadcrumbs li + li::before {
+    content: '·';
+    margin-right: 0.5rem;
+    color: var(--gold-300);
+  }
+
+  .breadcrumbs a {
+    color: var(--cream-200);
+  }
+
+  .breadcrumbs [aria-current] {
+    color: var(--gold-300);
+  }
+</style>

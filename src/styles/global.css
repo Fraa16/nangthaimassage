@@ -1,0 +1,518 @@
+/* ==========================================================================
+   Nang Thai Massage – Designsystem
+   Farben aus den Original-Grafiken: Königsviolett mit Damastmuster, Blattgold.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  --purple-950: #140a2c;
+  --purple-900: #1e0f43;
+  --purple-800: #2a165c;
+  --purple-700: #3a206f;
+  --purple-600: #4c2d8d;
+  --purple-500: #6647a9;
+  --purple-200: #d8ccec;
+  --purple-100: #efe9f8;
+
+  --gold-100: #fdf3d3;
+  --gold-200: #fbe7a6;
+  --gold-300: #f7d774;
+  --gold-400: #efc14f;
+  --gold-500: #e2a932;
+  --gold-600: #c38b1d;
+  /* Gold als Schriftfarbe auf Creme: Kontrast ≥ 5:1 auch auf dem dunkleren Creme */
+  --gold-700: #845c0e;
+
+  --cream-50: #fffcf6;
+  --cream-100: #fbf6ec;
+  --cream-200: #f4ead6;
+  --cream-300: #e9d9b8;
+
+  --ink-900: #221634;
+  --ink-700: #473b59;
+  --ink-500: #62567a;
+
+  --whatsapp: #1fa855;
+
+  --gold-gradient: linear-gradient(180deg, #fcecb4 0%, #f2c85a 34%, #d99f28 64%, #f0c85e 100%);
+  --gold-gradient-hover: linear-gradient(180deg, #fff3cc 0%, #f7d472 34%, #e3ad36 64%, #f7d675 100%);
+  --gold-rule: linear-gradient(90deg, transparent, var(--gold-500) 18%, var(--gold-300) 50%, var(--gold-500) 82%, transparent);
+
+  --font-body: 'Source Sans 3 Variable', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-display: 'Cormorant Garamond', 'Cormorant', Garamond, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  --font-caps: 'Cinzel', 'Trajan Pro', 'Palatino Linotype', Georgia, serif;
+
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgb(30 15 67 / 0.08), 0 2px 8px rgb(30 15 67 / 0.06);
+  --shadow: 0 10px 30px -12px rgb(30 15 67 / 0.35);
+  --shadow-gold: 0 6px 18px -6px rgb(195 139 29 / 0.55);
+
+  --container: 72rem;
+  --container-narrow: 46rem;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --section-space: clamp(3.5rem, 8vw, 6.5rem);
+  --header-h: 4.25rem;
+  --mobile-bar-h: 0px;
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --header-h: 5rem;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  :root {
+    --mobile-bar-h: 4.25rem;
+  }
+}
+
+/* ---------- Grundlagen ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream-100);
+  color: var(--ink-900);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: var(--mobile-bar-h);
+}
+
+@media (min-width: 48rem) {
+  body {
+    font-size: 1.125rem;
+  }
+}
+
+main {
+  flex: 1;
+}
+
+img,
+svg,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 0.5em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--purple-800);
+  text-wrap: balance;
+  letter-spacing: -0.005em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 1.45rem + 2.2vw, 3.1rem);
+}
+
+h3 {
+  font-size: clamp(1.45rem, 1.3rem + 0.6vw, 1.75rem);
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--purple-600);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--purple-800);
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold-500);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--gold-300);
+  color: var(--purple-900);
+}
+
+ul,
+ol {
+  margin: 0 0 1em;
+  padding-left: 1.25em;
+}
+
+dl,
+dd {
+  margin: 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+address {
+  font-style: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Hilfsklassen ---------- */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  background: var(--gold-400);
+  color: var(--purple-900);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--narrow {
+  max-width: calc(var(--container-narrow) + 2 * var(--gutter));
+}
+
+.section {
+  padding-block: var(--section-space);
+}
+
+.section--tint {
+  background: var(--cream-200);
+}
+
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 0.9rem;
+  font-family: var(--font-caps);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+}
+
+.lead {
+  font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--ink-700);
+}
+
+.accent {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--gold-700);
+}
+
+/* Violetter Hintergrund mit Damastmuster */
+.bg-damask {
+  position: relative;
+  isolation: isolate;
+  background: radial-gradient(120% 90% at 50% 0%, var(--purple-700) 0%, var(--purple-800) 55%, var(--purple-900) 100%);
+  color: var(--cream-100);
+}
+
+.bg-damask::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--gold-200);
+  opacity: 0.07;
+  -webkit-mask: url('../assets/patterns/damask.svg') 0 0 / 88px 88px repeat;
+  mask: url('../assets/patterns/damask.svg') 0 0 / 88px 88px repeat;
+  pointer-events: none;
+}
+
+.bg-damask h1,
+.bg-damask h2,
+.bg-damask h3 {
+  color: var(--gold-300);
+}
+
+.bg-damask .eyebrow {
+  color: var(--gold-300);
+}
+
+.bg-damask .lead,
+.bg-damask p {
+  color: var(--cream-200);
+}
+
+.bg-damask a:not(.btn) {
+  color: var(--gold-200);
+}
+
+/* Heller Hintergrund mit zartem Damast */
+.bg-damask-light {
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-damask-light::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--purple-700);
+  opacity: 0.045;
+  -webkit-mask: url('../assets/patterns/damask.svg') 0 0 / 88px 88px repeat;
+  mask: url('../assets/patterns/damask.svg') 0 0 / 88px 88px repeat;
+  pointer-events: none;
+}
+
+/* Goldene Zierlinie */
+.gold-rule {
+  height: 2px;
+  border: 0;
+  margin: 0;
+  background: var(--gold-rule);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  --btn-pad-y: 0.8rem;
+  --btn-pad-x: 1.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.btn:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn svg {
+  flex: none;
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.btn--gold {
+  background: var(--gold-gradient);
+  border-color: var(--gold-600);
+  color: var(--purple-900);
+  box-shadow: var(--shadow-gold), inset 0 1px 0 rgb(255 255 255 / 0.55);
+  text-shadow: 0 1px 0 rgb(255 255 255 / 0.35);
+}
+
+.btn--gold:hover {
+  background: var(--gold-gradient-hover);
+  color: var(--purple-950);
+}
+
+.btn--purple {
+  background: var(--purple-700);
+  border-color: var(--purple-700);
+  color: var(--cream-50);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--purple:hover {
+  background: var(--purple-800);
+  color: #fff;
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--purple-600);
+  color: var(--purple-700);
+}
+
+.btn--outline:hover {
+  background: var(--purple-100);
+  color: var(--purple-800);
+}
+
+.btn--outline-light {
+  background: rgb(255 255 255 / 0.04);
+  border-color: var(--gold-300);
+  color: var(--cream-50);
+}
+
+.btn--outline-light:hover {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+}
+
+.btn .icon-whatsapp {
+  color: var(--whatsapp);
+}
+
+.btn--outline-light .icon-whatsapp {
+  color: #4ade80;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 650;
+  color: var(--purple-600);
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.text-link svg {
+  width: 1em;
+  height: 1em;
+  transition: transform 0.15s ease;
+}
+
+.text-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* ---------- Fließtext (Rechtliches, Über uns) ---------- */
+
+.prose {
+  max-width: 70ch;
+}
+
+.prose h2 {
+  margin-top: 2.2em;
+  font-size: clamp(1.7rem, 1.4rem + 1.2vw, 2.2rem);
+}
+
+.prose h3 {
+  margin-top: 1.8em;
+  font-size: 1.35rem;
+}
+
+.prose h2:first-child,
+.prose h3:first-child {
+  margin-top: 0;
+}
+
+.prose li + li {
+  margin-top: 0.35em;
+}
+
+.prose a {
+  overflow-wrap: anywhere;
+}
+
+main:focus {
+  outline: none;
+}
+
+/* Platzhalter, die vor dem Livegang ersetzt werden müssen */
+.todo {
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+  background: #ffe066;
+  color: #5c3b00;
+  font-weight: 700;
+}

@@ -1,0 +1,42 @@
+---
+/** Goldene Pra-Jam-Yam-Blüte mit Zierlinien links und rechts. */
+import { Image } from 'astro:assets';
+import ornament from '../assets/brand/ornament.png';
+
+interface Props {
+  size?: number;
+  lines?: boolean;
+  class?: string;
+}
+
+const { size = 34, lines = true, class: className } = Astro.props;
+---
+
+<div class:list={['ornament', { 'ornament--lines': lines }, className]} aria-hidden="true">
+  <Image src={ornament} alt="" width={size} widths={[size, size * 2, size * 3]} sizes={`${size}px`} format="webp" />
+</div>
+
+<style>
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+
+  .ornament--lines::before,
+  .ornament--lines::after {
+    content: '';
+    flex: 0 1 5.5rem;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, var(--gold-500));
+  }
+
+  .ornament--lines::after {
+    background: linear-gradient(270deg, transparent, var(--gold-500));
+  }
+
+  .ornament :global(img) {
+    filter: drop-shadow(0 1px 1px rgb(60 30 0 / 0.25));
+  }
+</style>

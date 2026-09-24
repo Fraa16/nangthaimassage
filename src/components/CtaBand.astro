@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+import Ornament from './Ornament.astro';
+import LatticeBand from './LatticeBand.astro';
+import { business, hoursSummary } from '../data/business';
+import { telHref, whatsappHref } from '../lib/links';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+
+const hours = hoursSummary();
+const {
+  title = 'Ihr Termin ist nur einen Anruf entfernt',
+  text = `${hours ? `${hours}, auch am Wochenende.` : ''} Rufen Sie an oder schreiben Sie uns per WhatsApp, wir finden einen passenden Termin.`,
+} = Astro.props;
+---
+
+<LatticeBand />
+<section class="cta-band bg-damask">
+  <div class="container cta-band__inner">
+    <Ornament size={40} />
+    <h2>{title}</h2>
+    <p class="lead">{text.trim()}</p>
+    <div class="btn-row">
+      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> {business.phone.display} anrufen</a>
+      <a class="btn btn--outline-light" href={whatsappHref('Hallo, ich möchte gern einen Termin vereinbaren.')} rel="noopener" target="_blank">
+        <Icon name="whatsapp" /> Per WhatsApp anfragen
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    padding-block: clamp(3rem, 7vw, 5rem);
+    text-align: center;
+  }
+
+  .cta-band__inner {
+    max-width: calc(44rem + 2 * var(--gutter));
+  }
+
+  .cta-band h2 {
+    margin-top: 1rem;
+  }
+
+  .cta-band .btn-row {
+    justify-content: center;
+    margin-top: 1.75rem;
+  }
+</style>

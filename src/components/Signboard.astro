@@ -1,0 +1,190 @@
+---
+/**
+ * Das Schild aus dem Original-Design: violett-goldener Rahmen mit drei Feldern.
+ * Ab 68rem Breite stehen Öffnungszeiten, Telefon und Adresse direkt in den
+ * Feldern des Rahmens, darunter als einzelne Tafeln.
+ */
+import { Image } from 'astro:assets';
+import frame from '../assets/brand/frame.png';
+import Icon from './Icon.astro';
+import { business, hoursSummary } from '../data/business';
+import { telHref, directionsUrl } from '../lib/links';
+
+const hours = hoursSummary() ?? 'Termine nach Vereinbarung';
+---
+
+<div class="signboard">
+  <Image
+    src={frame}
+    alt=""
+    class="signboard__frame"
+    widths={[1100, 1600, 2000]}
+    sizes="(min-width: 68rem) min(72rem, 100vw), 1px"
+    format="webp"
+    quality={82}
+    loading="lazy"
+  />
+  <ul class="signboard__panels">
+    <li class="signboard__panel">
+      <Icon name="clock" />
+      <span class="signboard__label">Öffnungszeiten</span>
+      <strong class="signboard__main">{hours}</strong>
+      <span class="signboard__sub">auch samstags &amp; sonntags</span>
+    </li>
+    <li class="signboard__panel signboard__panel--center">
+      <Icon name="phone" />
+      <span class="signboard__label">Termin vereinbaren</span>
+      <a class="signboard__main" href={telHref}>{business.phone.display}</a>
+      <span class="signboard__sub">Anruf oder WhatsApp</span>
+    </li>
+    <li class="signboard__panel">
+      <Icon name="map-pin" />
+      <span class="signboard__label">Adresse</span>
+      <a class="signboard__main" href={directionsUrl} rel="noopener" target="_blank">{business.address.street}</a>
+      <span class="signboard__sub">{business.address.postalCode} {business.address.city}</span>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .signboard {
+    position: relative;
+    container-type: inline-size;
+  }
+
+  .signboard :global(.signboard__frame) {
+    display: none;
+  }
+
+  .signboard__panels {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 40rem) {
+    .signboard__panels {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Einzelne Tafeln im Stil des Rahmens */
+  .signboard__panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 1.5rem 1rem;
+    border: 6px solid var(--purple-700);
+    border-radius: 4px;
+    outline: 2px solid var(--gold-500);
+    outline-offset: -10px;
+    background: var(--cream-50);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .signboard__panel :global(.icon) {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-bottom: 0.35rem;
+    color: var(--gold-600);
+  }
+
+  .signboard__label {
+    font-family: var(--font-caps);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-700);
+  }
+
+  .signboard__main {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--purple-800);
+    text-decoration: none;
+    font-variant-numeric: lining-nums;
+  }
+
+  a.signboard__main:hover {
+    color: var(--purple-600);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .signboard__sub {
+    color: var(--ink-700);
+  }
+
+  /* Großes Schild: Inhalte sitzen in den transparenten Feldern des Rahmens */
+  @media (min-width: 68rem) {
+    .signboard :global(.signboard__frame) {
+      display: block;
+      width: 100%;
+      filter: drop-shadow(0 12px 18px rgb(30 15 67 / 0.25));
+    }
+
+    .signboard__panels {
+      position: absolute;
+      inset: 0;
+      display: block;
+    }
+
+    .signboard__panel {
+      position: absolute;
+      top: 37.8%;
+      height: 39.9%;
+      width: 21.1%;
+      justify-content: center;
+      gap: 0.15cqw;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      background: none;
+      box-shadow: none;
+    }
+
+    .signboard__panel:nth-child(1) {
+      left: 6.25%;
+    }
+
+    .signboard__panel:nth-child(3) {
+      left: 72.7%;
+    }
+
+    .signboard__panel--center {
+      top: 50%;
+      left: 36.7%;
+      width: 26.75%;
+      height: 27.7%;
+    }
+
+    .signboard__panel :global(.icon) {
+      width: max(20px, 1.9cqw);
+      height: max(20px, 1.9cqw);
+      margin-bottom: 0.2cqw;
+    }
+
+    .signboard__panel--center :global(.icon) {
+      display: none;
+    }
+
+    .signboard__label {
+      font-size: max(11px, 1.05cqw);
+    }
+
+    .signboard__main {
+      font-size: max(20px, 2.25cqw);
+    }
+
+    .signboard__sub {
+      font-size: max(13px, 1.3cqw);
+    }
+  }
+</style>

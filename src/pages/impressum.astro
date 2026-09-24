@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { business } from '../data/business';
+import { telHref, hasEmail, mailHref } from '../lib/links';
+
+const breadcrumbs = [{ name: 'Impressum', href: '/impressum/' }];
+---
+
+<BaseLayout
+  title="Impressum"
+  description={`Impressum von ${business.name}, ${business.address.street}, ${business.address.postalCode} ${business.address.city}.`}
+  breadcrumbs={breadcrumbs}
+>
+  <PageHero title="Impressum" breadcrumbs={breadcrumbs} />
+
+  <section class="section">
+    <div class="container container--narrow prose">
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        {business.name}
+        <br />
+        Inhaberin: <Placeholder value={business.owner} />
+        <br />
+        {business.address.street}
+        <br />
+        {business.address.postalCode} {business.address.city}
+        <br />
+        Deutschland
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Telefon: <a href={telHref}>{business.phone.display}</a>
+        <br />
+        E-Mail: {hasEmail ? <a href={mailHref}>{business.email}</a> : <Placeholder value={business.email} />}
+      </p>
+
+      {
+        business.vatId && (
+          <>
+            <h2>Umsatzsteuer-ID</h2>
+            <p>
+              Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
+              <br />
+              {business.vatId}
+            </p>
+          </>
+        )
+      }
+
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>
+        <Placeholder value={business.owner} />
+        <br />
+        {business.address.street}, {business.address.postalCode} {business.address.city}
+      </p>
+
+      <h2>Verbraucherstreitbeilegung</h2>
+      <p>
+        Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+        teilzunehmen.
+      </p>
+
+      <h2>Haftung für Links</h2>
+      <p>
+        Diese Website enthält Links zu Websites Dritter, etwa zu Google Maps und WhatsApp. Auf deren Inhalte haben wir keinen
+        Einfluss, dafür ist der jeweilige Anbieter verantwortlich. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße
+        erkennbar. Werden uns Rechtsverletzungen bekannt, entfernen wir die betreffenden Links umgehend.
+      </p>
+
+      <h2>Hinweis zu den Massagen</h2>
+      <p>
+        Die angebotenen Massagen sind Wellnessmassagen. Sie dienen der Entspannung und dem Wohlbefinden und ersetzen keine
+        ärztliche Behandlung, Diagnose oder Physiotherapie.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

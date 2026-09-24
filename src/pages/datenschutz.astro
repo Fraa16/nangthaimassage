@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { business, hosting } from '../data/business';
+import { telHref, hasEmail, mailHref } from '../lib/links';
+
+const breadcrumbs = [{ name: 'Datenschutz', href: '/datenschutz/' }];
+---
+
+<BaseLayout
+  title="Datenschutzerklärung"
+  description={`Datenschutzerklärung von ${business.name}: keine Cookies, kein Tracking, Google Maps nur nach Einwilligung.`}
+  breadcrumbs={breadcrumbs}
+>
+  <PageHero title="Datenschutz&shy;erklärung" breadcrumbs={breadcrumbs} />
+
+  <section class="section">
+    <div class="container container--narrow prose">
+      <h2>Das Wichtigste in Kürze</h2>
+      <ul>
+        <li>Diese Website setzt keine Cookies und nutzt keine Analyse- oder Tracking-Werkzeuge.</li>
+        <li>Schriften und Bilder liegen auf unserem eigenen Server, es besteht keine Verbindung zu Google Fonts.</li>
+        <li>Die Karte von Google Maps wird erst geladen, wenn Sie dem ausdrücklich zustimmen.</li>
+        <li>Wenn Sie uns anrufen oder per WhatsApp schreiben, nutzen wir Ihre Angaben nur für Ihren Termin.</li>
+      </ul>
+
+      <h2>1. Verantwortliche</h2>
+      <p>
+        Verantwortlich für die Datenverarbeitung auf dieser Website ist:
+        <br />
+        {business.name}, Inhaberin: <Placeholder value={business.owner} />
+        <br />
+        {business.address.street}, {business.address.postalCode} {business.address.city}
+        <br />
+        Telefon: <a href={telHref}>{business.phone.display}</a>
+        <br />
+        E-Mail: {hasEmail ? <a href={mailHref}>{business.email}</a> : <Placeholder value={business.email} />}
+      </p>
+
+      <h2>2. Hosting und Server-Logfiles</h2>
+      <p>
+        Diese Website wird bei {hosting.name}, {hosting.address}, gehostet. Beim Aufruf der Website verarbeitet der Hoster
+        automatisch Daten, die Ihr Browser übermittelt (Server-Logfiles):
+      </p>
+      <ul>
+        <li>IP-Adresse</li>
+        <li>Datum und Uhrzeit des Zugriffs</li>
+        <li>aufgerufene Seite und übertragene Datenmenge</li>
+        <li>Referrer-URL (die zuvor besuchte Seite)</li>
+        <li>Browsertyp, Betriebssystem und Gerätetyp</li>
+      </ul>
+      <p>
+        Diese Daten sind technisch nötig, um die Website auszuliefern und ihre Sicherheit und Stabilität zu gewährleisten.
+        Rechtsgrundlage ist unser berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO. Die Logdaten werden nach kurzer Zeit
+        gelöscht, soweit sie nicht zur Aufklärung von Sicherheitsvorfällen benötigt werden.
+      </p>
+      <p>
+        Mit dem Hoster besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO. Dabei können Daten in die USA
+        übermittelt werden. Die Übermittlung stützt sich auf den Angemessenheitsbeschluss der EU-Kommission zum EU-US Data
+        Privacy Framework sowie auf Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO). Weitere Informationen:{' '}
+        <a href={hosting.privacyUrl} rel="noopener" target="_blank">Datenschutzerklärung von Vercel</a> und{' '}
+        <a href={hosting.dpaUrl} rel="noopener" target="_blank">Auftragsverarbeitungsvertrag von Vercel</a>.
+      </p>
+
+      <h2>3. Verschlüsselung</h2>
+      <p>
+        Die Website wird ausschließlich über eine verschlüsselte Verbindung (TLS, erkennbar an „https://“) ausgeliefert. So
+        können Dritte die übertragenen Daten nicht mitlesen.
+      </p>
+
+      <h2>4. Keine Cookies, kein Tracking</h2>
+      <p>
+        Wir setzen keine Cookies und verwenden keine Werkzeuge zur Reichweitenmessung oder Werbung. Die Schriftarten werden
+        von unserem eigenen Server geladen, dabei werden keine Daten an Dritte übertragen.
+      </p>
+
+      <h2>5. Kontakt per Telefon, WhatsApp oder E-Mail</h2>
+      <p>
+        Wenn Sie uns anrufen, per WhatsApp schreiben oder eine E-Mail senden, verarbeiten wir Ihre Angaben (etwa Name,
+        Telefonnummer, Terminwunsch und Nachricht), um Ihre Anfrage zu beantworten und Ihren Termin zu vereinbaren.
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung und Durchführung eines Vertrags) sowie unser berechtigtes
+        Interesse an der Beantwortung von Anfragen (Art. 6 Abs. 1 lit. f DSGVO). Wir löschen die Daten, sobald sie nicht mehr
+        benötigt werden und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+      </p>
+
+      <h3>WhatsApp</h3>
+      <p>
+        Für die Terminabsprache nutzen wir WhatsApp, einen Dienst der WhatsApp Ireland Limited, Merrion Road, Dublin 4, D04
+        X2K5, Irland. Wenn Sie uns über WhatsApp kontaktieren, verarbeitet WhatsApp Ihre Telefonnummer, Metadaten und
+        Nachrichten nach den eigenen Bedingungen; die Inhalte sind Ende-zu-Ende-verschlüsselt. Dabei kann es zu einer
+        Übermittlung an Meta Platforms Inc. in den USA kommen, die unter dem EU-US Data Privacy Framework zertifiziert ist.
+        Details finden Sie in der{' '}
+        <a href="https://www.whatsapp.com/legal/privacy-policy-eea" rel="noopener" target="_blank">Datenschutzrichtlinie von WhatsApp</a>.
+        Wenn Sie WhatsApp nicht nutzen möchten, rufen Sie uns einfach an.
+      </p>
+
+      <h3>Terminanfrage-Formular</h3>
+      <p>
+        Das Formular auf der Kontaktseite überträgt keine Daten an unseren Server. Ihre Eingaben werden ausschließlich in
+        Ihrem Browser zu einer Nachricht zusammengesetzt. Erst wenn Sie auf „Anfrage per WhatsApp senden“ klicken, öffnet sich
+        WhatsApp mit dieser Nachricht, die Sie vor dem Absenden noch ändern oder verwerfen können. Ab dann gelten die Hinweise
+        zu WhatsApp oben.
+      </p>
+
+      <h2 id="google-maps">6. Google Maps</h2>
+      <p>
+        Auf der Kontaktseite können Sie eine Karte von Google Maps einblenden. Anbieter ist die Google Ireland Limited, Gordon
+        House, Barrow Street, Dublin 4, Irland. Die Karte wird erst geladen, wenn Sie auf „Karte von Google Maps laden“
+        klicken. Dabei werden unter anderem Ihre IP-Adresse und Informationen zu Ihrem Browser an Google übertragen; Google
+        kann dabei auch Cookies setzen. Eine Übermittlung an Google LLC in den USA ist möglich; Google LLC ist unter dem EU-US
+        Data Privacy Framework zertifiziert.
+      </p>
+      <p>
+        Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG. Die Einwilligung gilt
+        nur für den jeweiligen Seitenaufruf; Sie können sie jederzeit widerrufen, indem Sie die Seite neu laden. Mehr dazu in
+        der <a href="https://policies.google.com/privacy" rel="noopener" target="_blank">Datenschutzerklärung von Google</a>.
+      </p>
+
+      <h3>Links zu Karten- und Routendiensten</h3>
+      <p>
+        Links wie „Route planen“ führen zu Google Maps oder Apple Karten (Apple Distribution International Ltd., Hollyhill
+        Industrial Estate, Hollyhill, Cork, Irland). Daten werden erst übertragen, wenn Sie einen solchen Link anklicken. Ab
+        dann gelten die Datenschutzbestimmungen des jeweiligen Anbieters.
+      </p>
+
+      <h2>7. Ihre Rechte</h2>
+      <p>Sie haben jederzeit das Recht auf:</p>
+      <ul>
+        <li>Auskunft über Ihre bei uns gespeicherten Daten (Art. 15 DSGVO),</li>
+        <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO),</li>
+        <li>Löschung (Art. 17 DSGVO) und Einschränkung der Verarbeitung (Art. 18 DSGVO),</li>
+        <li>Datenübertragbarkeit (Art. 20 DSGVO),</li>
+        <li>Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO).</li>
+      </ul>
+      <p>
+        <strong>Widerspruchsrecht:</strong> Verarbeiten wir Daten auf Grundlage eines berechtigten Interesses (Art. 6 Abs. 1
+        lit. f DSGVO), können Sie dieser Verarbeitung aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit
+        widersprechen (Art. 21 DSGVO).
+      </p>
+      <p>
+        Für all das genügt eine formlose Nachricht an die oben genannten Kontaktdaten. Außerdem können Sie sich bei einer
+        Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Zuständig für uns ist der Landesbeauftragte für den
+        Datenschutz und die Informationsfreiheit Baden-Württemberg
+        (<a href="https://www.baden-wuerttemberg.datenschutz.de" rel="noopener" target="_blank">www.baden-wuerttemberg.datenschutz.de</a>).
+      </p>
+
+      <h2>8. Automatisierte Entscheidungen</h2>
+      <p>Eine automatisierte Entscheidungsfindung einschließlich Profiling findet nicht statt.</p>
+
+      <p class="updated">Stand: September 2026</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .updated {
+    margin-top: 3rem;
+    font-size: 0.9375rem;
+    color: var(--ink-500);
+  }
+</style>

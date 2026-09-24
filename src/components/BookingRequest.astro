@@ -1,0 +1,201 @@
+---
+/**
+ * Terminanfrage ohne Server: Die Angaben werden im Browser zu einer
+ * WhatsApp-Nachricht zusammengesetzt. Nichts wird auf der Website gespeichert.
+ * Ohne JavaScript öffnet der Button WhatsApp mit einer Standardnachricht.
+ */
+import Icon from './Icon.astro';
+import { business } from '../data/business';
+import { services, formatPrice, formatMinutes } from '../data/services';
+
+const greeting = 'Hallo, ich möchte gern einen Termin vereinbaren.';
+
+const toMinutes = (t: string) => {
+  const [h, m] = t.split(':').map(Number);
+  return h * 60 + m;
+};
+const { opens, closes } = business.openingHours[0];
+const times: string[] = [];
+for (let m = toMinutes(opens); m <= toMinutes(closes) - 30; m += 30) {
+  times.push(`${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`);
+}
+---
+
+<form class="booking" action={`https://wa.me/${business.whatsapp}`} method="get" target="_blank" data-booking>
+  <input type="hidden" name="text" value={greeting} />
+
+  <div class="booking__field booking__field--full">
+    <label for="booking-massage">Massage und Dauer</label>
+    <select id="booking-massage" data-field="massage">
+      <option value="">Noch unsicher, bitte beraten Sie mich</option>
+      {
+        services.map((s) => (
+          <optgroup label={s.name}>
+            {s.options.map((o) => (
+              <option value={`${s.name}, ${formatMinutes(o.minutes)}`}>
+                {s.name}: {formatMinutes(o.minutes)} ({formatPrice(o.price)})
+              </option>
+            ))}
+          </optgroup>
+        ))
+      }
+    </select>
+  </div>
+
+  <div class="booking__field">
+    <label for="booking-date">Wunschtag</label>
+    <input id="booking-date" type="date" data-field="date" />
+  </div>
+
+  <div class="booking__field">
+    <label for="booking-time">Uhrzeit</label>
+    <select id="booking-time" data-field="time">
+      <option value="">flexibel</option>
+      {times.map((t) => <option value={t}>{t} Uhr</option>)}
+    </select>
+  </div>
+
+  <div class="booking__field booking__field--full">
+    <label for="booking-name">Ihr Name</label>
+    <input id="booking-name" type="text" autocomplete="name" data-field="name" />
+  </div>
+
+  <div class="booking__field booking__field--full">
+    <label for="booking-note">Anmerkung <span>(optional)</span></label>
+    <textarea id="booking-note" rows="2" data-field="note" placeholder="z. B. zweiter Wunschtermin oder gewünschte Druckstärke"></textarea>
+  </div>
+
+  <button class="btn btn--gold booking__submit" type="submit">
+    <Icon name="whatsapp" /> Anfrage per WhatsApp senden
+  </button>
+  <p class="booking__privacy">
+    Ihre Angaben werden nicht auf dieser Website gespeichert. Der Button öffnet WhatsApp mit einer vorbereiteten Nachricht,
+    die Sie vor dem Absenden noch ändern können. Lieber telefonieren? <a href={`tel:${business.phone.e164}`}>{business.phone.display}</a>
+  </p>
+</form>
+
+<script>
+  const value = (form: HTMLFormElement, field: string) =>
+    form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(`[data-field="${field}"]`)?.value.trim() ?? '';
+
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-booking]')) {
+    const date = form.querySelector<HTMLInputElement>('[data-field="date"]');
+    if (date) {
+      const today = new Date();
+      today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+      date.min = today.toISOString().slice(0, 10);
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const lines = ['Hallo, ich möchte gern einen Termin vereinbaren.'];
+      const massage = value(form, 'massage');
+      lines.push(`Massage: ${massage || 'noch unsicher, bitte um Beratung'}`);
+
+      const day = value(form, 'date');
+      const time = value(form, 'time');
+      if (day || time) {
+        const dayText = day
+          ? new Date(`${day}T12:00:00`).toLocaleDateString('de-DE', {
+              weekday: 'long',
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+            })
+          : 'Tag flexibel';
+        lines.push(`Wunschtermin: ${dayText}, ${time ? `${time} Uhr` : 'Uhrzeit flexibel'}`);
+      }
+
+      const name = value(form, 'name');
+      if (name) lines.push(`Name: ${name}`);
+      const note = value(form, 'note');
+      if (note) lines.push(`Anmerkung: ${note}`);
+
+      const url = `${form.action}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(url, '_blank', 'noopener');
+    });
+  }
+</script>
+
+<style>
+  .booking {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: clamp(1.5rem, 4vw, 2.25rem);
+    border: 1px solid var(--cream-300);
+    border-top: 3px solid var(--gold-500);
+    border-radius: var(--radius-lg);
+    background: var(--cream-50);
+    box-shadow: var(--shadow);
+  }
+
+  .booking__field {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .booking__field--full,
+  .booking__submit,
+  .booking__privacy {
+    grid-column: 1 / -1;
+  }
+
+  .booking label {
+    font-weight: 650;
+    font-size: 1rem;
+    color: var(--purple-800);
+  }
+
+  .booking label span {
+    font-weight: 400;
+    color: var(--ink-500);
+  }
+
+  .booking select,
+  .booking input,
+  .booking textarea {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: var(--ink-900);
+    font: inherit;
+    font-size: 1rem;
+  }
+
+  .booking textarea {
+    resize: vertical;
+  }
+
+  .booking select:focus-visible,
+  .booking input:focus-visible,
+  .booking textarea:focus-visible {
+    outline: 3px solid var(--gold-400);
+    outline-offset: 1px;
+    border-color: var(--purple-500);
+  }
+
+  .booking__submit {
+    margin-top: 0.5rem;
+  }
+
+  .booking__submit :global(.icon-whatsapp) {
+    color: #0f7a3a;
+  }
+
+  .booking__privacy {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-500);
+  }
+
+  @media (max-width: 30rem) {
+    .booking {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

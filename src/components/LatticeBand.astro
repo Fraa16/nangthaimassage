@@ -1,0 +1,24 @@
+---
+/** Goldenes Rautenband aus dem Original-Ornament, nahtlos gekachelt. */
+import { getImage } from 'astro:assets';
+import band from '../assets/brand/lattice-band.png';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const tile = await getImage({ src: band, format: 'webp', quality: 82 });
+---
+
+<div class:list={['lattice-band', className]} style={`--band: url(${tile.src})`} aria-hidden="true"></div>
+
+<style>
+  .lattice-band {
+    height: clamp(14px, 1.6vw, 22px);
+    background: var(--band) repeat-x center / auto 100%;
+    box-shadow:
+      0 -1px 0 rgb(20 10 44 / 0.35),
+      0 1px 0 rgb(20 10 44 / 0.35);
+  }
+</style>

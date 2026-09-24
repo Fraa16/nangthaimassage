@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import Fonts from '../components/Fonts.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCallBar from '../components/MobileCallBar.astro';
+import logo from '../assets/brand/logo.png';
+import { business } from '../data/business';
+import { localBusinessSchema, websiteSchema, breadcrumbSchema } from '../lib/schema';
+
+interface Props {
+  /** Seitentitel ohne Markenname, wird zu „Titel | Nang Thai Massage“ */
+  title: string;
+  /** Vollständiger Titel, falls die Standardform nicht passt */
+  fullTitle?: string;
+  description: string;
+  /** Brotkrumen für die strukturierten Daten, ohne Startseite */
+  breadcrumbs?: { name: string; href: string }[];
+  /** Zusätzliche JSON-LD-Objekte */
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const { title, fullTitle, description, breadcrumbs, schema = [], noindex = false } = Astro.props;
+
+const site = Astro.site ?? new URL(Astro.url.origin);
+const pageTitle = fullTitle ?? `${title} | ${business.name}`;
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = new URL('/og-image.jpg', site).href;
+const logoImage = await getImage({ src: logo, format: 'png' });
+const logoUrl = new URL(logoImage.src, site).href;
+
+const jsonLd = [
+  localBusinessSchema(site, logoUrl),
+  websiteSchema(site),
+  ...(breadcrumbs ? [breadcrumbSchema(site, [{ name: 'Startseite', href: '/' }, ...breadcrumbs])] : []),
+  ...schema,
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
+
+    <Fonts />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#2a165c" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content={business.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${business.name} – Thaimassage in ${business.address.city}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="geo.region" content="DE-BW" />
+    <meta name="geo.placename" content={business.address.city} />
+
+    {jsonLd.map((data) => <script type="application/ld+json" is:inline set:html={JSON.stringify(data)} />)}
+  </head>
+  <body>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <Header />
+    <main id="inhalt" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <MobileCallBar />
+  </body>
+</html>

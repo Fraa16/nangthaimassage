@@ -1,0 +1,11 @@
+---
+/** Gibt einen Stammdaten-Wert aus und hebt fehlende Angaben („TODO: …“) gelb hervor. */
+interface Props {
+  value: string;
+}
+
+const { value } = Astro.props;
+const missing = value.startsWith('TODO');
+---
+
+{missing ? <mark class="todo">{value}</mark> : value}

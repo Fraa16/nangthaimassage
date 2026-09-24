@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import BookingRequest from '../components/BookingRequest.astro';
+import { business, fullAddress, hoursSummary } from '../data/business';
+import { telHref, whatsappHref, directionsUrl, appleMapsUrl, hasEmail, mailHref } from '../lib/links';
+
+const hours = hoursSummary();
+const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
+---
+
+<BaseLayout
+  title="Kontakt & Anfahrt"
+  fullTitle={`Kontakt & Anfahrt | ${business.name} Ehningen`}
+  description={`Termin bei ${business.name} in Ehningen: Anruf oder WhatsApp unter ${business.phone.display}. ${fullAddress}. ${hours ? `${hours}, auch am Wochenende.` : ''}`}
+  breadcrumbs={breadcrumbs}
+>
+  <PageHero
+    eyebrow="Kontakt"
+    title="Kontakt &amp; Anfahrt"
+    lead={`Termine vereinbaren Sie am schnellsten per Anruf oder WhatsApp. ${hours ? `Wir sind ${hours.replace('Täglich', 'täglich')} für Sie da.` : ''}`}
+    breadcrumbs={breadcrumbs}
+  >
+    <div class="btn-row">
+      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> {business.phone.display} anrufen</a>
+      <a class="btn btn--outline-light" href={whatsappHref('Hallo, ich möchte gern einen Termin vereinbaren.')} rel="noopener" target="_blank">
+        <Icon name="whatsapp" /> WhatsApp schreiben
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="section" aria-labelledby="kontaktwege-title">
+    <div class="container contact">
+      <div class="contact__info">
+        <h2 id="kontaktwege-title">So erreichen Sie uns</h2>
+        <ul class="contact__cards">
+          <li>
+            <span class="contact__icon"><Icon name="phone" /></span>
+            <div>
+              <h3>Telefon</h3>
+              <a href={telHref}>{business.phone.display}</a>
+              <p>Am schnellsten während der Öffnungszeiten.</p>
+            </div>
+          </li>
+          <li>
+            <span class="contact__icon contact__icon--whatsapp"><Icon name="whatsapp" /></span>
+            <div>
+              <h3>WhatsApp</h3>
+              <a href={whatsappHref()} rel="noopener" target="_blank">{business.phone.display}</a>
+              <p>Schreiben Sie uns jederzeit, wir antworten so schnell wie möglich.</p>
+            </div>
+          </li>
+          <li>
+            <span class="contact__icon"><Icon name="map-pin" /></span>
+            <div>
+              <h3>Adresse</h3>
+              <address>
+                {business.name}
+                <br />
+                {business.address.street}
+                <br />
+                {business.address.postalCode} {business.address.city}
+              </address>
+              <p class="contact__links">
+                <a href={directionsUrl} rel="noopener" target="_blank">Route mit Google Maps</a>
+                <a href={appleMapsUrl} rel="noopener" target="_blank">Apple Karten</a>
+              </p>
+            </div>
+          </li>
+          {
+            hasEmail && (
+              <li>
+                <span class="contact__icon">
+                  <Icon name="mail" />
+                </span>
+                <div>
+                  <h3>E-Mail</h3>
+                  <a href={mailHref}>{business.email}</a>
+                </div>
+              </li>
+            )
+          }
+        </ul>
+
+        <div class="hours">
+          <h2 id="oeffnungszeiten">Öffnungszeiten</h2>
+          <table>
+            <caption class="visually-hidden">Öffnungszeiten von {business.name}</caption>
+            <tbody>
+              {
+                business.openingHours.map((d) => (
+                  <tr>
+                    <th scope="row">{d.day}</th>
+                    <td>
+                      {d.opens} – {d.closes} Uhr
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          <p>Termine nach Vereinbarung. Am Wochenende am besten ein paar Tage vorher anfragen.</p>
+        </div>
+      </div>
+
+      <div class="contact__form">
+        <h2 id="anfrage-title">Terminanfrage per WhatsApp</h2>
+        <p>Wählen Sie Massage und Wunschzeit, wir bestätigen Ihnen den Termin per WhatsApp.</p>
+        <BookingRequest />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="anfahrt-title">
+    <div class="container">
+      <SectionHeading
+        id="anfahrt-title"
+        eyebrow="Anfahrt"
+        title="Mitten in Ehningen"
+        lead={`${business.name} liegt in der ${business.address.street} in ${business.address.postalCode} ${business.address.city}, ${business.address.district}. Mit der S-Bahn fahren Sie mit der Linie S1 bis Ehningen.`}
+      />
+      <MapEmbed />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (min-width: 60rem) {
+    .contact {
+      grid-template-columns: 1fr 1.1fr;
+      gap: 4rem;
+    }
+  }
+
+  .contact h2 {
+    font-size: clamp(1.8rem, 1.5rem + 1vw, 2.3rem);
+  }
+
+  .contact__cards {
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 2.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact__cards li {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+  }
+
+  .contact__icon {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--purple-700);
+    color: var(--gold-300);
+  }
+
+  .contact__icon--whatsapp {
+    color: #4ade80;
+  }
+
+  .contact__cards h3 {
+    margin-bottom: 0.2rem;
+    font-family: var(--font-caps);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-700);
+  }
+
+  .contact__cards a {
+    font-size: 1.15rem;
+    font-weight: 650;
+    color: var(--purple-700);
+  }
+
+  .contact__cards p {
+    margin: 0.25rem 0 0;
+    font-size: 0.9375rem;
+    color: var(--ink-500);
+  }
+
+  .contact__cards address {
+    font-weight: 650;
+    color: var(--purple-800);
+  }
+
+  .contact__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+  }
+
+  .contact__links a {
+    font-size: 0.9375rem;
+  }
+
+  .hours table {
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+
+  .hours th,
+  .hours td {
+    padding: 0.7rem 1.1rem;
+    border-bottom: 1px solid var(--cream-200);
+    text-align: left;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hours tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .hours th {
+    font-weight: 650;
+    color: var(--purple-800);
+  }
+
+  .hours td {
+    text-align: right;
+    color: var(--ink-700);
+  }
+
+  .hours p {
+    margin-top: 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--ink-500);
+  }
+
+  .contact__form > p {
+    color: var(--ink-700);
+  }
+</style>

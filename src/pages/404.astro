@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { business } from '../data/business';
+import { telHref } from '../lib/links';
+---
+
+<BaseLayout title="Seite nicht gefunden" description="Diese Seite gibt es leider nicht." noindex>
+  <PageHero
+    eyebrow="Fehler 404"
+    title="Diese Seite gibt es nicht"
+    lead="Vielleicht hat sich die Adresse geändert. Hier geht es weiter:"
+  >
+    <div class="btn-row">
+      <a class="btn btn--gold" href="/">Zur Startseite</a>
+      <a class="btn btn--outline-light" href="/leistungen/">Leistungen &amp; Preise</a>
+      <a class="btn btn--outline-light" href={telHref}><Icon name="phone" /> {business.phone.display}</a>
+    </div>
+  </PageHero>
+</BaseLayout>

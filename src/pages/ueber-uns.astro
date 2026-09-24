@@ -1,0 +1,325 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Ornament from '../components/Ornament.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { business, hoursSummary, fullAddress } from '../data/business';
+import { services, formatPrice, lowestPrice } from '../data/services';
+import { about } from '../data/about';
+
+const hours = hoursSummary();
+const breadcrumbs = [{ name: 'Über uns', href: '/ueber-uns/' }];
+
+const values = [
+  {
+    icon: 'star',
+    title: 'Thailändische Tradition',
+    text: 'Thaimassage, Kräuterstempel und Fußreflexzonen: Techniken aus der jahrhundertealten thailändischen Massagetradition.',
+  },
+  {
+    icon: 'check',
+    title: 'Ihre Wünsche zählen',
+    text: 'Vor der Massage fragen wir nach Druckstärke, empfindlichen Stellen und dem, was Ihnen guttut.',
+  },
+  {
+    icon: 'clock',
+    title: 'Jeden Tag geöffnet',
+    text: `${hours ? hours.replace('Täglich ', 'Montag bis Sonntag, ') : 'Termine nach Vereinbarung'}. Auch am Wochenende, wenn andere geschlossen haben.`,
+  },
+  {
+    icon: 'map-pin',
+    title: 'Seriös und persönlich',
+    text: 'Ausschließlich klassische Wellnessmassagen in ruhiger Atmosphäre, mitten in Ehningen.',
+  },
+] as const;
+
+const steps = [
+  {
+    title: 'Termin vereinbaren',
+    text: `Per Anruf oder WhatsApp unter ${business.phone.display}. Nennen Sie Massage, Dauer und Wunschzeit.`,
+  },
+  {
+    title: 'Ankommen',
+    text: `Kommen Sie ein paar Minuten vorher in die ${business.address.street}. Wir besprechen kurz Ihre Wünsche.`,
+  },
+  {
+    title: 'Massage genießen',
+    text: 'Sie entspannen, wir massieren. Ist der Druck zu stark oder zu schwach, sagen Sie es einfach.',
+  },
+  {
+    title: 'In Ruhe gehen',
+    text: 'Bezahlt wird vor Ort. Den nächsten Termin können Sie gleich mit vereinbaren.',
+  },
+];
+---
+
+<BaseLayout
+  title="Über uns"
+  fullTitle={`Über uns | ${business.name} in Ehningen`}
+  description={`${business.name} ist ein Studio für traditionelle Thaimassage in Ehningen. Seriöse Massagen nach thailändischer Tradition, ${hours ? hours.replace('Täglich', 'täglich') : 'nach Vereinbarung'}, auch am Wochenende.`}
+  breadcrumbs={breadcrumbs}
+>
+  <PageHero
+    eyebrow="Über uns"
+    title="Thailändische Tradition, <span class='accent'>mitten in Ehningen</span>"
+    lead="Ein Studio mit einem klaren Anspruch: Massagen nach thailändischer Tradition und Zeit für jeden Gast."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section" aria-labelledby="studio-title">
+    <div class="container intro">
+      <div class="intro__text">
+        <p class="eyebrow">Das Studio</p>
+        <h2 id="studio-title">Nang Thai Massage in Ehningen</h2>
+        <p class="lead">
+          {`${business.name} ist ein Studio für traditionelle Thaimassage in der ${business.address.street} in ${business.address.city}, ${business.address.district}.`}
+        </p>
+        <p>
+          Wir bieten fünf Massagen nach thailändischer Tradition an: die klassische Thaimassage, die Thai-Ölmassage, eine
+          Massage für Rücken, Nacken und Schultern, die Kräuterstempelmassage und die Fußreflexzonenmassage, je nach
+          Massage in 30 bis 120 Minuten.
+        </p>
+        <p>
+          Aus {business.nearbyTowns.slice(0, 3).join(', ')} und {business.nearbyTowns[3]} ist das Studio schnell erreicht. Ob
+          kurze Pause in der Mittagszeit oder lange Auszeit am Wochenende: Sie wählen die Massage und die Dauer, die zu Ihrem
+          Tag passt.
+        </p>
+      </div>
+      <aside class="intro__card" aria-label="Das Studio in Zahlen">
+        <Ornament size={48} lines={false} />
+        <dl>
+          <div>
+            <dt>Adresse</dt>
+            <dd>{fullAddress}</dd>
+          </div>
+          <div>
+            <dt>Geöffnet</dt>
+            <dd>{hours ?? 'nach Vereinbarung'}</dd>
+          </div>
+          <div>
+            <dt>Massagen</dt>
+            <dd>{services.length} klassische Anwendungen</dd>
+          </div>
+          <div>
+            <dt>Preise</dt>
+            <dd>ab {formatPrice(lowestPrice)} für 30 Minuten</dd>
+          </div>
+          <div>
+            <dt>Termin</dt>
+            <dd>{business.phone.display}, auch per WhatsApp</dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  {
+    about.story.length > 0 && (
+      <section class="section section--tint" aria-labelledby="story-title">
+        <div class="container container--narrow prose story">
+          <Ornament size={36} />
+          <h2 id="story-title">{about.storyTitle || 'Die Frau hinter Nang'}</h2>
+          {about.story.map((p) => (
+            <p>{p}</p>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section class:list={['section', { 'section--tint': about.story.length === 0 }]} aria-labelledby="werte-title">
+    <div class="container">
+      <SectionHeading id="werte-title" eyebrow="Unser Anspruch" title="Was Sie bei uns erwartet" />
+      <ul class="values">
+        {
+          values.map((v) => (
+            <li>
+              <span class="values__icon">
+                <Icon name={v.icon} />
+              </span>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class:list={['section', { 'section--tint': about.story.length > 0 }]} aria-labelledby="ablauf-title">
+    <div class="container">
+      <SectionHeading id="ablauf-title" eyebrow="Ihr Besuch" title="So läuft Ihr Termin ab" />
+      <ol class="steps">
+        {
+          steps.map((step, i) => (
+            <li>
+              <span class="steps__number" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .intro {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 60rem) {
+    .intro {
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .intro__text p:not(.lead):not(.eyebrow) {
+    color: var(--ink-700);
+  }
+
+  .intro__card {
+    padding: 2rem 1.75rem 1.25rem;
+    border: 6px solid var(--purple-700);
+    border-radius: 6px;
+    outline: 2px solid var(--gold-500);
+    outline-offset: -12px;
+    background: var(--cream-50);
+    box-shadow: var(--shadow);
+  }
+
+  .intro__card dl {
+    margin-top: 1rem;
+  }
+
+  .intro__card dl div {
+    padding: 0.7rem 0.5rem;
+    border-top: 1px solid var(--cream-300);
+  }
+
+  .intro__card dt {
+    font-family: var(--font-caps);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-700);
+  }
+
+  .intro__card dd {
+    font-weight: 650;
+    color: var(--purple-800);
+  }
+
+  .story {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .values {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 40rem) {
+    .values {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .values {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .values li {
+    padding: 1.75rem 1.5rem;
+    border: 1px solid var(--cream-300);
+    border-top: 3px solid var(--gold-500);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .values__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.85rem;
+    border-radius: 50%;
+    background: var(--purple-700);
+    color: var(--gold-300);
+  }
+
+  .values h3 {
+    font-size: 1.45rem;
+  }
+
+  .values p {
+    margin: 0;
+    color: var(--ink-700);
+  }
+
+  .steps {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+  }
+
+  @media (min-width: 40rem) {
+    .steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .steps {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .steps li {
+    position: relative;
+    padding-top: 0.5rem;
+  }
+
+  .steps__number {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(180deg, #f2c85a, #b27a14);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .steps h3 {
+    font-size: 1.45rem;
+  }
+
+  .steps p {
+    margin: 0;
+    color: var(--ink-700);
+  }
+</style>

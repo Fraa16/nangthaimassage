@@ -1,0 +1,44 @@
+---
+import Ornament from './Ornament.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  align?: 'center' | 'left';
+  /** Überschriften-Ebene, Standard h2 */
+  as?: 'h1' | 'h2';
+  id?: string;
+  ornament?: boolean;
+}
+
+const { eyebrow, title, lead, align = 'center', as: Tag = 'h2', id, ornament = align === 'center' } = Astro.props;
+---
+
+<div class:list={['section-heading', `section-heading--${align}`]}>
+  {ornament && <Ornament class="section-heading__ornament" />}
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <Tag id={id} set:html={title} />
+  {lead && <p class="lead">{lead}</p>}
+  <slot />
+</div>
+
+<style>
+  .section-heading {
+    max-width: 44rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .section-heading--center {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section-heading :global(.section-heading__ornament) {
+    margin-bottom: 1rem;
+  }
+
+  .section-heading .lead {
+    margin-bottom: 0;
+  }
+</style>

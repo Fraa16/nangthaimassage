@@ -1,0 +1,380 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Ornament from '../components/Ornament.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { business } from '../data/business';
+import { services, formatPrice, formatMinutes, lowestPrice } from '../data/services';
+import { telHref, whatsappHref } from '../lib/links';
+
+const durations = [...new Set(services.flatMap((s) => s.options.map((o) => o.minutes)))].sort((a, b) => a - b);
+const breadcrumbs = [{ name: 'Leistungen & Preise', href: '/leistungen/' }];
+const bookingText = (name: string, minutes: number) =>
+  `Hallo, ich möchte gern einen Termin für ${name} (${minutes} Min.) vereinbaren.`;
+---
+
+<BaseLayout
+  title="Leistungen & Preise: Thaimassage ab 30 €"
+  description={`Thaimassage, Thai-Ölmassage, Rücken-Nacken-Schulter, Kräuterstempel und Fußreflexzonen in Ehningen. 30 bis 120 Minuten, ab ${formatPrice(lowestPrice)}. Alle Preise auf einen Blick.`}
+  breadcrumbs={breadcrumbs}
+>
+  <PageHero
+    eyebrow="Leistungen & Preise"
+    title="Massagen und Preise"
+    lead="Fünf Massagen nach thailändischer Tradition, von 30 Minuten für zwischendurch bis zur zweistündigen Auszeit. Alle Preise sind Endpreise, bezahlt wird vor Ort."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section" aria-labelledby="preisliste-title">
+    <div class="container">
+      <SectionHeading id="preisliste-title" eyebrow="Preisliste" title="Alle Preise auf einen Blick" />
+      <div class="price-table-wrap" role="region" aria-label="Preistabelle" tabindex="0">
+        <table class="price-table">
+          <caption class="visually-hidden">Preise nach Massage und Dauer in Euro</caption>
+          <thead>
+            <tr>
+              <th scope="col">Massage</th>
+              {durations.map((d) => <th scope="col">{d} Min.</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              services.map((s) => (
+                <tr>
+                  <th scope="row">
+                    <a href={`#${s.slug}`}>{s.name}</a>
+                  </th>
+                  {durations.map((d) => {
+                    const option = s.options.find((o) => o.minutes === d);
+                    return option ? (
+                      <td>{formatPrice(option.price)}</td>
+                    ) : (
+                      <td class="price-table__empty">
+                        <span aria-hidden="true">–</span>
+                        <span class="visually-hidden">nicht angeboten</span>
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="price-note">Alle Preise in Euro, inklusive aller Abgaben. Bezahlt wird vor Ort beim Termin.</p>
+    </div>
+  </section>
+
+  <div class="service-list">
+    {
+      services.map((s, i) => (
+        <section id={s.slug} class:list={['section', 'service', { 'section--tint': i % 2 === 0 }]} aria-labelledby={`${s.slug}-title`}>
+          <div class="container service__grid">
+            <div class="service__text">
+              <Ornament size={30} lines={false} class="service__ornament" />
+              <h2 id={`${s.slug}-title`}>{s.name}</h2>
+              {s.description.map((p) => (
+                <p>{p}</p>
+              ))}
+              <p class="service__suited">
+                <Icon name="check" />
+                <span>{s.suitedFor}</span>
+              </p>
+            </div>
+            <div class="service__prices">
+              <h3>Dauer &amp; Preis</h3>
+              <ul>
+                {s.options.map((o) => (
+                  <li>
+                    <span class="service__duration">
+                      <Icon name="clock" /> {formatMinutes(o.minutes)}
+                    </span>
+                    <span class="service__price">{formatPrice(o.price)}</span>
+                    <a
+                      class="service__book"
+                      href={whatsappHref(bookingText(s.name, o.minutes))}
+                      rel="noopener"
+                      target="_blank"
+                      aria-label={`${s.name}, ${o.minutes} Minuten per WhatsApp anfragen`}
+                    >
+                      <Icon name="whatsapp" /> Anfragen
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <a class="btn btn--gold service__call" href={telHref}>
+                <Icon name="phone" /> {business.phone.display}
+              </a>
+            </div>
+          </div>
+        </section>
+      ))
+    }
+  </div>
+
+  <section class="section" aria-labelledby="hinweis-title">
+    <div class="container container--narrow">
+      <div class="notice">
+        <h2 id="hinweis-title">Gut zu wissen</h2>
+        <ul>
+          <li>Kommen Sie am besten ein paar Minuten vor Ihrem Termin, damit Sie in Ruhe ankommen.</li>
+          <li>Sagen Sie uns vorab, wenn Sie schwanger sind, kürzlich operiert wurden oder gesundheitliche Beschwerden haben.</li>
+          <li>Falls Sie einen Termin nicht wahrnehmen können, sagen Sie bitte kurz per Anruf oder WhatsApp Bescheid.</li>
+        </ul>
+        <p class="notice__legal">
+          Unsere Massagen sind Wellnessmassagen. Sie dienen der Entspannung und dem Wohlbefinden und ersetzen keine ärztliche
+          Behandlung oder Physiotherapie.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Welche Massage darf es sein?" text="Sagen Sie uns Massage, Dauer und Wunschzeit. Unsicher, was passt? Wir beraten Sie gern am Telefon." />
+</BaseLayout>
+
+<style>
+  /* ---------- Preistabelle ---------- */
+  .price-table-wrap {
+    /* Bezugsrahmen für die unsichtbaren Tabellen-Hinweise, sonst ragen sie aus dem Scrollbereich */
+    position: relative;
+    overflow-x: auto;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .price-table {
+    min-width: 21rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 40rem) {
+    .price-table th,
+    .price-table td {
+      padding: 0.7rem 0.4rem;
+    }
+
+    .price-table thead th {
+      font-size: 0.6875rem;
+      letter-spacing: 0.04em;
+    }
+
+    .price-table tbody th {
+      padding-left: 0.75rem;
+      font-size: 0.9375rem;
+      hyphens: auto;
+    }
+
+    .price-table td {
+      font-size: 1.1rem;
+      white-space: nowrap;
+    }
+  }
+
+  .price-table th,
+  .price-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--cream-200);
+    text-align: center;
+  }
+
+  .price-table thead th {
+    background: var(--purple-700);
+    color: var(--gold-200);
+    font-family: var(--font-caps);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .price-table thead th:first-child,
+  .price-table tbody th {
+    text-align: left;
+  }
+
+  .price-table tbody th a {
+    font-weight: 650;
+    color: var(--purple-800);
+    text-decoration: none;
+  }
+
+  .price-table tbody th a:hover {
+    text-decoration: underline;
+  }
+
+  .price-table td {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--purple-700);
+  }
+
+  .price-table__empty {
+    color: var(--cream-300) !important;
+  }
+
+  .price-table tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .price-table tbody tr:hover {
+    background: var(--purple-100);
+  }
+
+  .price-note {
+    margin-top: 1rem;
+    font-size: 0.9375rem;
+    text-align: center;
+    color: var(--ink-500);
+  }
+
+  /* ---------- Einzelne Massagen ---------- */
+  .service__grid {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 56rem) {
+    .service__grid {
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .service__text :global(.service__ornament) {
+    justify-content: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .service__text p {
+    color: var(--ink-700);
+  }
+
+  .service__suited {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    margin-top: 1.25rem;
+    font-weight: 650;
+    color: var(--purple-800) !important;
+  }
+
+  .service__suited :global(.icon) {
+    margin-top: 0.2em;
+    color: var(--gold-600);
+  }
+
+  .service__prices {
+    padding: 1.5rem;
+    border: 1px solid var(--cream-300);
+    border-top: 3px solid var(--gold-500);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .service__prices h3 {
+    margin-bottom: 0.75rem;
+    font-family: var(--font-caps);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-700);
+  }
+
+  .service__prices ul {
+    margin: 0 0 1.25rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service__prices li {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--cream-200);
+  }
+
+  .service__duration {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--ink-700);
+  }
+
+  .service__duration :global(.icon) {
+    width: 1rem;
+    height: 1rem;
+    color: var(--gold-600);
+  }
+
+  .service__price {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--purple-700);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .service__book {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--cream-300);
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 650;
+    color: var(--purple-700);
+    text-decoration: none;
+  }
+
+  .service__book:hover {
+    border-color: var(--whatsapp);
+    background: #eafaf0;
+    color: var(--purple-800);
+  }
+
+  .service__book :global(.icon) {
+    width: 1rem;
+    height: 1rem;
+    color: var(--whatsapp);
+  }
+
+  .service__call {
+    width: 100%;
+  }
+
+  /* ---------- Hinweise ---------- */
+  .notice {
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--purple-200);
+    background: var(--purple-100);
+  }
+
+  .notice h2 {
+    font-size: 1.9rem;
+  }
+
+  .notice li {
+    margin-bottom: 0.5rem;
+    color: var(--ink-700);
+  }
+
+  .notice__legal {
+    margin: 1.25rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--purple-200);
+    font-size: 0.9375rem;
+    color: var(--ink-500);
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo.png';
+import { business } from '../data/business';
+
+interface Props {
+  /** Angezeigte Breite in px, steuert die ausgelieferten Bildgrößen. */
+  width?: number;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+}
+
+const { width = 136, class: className, loading = 'eager' } = Astro.props;
+const widths = [1, 2, 3].map((f) => Math.min(Math.round(width * f), logo.width));
+---
+
+<Image
+  src={logo}
+  alt={business.name}
+  widths={[...new Set(widths)]}
+  sizes={`${width}px`}
+  width={width}
+  format="webp"
+  loading={loading}
+  class:list={['logo', className]}
+/>
