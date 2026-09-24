@@ -48,10 +48,10 @@ Entspannung ja, „heilt“, „lindert Schmerzen“ oder „stärkt das Immunsy
 - [ ] Optional, aber wirkungsvoll: persönliche Vorstellung und Foto (`src/data/about.ts`)
 - [ ] Nach dem Livegang: im Google-Unternehmensprofil die Website von massageando auf die neue Domain umstellen
 
-**Schutz vor unvollständigem Impressum:** Bei einem Produktions-Deployment auf Vercel
-(`VERCEL_ENV=production`) bricht der Build ab, solange noch `TODO:`-Platzhalter in
-`src/data/business.ts` stehen. Previews bauen trotzdem. Wer bewusst vorher live gehen will,
-setzt in Vercel die Umgebungsvariable `ALLOW_PLACEHOLDERS=1`.
+**Fehlende Angaben:** Solange in `src/data/business.ts` noch `TODO:`-Platzhalter stehen,
+warnt jeder Build im Log, und Impressum sowie Datenschutzerklärung zeigen die Lücken gelb markiert.
+Der Build läuft trotzdem durch. Wer vor dem Livegang sicher gehen will, baut mit
+`STRICT_PLACEHOLDERS=1 npm run build`; dann bricht der Build bei fehlenden Angaben ab.
 
 ## Deployment auf Vercel
 

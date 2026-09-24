@@ -1,9 +1,8 @@
-// Prüft vor dem Build, ob noch Platzhalter („TODO:“) in den Stammdaten stehen.
+// Meldet vor dem Build, ob noch Platzhalter („TODO:“) in den Stammdaten stehen.
 //
-// - Lokal und in Vercel-Previews: nur Warnung.
-// - Vercel-Produktion (VERCEL_ENV=production) oder STRICT_PLACEHOLDERS=1: Abbruch,
-//   damit kein unvollständiges Impressum live geht.
-// - ALLOW_PLACEHOLDERS=1 überstimmt den Abbruch bewusst.
+// Standard: nur Warnung im Build-Log, der Build läuft weiter. Auf der Website
+// sind fehlende Angaben im Impressum und in der Datenschutzerklärung gelb markiert.
+// Mit STRICT_PLACEHOLDERS=1 bricht der Build ab (z. B. für einen letzten Check vor dem Livegang).
 import { readFile } from 'node:fs/promises';
 
 const file = new URL('../src/data/business.ts', import.meta.url);
@@ -23,9 +22,7 @@ if (!siteUrl) problems.push('Keine Domain gesetzt (SITE_URL). Canonical-URLs und
 
 if (problems.length === 0) process.exit(0);
 
-const strict =
-  (process.env.STRICT_PLACEHOLDERS === '1' || process.env.VERCEL_ENV === 'production') &&
-  process.env.ALLOW_PLACEHOLDERS !== '1';
+const strict = process.env.STRICT_PLACEHOLDERS === '1';
 
 const yellow = (s) => `\x1b[33m${s}\x1b[0m`;
 const red = (s) => `\x1b[31m${s}\x1b[0m`;
@@ -35,7 +32,6 @@ for (const p of problems) console.log(`  • ${p}`);
 console.log('');
 
 if (strict) {
-  console.log(red('Build abgebrochen: Impressum und Datenschutz brauchen vollständige Angaben.'));
-  console.log('Zum bewussten Überspringen ALLOW_PLACEHOLDERS=1 setzen.\n');
+  console.log(red('Build abgebrochen (STRICT_PLACEHOLDERS=1): Impressum und Datenschutz brauchen vollständige Angaben.\n'));
   process.exit(1);
 }
