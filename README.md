@@ -1,9 +1,9 @@
 # Nang Thai Massage – Website
 
 Website für **Nang Thai Massage**, Königstraße 25, 71139 Ehningen.
-Seiten: Startseite, Leistungen (Übersicht plus eine Unterseite je Massage), Über uns, Kontakt, eine englische
-Seite (`/en/`) sowie Impressum und Datenschutz (im Footer unter „Rechtliches“). Dazu `sitemap-index.xml`,
-`robots.txt` und `llms.txt` (Kurzprofil für KI-Suchmaschinen), alle aus denselben Daten erzeugt.
+Seiten (fester Umfang): Startseite, Leistungen, Über uns, Kontakt sowie Impressum und Datenschutz
+(im Footer unter „Rechtliches“). Dazu `sitemap-index.xml`, `robots.txt` und `llms.txt`
+(Kurzprofil für KI-Suchmaschinen, eine Textdatei, keine Seite), alle aus denselben Daten erzeugt.
 
 Gebaut mit [Astro](https://astro.build) als rein statische Seite: kein Server, keine Datenbank, keine Cookies.
 Gehostet wird auf Vercel.
@@ -28,8 +28,8 @@ Fast alles steht in `src/data/`. Die Seiten lesen von dort, eine Änderung wirkt
 | Datei                   | Inhalt                                                                  |
 | ----------------------- | ----------------------------------------------------------------------- |
 | `src/data/business.ts`  | Name, Inhaberin, Adresse, Telefon, WhatsApp, E-Mail, Öffnungszeiten      |
-| `src/data/services.ts`  | Massagen, Kurzbeschreibungen, Dauer und Preise, englische Namen         |
-| `src/data/service-details.ts` | Texte und Fragen der Unterseiten je Massage                       |
+| `src/data/services.ts`  | Massagen, Kurzbeschreibungen, Dauer und Preise                          |
+| `src/data/service-details.ts` | Ausführliche Texte und Fragen je Massage auf der Seite „Leistungen“ |
 | `src/data/reviews.ts`   | Ausgewählte Google-Bewertungen (Abschnitt erscheint erst, wenn gefüllt)  |
 | `src/data/faq.ts`       | Häufige Fragen auf der Startseite (Preis-Antwort rechnet automatisch)    |
 | `src/data/about.ts`     | Nangs Erfahrung, Schwerpunkt und Arbeitsweise; persönliche Geschichte (erscheint erst, wenn ausgefüllt) |

@@ -6,15 +6,10 @@ import { business, hoursSummary } from '../data/business';
 import { telHref, whatsappHref } from '../lib/links';
 
 const path = Astro.url.pathname;
-interface Props {
-  lang?: 'de' | 'en';
-}
-
-const { lang = 'de' } = Astro.props;
 const hours = hoursSummary();
 ---
 
-<header class="site-header bg-damask" lang={lang === 'de' ? undefined : 'de'}>
+<header class="site-header bg-damask">
   <div class="container site-header__inner">
     <a href="/" class="site-header__brand" aria-label={`${business.name} – zur Startseite`}>
       <Logo width={128} />

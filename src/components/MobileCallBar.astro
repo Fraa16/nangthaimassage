@@ -2,30 +2,20 @@
 /** Feste Aktionsleiste am unteren Rand, nur auf dem Smartphone. */
 import Icon from './Icon.astro';
 import { telHref, whatsappHref, directionsUrl } from '../lib/links';
-
-interface Props {
-  lang?: 'de' | 'en';
-}
-
-const { lang = 'de' } = Astro.props;
-const t =
-  lang === 'en'
-    ? { nav: 'Quick contact', call: 'Call', route: 'Directions', message: 'Hello, I would like to book a massage appointment.' }
-    : { nav: 'Schnellkontakt', call: 'Anrufen', route: 'Route', message: 'Hallo, ich möchte gern einen Termin vereinbaren.' };
 ---
 
-<nav class="call-bar" aria-label={t.nav}>
+<nav class="call-bar" aria-label="Schnellkontakt">
   <a href={telHref}>
     <Icon name="phone" />
-    <span>{t.call}</span>
+    <span>Anrufen</span>
   </a>
-  <a href={whatsappHref(t.message)} rel="noopener" target="_blank">
+  <a href={whatsappHref('Hallo, ich möchte gern einen Termin vereinbaren.')} rel="noopener" target="_blank">
     <Icon name="whatsapp" />
     <span>WhatsApp</span>
   </a>
   <a href={directionsUrl} rel="noopener" target="_blank">
     <Icon name="route" />
-    <span>{t.route}</span>
+    <span>Route</span>
   </a>
 </nav>
 

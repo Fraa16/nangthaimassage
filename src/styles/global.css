@@ -452,10 +452,8 @@ address {
   align-items: center;
 }
 
+/* Inline statt Flexbox: Bricht der Text um, steht der Pfeil hinter dem letzten Wort statt am rechten Rand */
 .text-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
   font-weight: 650;
   color: var(--purple-600);
   text-decoration: none;
@@ -466,8 +464,11 @@ address {
 }
 
 .text-link svg {
+  display: inline-block;
   width: 1em;
   height: 1em;
+  margin-left: 0.1em;
+  vertical-align: -0.125em;
   transition: transform 0.15s ease;
 }
 

@@ -53,11 +53,6 @@ const highlights = [
   title="Startseite"
   description={`Thaimassage in Ehningen mit ${yearsOfExperience} Jahren Erfahrung: traditionell, mit warmem Öl, Kräuterstempel oder Fußreflexzonen. ${hours ?? ''}, auch feiertags. Ab ${formatPrice(lowestPrice)}.`}
   schema={[faqSchema(faq)]}
-  alternates={[
-    { hreflang: 'de', href: '/' },
-    { hreflang: 'en', href: '/en/' },
-    { hreflang: 'x-default', href: '/' },
-  ]}
 >
   <section class="hero bg-damask-light" aria-labelledby="hero-title">
     <Image
@@ -190,7 +185,7 @@ const highlights = [
           bis heute in Tempelschulen wie dem Wat Pho in Bangkok. 2019 hat die UNESCO Nuad Thai in die Liste des
           immateriellen Kulturerbes der Menschheit aufgenommen (<a href={unescoSource} rel="noopener" target="_blank">Beschluss der UNESCO, englisch</a>).
         </p>
-        <a class="text-link" href="/leistungen/traditionelle-thaimassage/">Ablauf und Preise der traditionellen Thaimassage <Icon name="arrow-right" /></a>
+        <a class="text-link" href="/leistungen/#traditionelle-thaimassage">Ablauf und Preise der traditionellen Thaimassage <Icon name="arrow-right" /></a>
       </div>
       <aside class="facts" aria-label="Thaimassage auf einen Blick">
         <Ornament size={44} lines={false} />

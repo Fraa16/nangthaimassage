@@ -1,5 +1,6 @@
 /**
- * Inhalte der Unterseiten je Massage (/leistungen/<slug>/).
+ * Ausführliche Inhalte je Massage für die Seite „Leistungen“
+ * (ein Abschnitt je Massage, erreichbar über /leistungen/#<slug>).
  *
  * WICHTIG – Heilmittelwerbegesetz: keine Heilversprechen. Beschreiben, wie die
  * Massage abläuft und für wen sie sich eignet, nicht, was sie medizinisch
@@ -7,15 +8,10 @@
  * und werden hier nur eingesetzt, damit alles an einer Stelle gepflegt wird.
  */
 import type { FaqItem } from './faq';
-import { business, hoursSummary } from './business';
 import { formatPrice, getService, type Service } from './services';
 
 export interface ServiceDetail {
-  /** Title-Tag ohne Markenname, max. ca. 42 Zeichen */
-  seoTitle: string;
-  metaDescription: string;
   eyebrow: string;
-  lead: string;
   howTitle: string;
   how: string[];
   /** Empfehlung je Dauer (Minuten → kurzer Satz) */
@@ -37,16 +33,11 @@ export function priceSentence(service: Service): string {
   return parts.length > 1 ? `${parts.slice(0, -1).join(', ')} und ${parts.at(-1)}` : parts[0];
 }
 
-const hours = hoursSummary()?.replace('Täglich', 'täglich') ?? 'zu unseren Öffnungszeiten';
 const p = (slug: string) => priceSentence(getService(slug));
 
 export const serviceDetails: Record<string, ServiceDetail> = {
   'traditionelle-thaimassage': {
-    seoTitle: 'Traditionelle Thaimassage: Ablauf & Preise',
-    metaDescription:
-      'Traditionelle Thaimassage (Nuad Thai) in Ehningen: Druck entlang der Energielinien und sanfte Dehnungen, ohne Öl. 30 bis 120 Minuten, ab 30 €.',
     eyebrow: 'Nuad Thai',
-    lead: 'Rhythmischer Druck entlang der Energielinien und sanfte Dehnungen, von den Füßen bis zum Kopf. Bei Nang in Ehningen mit 30, 60, 90 oder 120 Minuten.',
     howTitle: 'Wie läuft eine traditionelle Thaimassage ab?',
     how: [
       'Die traditionelle Thaimassage, in Thailand Nuad Thai oder Nuat Phaen Boran genannt, wird ohne Öl und in bequemer Kleidung ausgeführt. Mit Daumen, Handballen und Ellbogen arbeitet Nang rhythmisch entlang der Energielinien, der sogenannten Sen. Dazu kommen passive Dehnungen: Sie werden sanft bewegt und gedehnt, ohne selbst mitzuarbeiten. Hierzulande heißt sie deshalb auch Thai-Yoga-Massage.',
@@ -67,10 +58,6 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     faq: [
       {
-        question: 'Was kostet eine traditionelle Thaimassage in Ehningen?',
-        answer: `Bei ${business.name} kostet die traditionelle Thaimassage ${p('traditionelle-thaimassage')}. Alle Preise sind Endpreise, bezahlt wird vor Ort beim Termin.`,
-      },
-      {
         question: 'Tut eine Thaimassage weh?',
         answer:
           'Sie ist kräftiger als eine klassische Wellnessmassage, sollte aber nie unangenehm sein. Sagen Sie Nang einfach, wenn der Druck zu stark oder zu schwach ist. Sie passt ihn an, damit die Massage für Sie angenehm bleibt.',
@@ -90,11 +77,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   'thai-oelmassage': {
-    seoTitle: 'Thai-Ölmassage mit warmem Öl in Ehningen',
-    metaDescription:
-      'Thai-Ölmassage in Ehningen: lange, fließende Griffe mit warmem Öl, sanfter als die klassische Thaimassage. 30 bis 120 Minuten, ab 30 €. Termin per WhatsApp.',
     eyebrow: 'Mit warmem Öl',
-    lead: 'Lange, fließende Griffe mit warmem Öl, ruhiger und sanfter als die klassische Thaimassage. Bei Nang in Ehningen mit 30, 60, 90 oder 120 Minuten.',
     howTitle: 'Wie läuft eine Thai-Ölmassage ab?',
     how: [
       'Bei der Thai-Ölmassage gleiten die Hände mit warmem Öl in langen, ruhigen Bewegungen über den Körper. Dazu kommen Druckgriffe aus der traditionellen Thaimassage, die kräftigen Dehnungen fallen weg. So entsteht eine Ganzkörpermassage, bei der Sie vor allem abschalten können.',
@@ -112,28 +95,15 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     notes: ['Nach der Massage kann etwas Öl auf der Haut bleiben. Empfindliche Kleidung lassen Sie am besten zu Hause.'],
     faq: [
       {
-        question: 'Was kostet eine Thai-Ölmassage in Ehningen?',
-        answer: `Die Thai-Ölmassage mit warmem Öl kostet ${p('thai-oelmassage')}. Alle Preise sind Endpreise.`,
-      },
-      {
-        question: 'Was ist der Unterschied zur traditionellen Thaimassage?',
+        question: 'Was ist der Unterschied zwischen Thai-Ölmassage und traditioneller Thaimassage?',
         answer:
           'Die traditionelle Thaimassage wird ohne Öl und in Kleidung ausgeführt und arbeitet mit kräftigen Dehnungen. Die Thai-Ölmassage ist fließender und sanfter: warmes Öl, lange Streichungen und gezielter Druck, aber keine Dehnungen.',
-      },
-      {
-        question: 'Welche Dauer ist für eine Ölmassage sinnvoll?',
-        answer:
-          'Für eine Ganzkörpermassage empfehlen sich 60 Minuten. Wer richtig abschalten möchte, bucht 90 oder 120 Minuten. Für eine kurze Pause gibt es die Ölmassage auch mit 30 Minuten.',
       },
     ],
   },
 
   'ruecken-nacken-schulter-massage': {
-    seoTitle: 'Rücken- und Nackenmassage in Ehningen',
-    metaDescription:
-      'Rücken-, Nacken- und Schultermassage in Ehningen, auf Wunsch mit Kopf: Akupressur, Shiatsu-Elemente und Dehnungen. 30 bis 120 Minuten, ab 30 €.',
-    eyebrow: 'Auf Wunsch mit Kopf',
-    lead: 'Gezielt für Rücken, Nacken und Schultern, auf Wunsch mit Kopf: Nangs Schwerpunkt. Mit 30, 60, 90 oder 120 Minuten.',
+    eyebrow: 'Nangs Schwerpunkt',
     howTitle: 'Wie läuft die Rücken-, Nacken- und Schultermassage ab?',
     how: [
       'Diese Massage konzentriert sich auf den Oberkörper. Akupressur, Elemente aus dem Shiatsu, Dehnungen und Reflexzonentechniken ergeben zusammen eine wärmende, gründliche Massage. Nang arbeitet an Rücken, Nacken und Schultern und bezieht auf Wunsch auch den Kopf mit ein.',
@@ -155,25 +125,16 @@ export const serviceDetails: Record<string, ServiceDetail> = {
         answer: `Die Rücken-, Nacken- und Schultermassage kostet ${p('ruecken-nacken-schulter-massage')}. Alle Preise sind Endpreise, bezahlt wird vor Ort.`,
       },
       {
-        question: 'Wird auch der Kopf massiert?',
+        question: 'Wird bei der Rücken-, Nacken- und Schultermassage auch der Kopf massiert?',
         answer:
           'Auf Wunsch ja. Sagen Sie es bei der Terminvereinbarung oder vor der Massage, dann bezieht Nang den Kopf mit ein. Nacken, Schultern und Kopf gehören zu ihrem Schwerpunkt.',
-      },
-      {
-        question: 'Welche Dauer passt für Nacken und Schultern?',
-        answer:
-          'Für eine kurze Pause reichen 30 Minuten. Wer Rücken, Nacken und Schultern gründlich massieren lassen möchte, bucht 60 Minuten. Mit 90 oder 120 Minuten bleibt viel Zeit für einzelne Partien und den Kopf.',
       },
     ],
     links: [{ href: '/ueber-uns/#schwerpunkt', label: 'So arbeitet Nang' }],
   },
 
   kraeuterstempelmassage: {
-    seoTitle: 'Kräuterstempelmassage in Ehningen',
-    metaDescription:
-      'Thai-Kräuterstempelmassage in Ehningen: warme Kräuterstempel, Akupressur und ätherische Öle. 90 Minuten 90 €, 120 Minuten 120 €. Termin per Anruf oder WhatsApp.',
     eyebrow: 'Luk Pra Kob',
-    lead: 'Warme Kräuterstempel, Akupressur und ätherische Öle für eine lange, ruhige Auszeit. Bei Nang in Ehningen mit 90 oder 120 Minuten.',
     howTitle: 'Wie läuft eine Kräuterstempelmassage ab?',
     how: [
       'Für die Kräuterstempelmassage werden Stoffsäckchen mit Kräutern gefüllt und erwärmt. Nang führt die warmen Stempel mit sanftem Druck über den Körper und verbindet das mit Akupressur und warmen ätherischen Ölen. Wärme und Kräuterduft machen diese Massage besonders intensiv.',
@@ -189,10 +150,6 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     notes: [],
     faq: [
       {
-        question: 'Was kostet eine Kräuterstempelmassage in Ehningen?',
-        answer: `Die Kräuterstempelmassage kostet ${p('kraeuterstempelmassage')}. Alle Preise sind Endpreise, bezahlt wird vor Ort beim Termin.`,
-      },
-      {
         question: 'Was ist ein Kräuterstempel?',
         answer:
           'Ein Stoffsäckchen, gefüllt mit Kräutern. Es wird erwärmt und dann mit sanftem Druck auf den Körper gedrückt und darüber gerollt. In Thailand heißt der Kräuterstempel Luk Pra Kob.',
@@ -206,11 +163,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   fussreflexzonenmassage: {
-    seoTitle: 'Fußmassage & Fußreflexzonen in Ehningen',
-    metaDescription:
-      'Fußmassage nach thailändischer Tradition in Ehningen: gezielter Druck auf die Reflexzonen der Füße. 30 Minuten 30 €, 60 Minuten 40 €. Termin per WhatsApp.',
     eyebrow: 'Thai-Fußmassage',
-    lead: 'Eine ausgiebige Fußmassage nach thailändischer Tradition, mit gezieltem Druck auf die Reflexzonen der Füße. Mit 30 oder 60 Minuten.',
     howTitle: 'Wie läuft die Fußreflexzonenmassage ab?',
     how: [
       'Nang massiert die Füße mit gezieltem Druck auf die Zonen der Fußsohlen, dazu kommen streichende und knetende Griffe. Nach traditioneller Vorstellung spiegelt sich in den Füßen der ganze Körper wider.',
@@ -233,16 +186,12 @@ export const serviceDetails: Record<string, ServiceDetail> = {
         answer:
           'Bei Nang Thai Massage ist es dieselbe Anwendung: eine Fußmassage nach thailändischer Tradition, die gezielt mit den Reflexzonen der Fußsohlen arbeitet. Sie buchen sie mit 30 oder 60 Minuten.',
       },
-      {
-        question: 'Passt eine Fußmassage in die Mittagspause?',
-        answer: `Ja, mit 30 Minuten passt sie gut in eine Pause. ${business.name} hat ${hours} geöffnet. Fragen Sie am besten kurz per WhatsApp nach einem freien Termin.`,
-      },
     ],
   },
 };
 
 export function getServiceDetail(slug: string): ServiceDetail {
   const detail = serviceDetails[slug];
-  if (!detail) throw new Error(`Keine Detailseite für: ${slug}`);
+  if (!detail) throw new Error(`Keine Texte für: ${slug}`);
   return detail;
 }

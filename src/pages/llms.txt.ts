@@ -6,7 +6,6 @@ import type { APIRoute } from 'astro';
 import { business, fullAddress, hoursSummary, hoursExtras } from '../data/business';
 import { services, formatPrice } from '../data/services';
 import { about, yearsOfExperience } from '../data/about';
-import { serviceDetails } from '../data/service-details';
 
 export const GET: APIRoute = ({ site }) => {
   const url = (path: string) => new URL(path, site).href;
@@ -27,16 +26,15 @@ export const GET: APIRoute = ({ site }) => {
     '## Massagen und Preise',
     '',
     ...services.map(
-      (s) => `- [${s.name}](${url(`/leistungen/${s.slug}/`)}): ${s.options.map((o) => `${o.minutes} Min. ${formatPrice(o.price)}`).join(', ')}. ${serviceDetails[s.slug]?.lead ?? s.teaser}`,
+      (s) => `- [${s.name}](${url(`/leistungen/#${s.slug}`)}): ${s.options.map((o) => `${o.minutes} Min. ${formatPrice(o.price)}`).join(', ')}. ${s.teaser}`,
     ),
     '',
     '## Seiten',
     '',
     `- [Startseite](${url('/')}): Überblick, Öffnungszeiten, häufige Fragen`,
-    `- [Leistungen & Preise](${url('/leistungen/')}): Preistabelle aller Massagen`,
+    `- [Leistungen & Preise](${url('/leistungen/')}): Preistabelle, Beschreibung jeder Massage, häufige Fragen`,
     `- [Über uns](${url('/ueber-uns/')}): Nang, Erfahrung, Schwerpunkt und Arbeitsweise`,
     `- [Kontakt & Anfahrt](${url('/kontakt/')}): Adresse, Karte, Terminanfrage per WhatsApp`,
-    `- [English](${url('/en/')}): Thai massage in Ehningen, prices and opening hours in English`,
     '',
     '## Hinweis',
     '',

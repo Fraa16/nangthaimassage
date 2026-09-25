@@ -9,14 +9,9 @@ import { telHref, whatsappHref, directionsUrl, googleMapsUrl, hasEmail, mailHref
 
 const hours = hoursSummary();
 const year = new Date().getFullYear();
-interface Props {
-  lang?: 'de' | 'en';
-}
-
-const { lang = 'de' } = Astro.props;
 ---
 
-<footer class="site-footer" lang={lang === 'de' ? undefined : 'de'}>
+<footer class="site-footer">
   <LatticeBand />
   <div class="bg-damask site-footer__main">
     <div class="container site-footer__grid">
@@ -101,7 +96,7 @@ const { lang = 'de' } = Astro.props;
           {
             services.map((s) => (
               <li>
-                <a href={`/leistungen/${s.slug}/`}>{s.name}</a>
+                <a href={`/leistungen/#${s.slug}`}>{s.name}</a>
               </li>
             ))
           }
@@ -122,13 +117,6 @@ const { lang = 'de' } = Astro.props;
           }
         </ul>
       </nav>
-      {
-        lang === 'de' ? (
-          <a class="site-footer__lang" href="/en/" hreflang="en" lang="en">English</a>
-        ) : (
-          <a class="site-footer__lang" href="/" hreflang="de" lang="de">Deutsch</a>
-        )
-      }
       <nav aria-label="Rechtliches">
         <ul class="site-footer__inline">
           {
@@ -241,10 +229,6 @@ const { lang = 'de' } = Astro.props;
 
   .site-footer__bottom p {
     margin: 0;
-  }
-
-  .site-footer__lang {
-    font-weight: 650;
   }
 
   .site-footer__inline {

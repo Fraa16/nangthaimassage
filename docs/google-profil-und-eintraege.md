@@ -117,4 +117,4 @@ Dieselben Fotos später auch auf die Website, dann ersetze ich dort die reinen O
 3. **Bing Webmaster Tools:** Website aus der Search Console importieren
    (oder Code als `BING_SITE_VERIFICATION` eintragen).
 4. **Prüfen:** Rich Results Test (search.google.com/test/rich-results) und
-   PageSpeed Insights (pagespeed.web.dev) für Startseite und eine Leistungsseite.
+   PageSpeed Insights (pagespeed.web.dev) für Startseite und Leistungen.
