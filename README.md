@@ -31,7 +31,8 @@ Fast alles steht in `src/data/`. Die Seiten lesen von dort, eine Änderung wirkt
 | `src/data/about.ts`     | Nangs Erfahrung, Schwerpunkt und Arbeitsweise; persönliche Geschichte (erscheint erst, wenn ausgefüllt) |
 | `src/data/navigation.ts`| Menüpunkte                                                              |
 
-Preise und Leistungen stammen aus dem massageando-Eintrag (Stand 24.09.2026).
+Preise, Leistungen und Öffnungszeiten stammen aus Nangs Flyer (Stand 25.09.2026) und dem
+massageando-Eintrag (Stand 24.09.2026); wo beide abweichen, gilt der Flyer.
 Die Texte sind bewusst ohne Heilversprechen formuliert (Heilmittelwerbegesetz, Heilpraktikergesetz):
 Nang ist keine Ärztin. Die Website zeigt, was sie kann (25 Jahre Erfahrung, Schwerpunkt Nacken,
 Schultern, Kopf und Rücken, ihre Arbeitsweise), verspricht aber keine Wirkung. Nicht schreiben:
@@ -50,6 +51,7 @@ auf die die Website verlinkt. Diese Texte stehen gesammelt in `src/data/about.ts
 - [ ] Eigene Domain in Vercel verbinden
 - [ ] Optional, aber wirkungsvoll: persönliche Geschichte und Foto von Nang (`src/data/about.ts`)
 - [ ] Nach dem Livegang: im Google-Unternehmensprofil die Website von massageando auf die neue Domain umstellen
+- [ ] Öffnungszeiten (täglich 10–20 Uhr, auch an Feiertagen) und Preise im Google-Profil und bei massageando an den Flyer angleichen
 
 **Fehlende Angaben:** Solange in `src/data/business.ts` noch `TODO:`-Platzhalter stehen,
 warnt jeder Build im Log, und Impressum sowie Datenschutzerklärung zeigen die Lücken gelb markiert.

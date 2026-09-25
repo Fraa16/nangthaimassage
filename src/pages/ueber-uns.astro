@@ -27,7 +27,7 @@ const values = [
   {
     icon: 'clock',
     title: 'Jeden Tag geöffnet',
-    text: `${hours ? hours.replace('Täglich ', 'Montag bis Sonntag, ') : 'Termine nach Vereinbarung'}. Auch am Wochenende, wenn andere geschlossen haben.`,
+    text: `${hours ? hours.replace('Täglich ', 'Montag bis Sonntag, ') : 'Termine nach Vereinbarung'}. Auch an Wochenenden${business.openOnHolidays ? ' und Feiertagen' : ''}, wenn andere geschlossen haben.`,
   },
   {
     icon: 'map-pin',
@@ -101,7 +101,7 @@ const steps = [
           </div>
           <div>
             <dt>Geöffnet</dt>
-            <dd>{hours ?? 'nach Vereinbarung'}</dd>
+            <dd>{hours ? `${hours}${business.openOnHolidays ? ', auch an Feiertagen' : ''}` : 'nach Vereinbarung'}</dd>
           </div>
           <div>
             <dt>Massagen</dt>

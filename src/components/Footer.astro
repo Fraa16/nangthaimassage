@@ -65,6 +65,14 @@ const year = new Date().getFullYear();
                 Montag bis Sonntag
                 <br />
                 {business.openingHours[0].opens} – {business.openingHours[0].closes} Uhr
+                {
+                  business.openOnHolidays && (
+                    <>
+                      <br />
+                      auch an Feiertagen
+                    </>
+                  )
+                }
               </span>
             </p>
           ) : (
@@ -77,7 +85,9 @@ const year = new Date().getFullYear();
             </ul>
           )
         }
-        <p class="site-footer__note">Termine per Anruf oder WhatsApp.</p>
+        <p class="site-footer__note">
+          {business.byAppointment ? 'Termine per Anruf oder WhatsApp, auch nach Vereinbarung.' : 'Termine per Anruf oder WhatsApp.'}
+        </p>
       </div>
 
       <nav aria-label="Leistungen">

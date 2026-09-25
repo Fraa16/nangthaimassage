@@ -8,6 +8,7 @@ export interface FaqItem {
 }
 
 const thai = getService('traditionelle-thaimassage');
+const back60 = getService('ruecken-nacken-schulter-massage').options.find((o) => o.minutes === 60);
 const thaiPrices = thai.options.map((o) => `${formatPrice(o.price)} für ${o.minutes} Minuten`);
 const hours = hoursSummary()?.replace('Täglich', 'täglich') ?? 'zu unseren Öffnungszeiten';
 
@@ -18,7 +19,7 @@ const listJoin = (items: readonly string[]) => `${items.slice(0, -1).join(', ')}
 export const faq: FaqItem[] = [
   {
     question: 'Was kostet eine Thaimassage in Ehningen?',
-    answer: `Bei ${business.name} kostet die traditionelle Thaimassage ${thaiPrices.slice(0, -1).join(', ')} und ${thaiPrices.at(-1)}. Die Fußreflexzonenmassage gibt es ab ${formatPrice(minPrice(getService('fussreflexzonenmassage')))}, die Kräuterstempelmassage ab ${formatPrice(minPrice(getService('kraeuterstempelmassage')))}. Alle Preise sind Endpreise und stehen auf der Seite Leistungen.`,
+    answer: `Bei ${business.name} kostet die traditionelle Thaimassage ${thaiPrices.slice(0, -1).join(', ')} und ${thaiPrices.at(-1)}. ${back60 ? `Die Rücken-, Nacken- und Schultermassage kostet ${formatPrice(back60.price)} für 60 Minuten, die` : 'Die'} Fußreflexzonenmassage gibt es ab ${formatPrice(minPrice(getService('fussreflexzonenmassage')))}, die Kräuterstempelmassage ab ${formatPrice(minPrice(getService('kraeuterstempelmassage')))}. Alle Preise sind Endpreise.`,
   },
   {
     question: 'Wie viel Erfahrung hat Nang?',
@@ -29,8 +30,8 @@ export const faq: FaqItem[] = [
     answer: `Rufen Sie an oder schreiben Sie per WhatsApp an ${business.phone.display}. Nennen Sie am besten gleich die gewünschte Massage, die Dauer und zwei, drei passende Zeiten. Wir sind ${hours} erreichbar und bestätigen Ihren Termin so schnell wie möglich.`,
   },
   {
-    question: 'Haben Sie auch am Wochenende geöffnet?',
-    answer: `Ja. ${business.name} hat ${hours} geöffnet, auch samstags und sonntags. Gerade am Wochenende lohnt es sich, den Termin ein paar Tage vorher zu vereinbaren.`,
+    question: 'Haben Sie auch am Wochenende und an Feiertagen geöffnet?',
+    answer: `Ja. ${business.name} hat ${hours} geöffnet, auch samstags${business.openOnHolidays ? ', sonntags und an Feiertagen' : ' und sonntags'}.${business.byAppointment ? ' Andere Zeiten sind nach Vereinbarung möglich.' : ''} Gerade am Wochenende lohnt es sich, den Termin ein paar Tage vorher zu vereinbaren.`,
   },
   {
     question: 'Welche Massage passt zu mir?',

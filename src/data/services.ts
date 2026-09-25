@@ -1,7 +1,8 @@
 /**
  * Massagen, Dauer und Preise.
  *
- * Preise und Dauer stammen 1:1 aus dem massageando-Eintrag (Stand 24.09.2026).
+ * Preise und Dauer: Nangs Flyer (Stand 25.09.2026) und massageando-Eintrag
+ * (Stand 24.09.2026); wo beide abweichen, gilt der Flyer.
  * Die Beschreibungen sind neu formuliert: ohne Heilversprechen (Heilmittel-
  * werbegesetz) und ohne doppelten Inhalt zu massageando.
  */
@@ -43,13 +44,18 @@ export const services: Service[] = [
   {
     slug: 'thai-oelmassage',
     name: 'Thai-Ölmassage',
-    teaser: 'Lange, fließende Griffe mit Massageöl. Ruhiger und sanfter als die klassische Thaimassage.',
+    teaser: 'Lange, fließende Griffe mit warmem Öl. Ruhiger und sanfter als die klassische Thaimassage.',
     description: [
-      'Bei der Thai-Ölmassage gleiten die Hände mit Massageöl in langen, ruhigen Bewegungen über den Körper. Dazu kommen Druckgriffe aus der traditionellen Thaimassage, die kräftigen Dehnungen fallen weg.',
+      'Bei der Thai-Ölmassage gleiten die Hände mit warmem Öl in langen, ruhigen Bewegungen über den Körper. Dazu kommen Druckgriffe aus der traditionellen Thaimassage, die kräftigen Dehnungen fallen weg.',
       'Die richtige Wahl, wenn Sie vor allem abschalten und zur Ruhe kommen möchten.',
     ],
     suitedFor: 'Für alle, die eine ruhige Ganzkörpermassage suchen, auch als Einstieg.',
-    options: [{ minutes: 60, price: 55 }],
+    options: [
+      { minutes: 30, price: 30 },
+      { minutes: 60, price: 55 },
+      { minutes: 90, price: 80 },
+      { minutes: 120, price: 110 },
+    ],
   },
   {
     slug: 'ruecken-nacken-schulter-massage',
@@ -62,9 +68,9 @@ export const services: Service[] = [
     suitedFor: 'Für alle, die viel sitzen und Verspannungen im Oberkörper spüren.',
     options: [
       { minutes: 30, price: 30 },
-      { minutes: 60, price: 55 },
-      { minutes: 90, price: 80 },
-      { minutes: 120, price: 120 },
+      { minutes: 60, price: 45 },
+      { minutes: 90, price: 65 },
+      { minutes: 120, price: 80 },
     ],
   },
   {

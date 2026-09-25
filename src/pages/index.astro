@@ -11,7 +11,7 @@ import CtaBand from '../components/CtaBand.astro';
 import FocusSection from '../components/FocusSection.astro';
 import valance from '../assets/brand/valance.png';
 import nang from '../assets/brand/logo-nang.png';
-import { business, hoursSummary } from '../data/business';
+import { business, hoursSummary, hoursExtras } from '../data/business';
 import { services, formatPrice, lowestPrice, getService } from '../data/services';
 import { faq } from '../data/faq';
 import { yearsOfExperience } from '../data/about';
@@ -19,13 +19,14 @@ import { faqSchema } from '../lib/schema';
 import { telHref, whatsappHref, directionsUrl, googleMapsUrl } from '../lib/links';
 
 const hours = hoursSummary();
+const extras = hoursExtras();
 const thai60 = getService('traditionelle-thaimassage').options.find((o) => o.minutes === 60);
 
 const highlights = [
   {
     icon: 'clock',
     title: 'Täglich geöffnet',
-    text: `${hours ? hours.replace('Täglich ', 'Montag bis Sonntag, ') : 'Termine nach Vereinbarung'}. Auch samstags und sonntags.`,
+    text: `${hours ? hours.replace('Täglich ', 'Montag bis Sonntag, ') : 'Termine nach Vereinbarung'}.${extras ? ` Ebenso ${extras.replace(/^auch /, '')}.` : ''}`,
   },
   {
     icon: 'award',
@@ -48,7 +49,7 @@ const highlights = [
 <BaseLayout
   fullTitle={`Thaimassage in Ehningen | ${business.name}`}
   title="Startseite"
-  description={`Thaimassage in Ehningen mit ${yearsOfExperience} Jahren Erfahrung: traditionell, mit Öl, Kräuterstempel oder Fußreflexzonen. ${hours ?? ''}, auch am Wochenende. Ab ${formatPrice(lowestPrice)}.`}
+  description={`Thaimassage in Ehningen mit ${yearsOfExperience} Jahren Erfahrung: traditionell, mit warmem Öl, Kräuterstempel oder Fußreflexzonen. ${hours ?? ''}, auch feiertags. Ab ${formatPrice(lowestPrice)}.`}
   schema={[faqSchema(faq)]}
 >
   <section class="hero bg-damask-light" aria-labelledby="hero-title">
@@ -80,7 +81,7 @@ const highlights = [
 
       <h1 id="hero-title">Traditionelle Thaimassage <span class="hero__place">in Ehningen</span></h1>
       <p class="lead hero__lead">
-        {`Nang massiert seit ${yearsOfExperience} Jahren nach thailändischer Tradition: klassische Thaimassage, Ölmassage, Kräuterstempel und Fußreflexzonen. ${hours ? `${hours}, auch am Wochenende.` : ''}`}
+        {`Nang massiert seit ${yearsOfExperience} Jahren nach thailändischer Tradition: klassische Thaimassage, Ölmassage, Kräuterstempel und Fußreflexzonen. ${hours ? `${hours}, auch an Wochenenden und Feiertagen.` : ''}`}
       </p>
 
       <div class="btn-row hero__actions">

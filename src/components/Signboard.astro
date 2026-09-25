@@ -29,7 +29,7 @@ const hours = hoursSummary() ?? 'Termine nach Vereinbarung';
       <Icon name="clock" />
       <span class="signboard__label">Öffnungszeiten</span>
       <strong class="signboard__main">{hours}</strong>
-      <span class="signboard__sub">auch samstags &amp; sonntags</span>
+      <span class="signboard__sub">{business.openOnHolidays ? 'auch sonn- & feiertags' : 'auch samstags & sonntags'}</span>
     </li>
     <li class="signboard__panel signboard__panel--center">
       <Icon name="phone" />

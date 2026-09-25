@@ -15,7 +15,7 @@ const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
 <BaseLayout
   title="Kontakt & Anfahrt"
   fullTitle={`Kontakt & Anfahrt | ${business.name} Ehningen`}
-  description={`Termin bei ${business.name} in Ehningen: Anruf oder WhatsApp unter ${business.phone.display}. ${fullAddress}. ${hours ? `${hours}, auch am Wochenende.` : ''}`}
+  description={`Termin bei ${business.name} in Ehningen: Anruf oder WhatsApp unter ${business.phone.display}. ${fullAddress}. ${hours ? `${hours}, auch an Feiertagen.` : ''}`}
   breadcrumbs={breadcrumbs}
 >
   <PageHero
@@ -101,9 +101,21 @@ const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
                   </tr>
                 ))
               }
+              {
+                business.openOnHolidays && (
+                  <tr>
+                    <th scope="row">Feiertage</th>
+                    <td>
+                      {business.openingHours[0].opens} – {business.openingHours[0].closes} Uhr
+                    </td>
+                  </tr>
+                )
+              }
             </tbody>
           </table>
-          <p>Termine nach Vereinbarung. Am Wochenende am besten ein paar Tage vorher anfragen.</p>
+          <p>
+            {`${business.byAppointment ? 'Andere Zeiten nach Vereinbarung. ' : ''}Am Wochenende am besten ein paar Tage vorher anfragen.`}
+          </p>
         </div>
       </div>
 
