@@ -45,7 +45,7 @@ export const business = {
    * Link zum Google-Unternehmensprofil (in Google Maps „Teilen“ → Link kopieren).
    * Solange leer, verlinkt die Seite auf eine Google-Maps-Suche nach dem Studio.
    */
-  googleProfileUrl: '',
+  googleProfileUrl: 'https://share.google/IngWGfw2y5CjuSdL7',
   /** Orte im Umkreis, die im Text und in den strukturierten Daten genannt werden. */
   nearbyTowns: ['Gärtringen', 'Aidlingen', 'Nufringen', 'Böblingen', 'Sindelfingen', 'Herrenberg', 'Holzgerlingen'],
 } as const;

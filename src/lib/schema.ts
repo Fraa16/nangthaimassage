@@ -3,6 +3,7 @@ import { business } from '../data/business';
 import { services, lowestPrice, highestPrice, formatPrice } from '../data/services';
 import type { FaqItem } from '../data/faq';
 import { googleMapsUrl } from './links';
+import { yearsOfExperience } from '../data/about';
 
 type JsonLd = Record<string, unknown>;
 
@@ -16,8 +17,7 @@ export function localBusinessSchema(site: URL, logoUrl: string): JsonLd {
     '@id': businessId(site),
     name: business.name,
     alternateName: business.alternateName,
-    description:
-      'Studio für traditionelle Thaimassage in Ehningen: Thaimassage, Thai-Ölmassage, Rücken-, Nacken- und Schultermassage, Kräuterstempelmassage und Fußreflexzonenmassage.',
+    description: `Studio für traditionelle Thaimassage in Ehningen. Nang massiert seit ${yearsOfExperience} Jahren. Angebot: Thaimassage, Thai-Ölmassage, Rücken-, Nacken- und Schultermassage, Kräuterstempelmassage und Fußreflexzonenmassage.`,
     url: new URL('/', site).href,
     telephone: business.phone.e164,
     image: new URL('/og-image.jpg', site).href,

@@ -28,12 +28,16 @@ Fast alles steht in `src/data/`. Die Seiten lesen von dort, eine Änderung wirkt
 | `src/data/business.ts`  | Name, Inhaberin, Adresse, Telefon, WhatsApp, E-Mail, Öffnungszeiten      |
 | `src/data/services.ts`  | Massagen, Beschreibungen, Dauer und Preise                              |
 | `src/data/faq.ts`       | Häufige Fragen auf der Startseite (Preis-Antwort rechnet automatisch)    |
-| `src/data/about.ts`     | Persönliche Vorstellung auf „Über uns“ (erscheint erst, wenn ausgefüllt) |
+| `src/data/about.ts`     | Nangs Erfahrung, Schwerpunkt und Arbeitsweise; persönliche Geschichte (erscheint erst, wenn ausgefüllt) |
 | `src/data/navigation.ts`| Menüpunkte                                                              |
 
 Preise und Leistungen stammen aus dem massageando-Eintrag (Stand 24.09.2026).
-Die Texte sind bewusst ohne Heilversprechen formuliert (Heilmittelwerbegesetz): Wellness und
-Entspannung ja, „heilt“, „lindert Schmerzen“ oder „stärkt das Immunsystem“ nein.
+Die Texte sind bewusst ohne Heilversprechen formuliert (Heilmittelwerbegesetz, Heilpraktikergesetz):
+Nang ist keine Ärztin. Die Website zeigt, was sie kann (25 Jahre Erfahrung, Schwerpunkt Nacken,
+Schultern, Kopf und Rücken, ihre Arbeitsweise), verspricht aber keine Wirkung. Nicht schreiben:
+„hilft bei Migräne“, „gegen Kopfschmerzen“, „löst Schmerzen oder Blockaden“, „ohne Schmerzmittel“,
+„Behandlung“, „Therapie“, „Patienten“. Was Gäste erlebt haben, steht in den Google-Bewertungen,
+auf die die Website verlinkt. Diese Texte stehen gesammelt in `src/data/about.ts`.
 
 ## Vor dem Livegang
 
@@ -42,10 +46,9 @@ Entspannung ja, „heilt“, „lindert Schmerzen“ oder „stärkt das Immunsy
 - [ ] **Vor- und Nachname der Inhaberin** (`business.owner`), Pflicht fürs Impressum
 - [ ] **E-Mail-Adresse** (`business.email`), Pflicht fürs Impressum
 - [ ] Umsatzsteuer-ID, falls vorhanden (`business.vatId`)
-- [ ] Link zum Google-Unternehmensprofil (`business.googleProfileUrl`) für den Bewertungs-Button
 - [ ] Name exakt wie im Google-Profil schreiben (`business.name`)
 - [ ] Eigene Domain in Vercel verbinden
-- [ ] Optional, aber wirkungsvoll: persönliche Vorstellung und Foto (`src/data/about.ts`)
+- [ ] Optional, aber wirkungsvoll: persönliche Geschichte und Foto von Nang (`src/data/about.ts`)
 - [ ] Nach dem Livegang: im Google-Unternehmensprofil die Website von massageando auf die neue Domain umstellen
 
 **Fehlende Angaben:** Solange in `src/data/business.ts` noch `TODO:`-Platzhalter stehen,

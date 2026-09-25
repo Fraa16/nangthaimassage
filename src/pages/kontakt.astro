@@ -6,7 +6,7 @@ import Icon from '../components/Icon.astro';
 import MapEmbed from '../components/MapEmbed.astro';
 import BookingRequest from '../components/BookingRequest.astro';
 import { business, fullAddress, hoursSummary } from '../data/business';
-import { telHref, whatsappHref, directionsUrl, appleMapsUrl, hasEmail, mailHref } from '../lib/links';
+import { telHref, whatsappHref, directionsUrl, appleMapsUrl, googleMapsUrl, hasEmail, mailHref } from '../lib/links';
 
 const hours = hoursSummary();
 const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
@@ -67,6 +67,7 @@ const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
               <p class="contact__links">
                 <a href={directionsUrl} rel="noopener" target="_blank">Route mit Google Maps</a>
                 <a href={appleMapsUrl} rel="noopener" target="_blank">Apple Karten</a>
+                <a href={googleMapsUrl} rel="noopener" target="_blank">Google-Bewertungen</a>
               </p>
             </div>
           </li>

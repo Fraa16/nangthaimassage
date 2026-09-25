@@ -8,11 +8,13 @@ import ServiceCard from '../components/ServiceCard.astro';
 import Signboard from '../components/Signboard.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
+import FocusSection from '../components/FocusSection.astro';
 import valance from '../assets/brand/valance.png';
 import nang from '../assets/brand/logo-nang.png';
 import { business, hoursSummary } from '../data/business';
 import { services, formatPrice, lowestPrice, getService } from '../data/services';
 import { faq } from '../data/faq';
+import { yearsOfExperience } from '../data/about';
 import { faqSchema } from '../lib/schema';
 import { telHref, whatsappHref, directionsUrl, googleMapsUrl } from '../lib/links';
 
@@ -26,12 +28,12 @@ const highlights = [
     text: `${hours ? hours.replace('Täglich ', 'Montag bis Sonntag, ') : 'Termine nach Vereinbarung'}. Auch samstags und sonntags.`,
   },
   {
-    icon: 'whatsapp',
-    title: 'Termin per WhatsApp',
-    text: `Kurz schreiben, Wunschzeit nennen, fertig. Oder einfach anrufen: ${business.phone.display}.`,
+    icon: 'award',
+    title: `${yearsOfExperience} Jahre Erfahrung`,
+    text: 'Nang kennt Muskeln, Sehnen und Druckpunkte genau und findet die Stellen, an denen es festsitzt.',
   },
   {
-    icon: 'star',
+    icon: 'tag',
     title: 'Klare Preise',
     text: `30 Minuten ab ${formatPrice(lowestPrice)}${thai60 ? `, eine Stunde Thaimassage ${formatPrice(thai60.price)}` : ''}. Alle Preise sind Endpreise.`,
   },
@@ -46,7 +48,7 @@ const highlights = [
 <BaseLayout
   fullTitle={`Thaimassage in Ehningen | ${business.name}`}
   title="Startseite"
-  description={`Thaimassage in Ehningen: traditionell, mit Öl, Kräuterstempel oder Fußreflexzonen. ${hours ?? ''}, auch am Wochenende. Ab ${formatPrice(lowestPrice)}. Termin per WhatsApp.`}
+  description={`Thaimassage in Ehningen mit ${yearsOfExperience} Jahren Erfahrung: traditionell, mit Öl, Kräuterstempel oder Fußreflexzonen. ${hours ?? ''}, auch am Wochenende. Ab ${formatPrice(lowestPrice)}.`}
   schema={[faqSchema(faq)]}
 >
   <section class="hero bg-damask-light" aria-labelledby="hero-title">
@@ -78,8 +80,7 @@ const highlights = [
 
       <h1 id="hero-title">Traditionelle Thaimassage <span class="hero__place">in Ehningen</span></h1>
       <p class="lead hero__lead">
-        Thailändische Massagekunst in der {business.address.street}: klassische Thaimassage, Ölmassage, Kräuterstempel und
-        Fußreflexzonen. {hours ? `${hours}, auch am Wochenende.` : ''}
+        {`Nang massiert seit ${yearsOfExperience} Jahren nach thailändischer Tradition: klassische Thaimassage, Ölmassage, Kräuterstempel und Fußreflexzonen. ${hours ? `${hours}, auch am Wochenende.` : ''}`}
       </p>
 
       <div class="btn-row hero__actions">
@@ -94,8 +95,9 @@ const highlights = [
       </div>
 
       <ul class="hero__facts">
+        <li><Icon name="award" /> {yearsOfExperience} Jahre Erfahrung</li>
         <li><Icon name="clock" /> {hours ?? 'Termine nach Vereinbarung'}</li>
-        <li><Icon name="star" /> Ab {formatPrice(lowestPrice)} für 30 Minuten</li>
+        <li><Icon name="tag" /> Ab {formatPrice(lowestPrice)} für 30 Minuten</li>
         <li>
           <Icon name="map-pin" />
           <a href={directionsUrl} rel="noopener" target="_blank">{business.address.street}, {business.address.city}</a>
@@ -123,7 +125,9 @@ const highlights = [
     </div>
   </section>
 
-  <section class="section section--tint bg-damask-light" aria-labelledby="leistungen-title">
+  <FocusSection class="section--tint" id="nangs-schwerpunkt" />
+
+  <section class="section bg-damask-light" aria-labelledby="leistungen-title">
     <div class="container">
       <SectionHeading
         id="leistungen-title"
@@ -146,7 +150,7 @@ const highlights = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="besuch-title">
+  <section class="section section--tint" aria-labelledby="besuch-title">
     <div class="container">
       <SectionHeading
         id="besuch-title"
@@ -162,7 +166,7 @@ const highlights = [
     </div>
   </section>
 
-  <section class="section section--tint thai" aria-labelledby="thai-title">
+  <section class="section thai" aria-labelledby="thai-title">
     <div class="container thai__grid">
       <div>
         <p class="eyebrow">Nuad Thai</p>
@@ -193,7 +197,7 @@ const highlights = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="faq-title">
+  <section class="section section--tint" aria-labelledby="faq-title">
     <div class="container">
       <SectionHeading id="faq-title" eyebrow="Häufige Fragen" title="Gut zu wissen vor Ihrem Termin" />
       <Faq items={faq} />

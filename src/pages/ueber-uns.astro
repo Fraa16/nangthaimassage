@@ -5,9 +5,10 @@ import SectionHeading from '../components/SectionHeading.astro';
 import Ornament from '../components/Ornament.astro';
 import Icon from '../components/Icon.astro';
 import CtaBand from '../components/CtaBand.astro';
+import FocusSection from '../components/FocusSection.astro';
 import { business, hoursSummary, fullAddress } from '../data/business';
 import { services, formatPrice, lowestPrice } from '../data/services';
-import { about } from '../data/about';
+import { about, yearsOfExperience } from '../data/about';
 
 const hours = hoursSummary();
 const breadcrumbs = [{ name: 'Über uns', href: '/ueber-uns/' }];
@@ -19,9 +20,9 @@ const values = [
     text: 'Thaimassage, Kräuterstempel und Fußreflexzonen: Techniken aus der jahrhundertealten thailändischen Massagetradition.',
   },
   {
-    icon: 'check',
-    title: 'Ihre Wünsche zählen',
-    text: 'Vor der Massage fragen wir nach Druckstärke, empfindlichen Stellen und dem, was Ihnen guttut.',
+    icon: 'award',
+    title: `${yearsOfExperience} Jahre Erfahrung`,
+    text: 'Nang kennt Muskeln, Sehnen und Druckpunkte genau. Sie arbeitet gezielt, mit dem Druck, der Ihnen guttut.',
   },
   {
     icon: 'clock',
@@ -58,13 +59,13 @@ const steps = [
 <BaseLayout
   title="Über uns"
   fullTitle={`Über uns | ${business.name} in Ehningen`}
-  description={`${business.name} ist ein Studio für traditionelle Thaimassage in Ehningen. Seriöse Massagen nach thailändischer Tradition, ${hours ? hours.replace('Täglich', 'täglich') : 'nach Vereinbarung'}, auch am Wochenende.`}
+  description={`Nang massiert seit ${yearsOfExperience} Jahren nach thailändischer Tradition. Schwerpunkt: ${about.focusAreas.join(', ')}. Seriöse Massagen in Ehningen, ${hours ? hours.replace('Täglich', 'täglich') : 'nach Vereinbarung'}.`}
   breadcrumbs={breadcrumbs}
 >
   <PageHero
     eyebrow="Über uns"
     title="Thailändische Tradition, <span class='accent'>mitten in Ehningen</span>"
-    lead="Ein Studio mit einem klaren Anspruch: Massagen nach thailändischer Tradition und Zeit für jeden Gast."
+    lead={`Nang massiert seit ${yearsOfExperience} Jahren nach thailändischer Tradition. Ihr Schwerpunkt: ${about.focusAreas.slice(0, -1).join(', ')} und ${about.focusAreas.at(-1)}.`}
     breadcrumbs={breadcrumbs}
   />
 
@@ -95,6 +96,10 @@ const steps = [
             <dd>{fullAddress}</dd>
           </div>
           <div>
+            <dt>Erfahrung</dt>
+            <dd>seit {yearsOfExperience} Jahren</dd>
+          </div>
+          <div>
             <dt>Geöffnet</dt>
             <dd>{hours ?? 'nach Vereinbarung'}</dd>
           </div>
@@ -115,9 +120,11 @@ const steps = [
     </div>
   </section>
 
+  <FocusSection detailed id="schwerpunkt" class="section--tint" />
+
   {
     about.story.length > 0 && (
-      <section class="section section--tint" aria-labelledby="story-title">
+      <section class="section" aria-labelledby="story-title">
         <div class="container container--narrow prose story">
           <Ornament size={36} />
           <h2 id="story-title">{about.storyTitle || 'Die Frau hinter Nang'}</h2>
@@ -129,7 +136,7 @@ const steps = [
     )
   }
 
-  <section class:list={['section', { 'section--tint': about.story.length === 0 }]} aria-labelledby="werte-title">
+  <section class:list={['section', { 'section--tint': about.story.length > 0 }]} aria-labelledby="werte-title">
     <div class="container">
       <SectionHeading id="werte-title" eyebrow="Unser Anspruch" title="Was Sie bei uns erwartet" />
       <ul class="values">
@@ -148,7 +155,7 @@ const steps = [
     </div>
   </section>
 
-  <section class:list={['section', { 'section--tint': about.story.length > 0 }]} aria-labelledby="ablauf-title">
+  <section class:list={['section', { 'section--tint': about.story.length === 0 }]} aria-labelledby="ablauf-title">
     <div class="container">
       <SectionHeading id="ablauf-title" eyebrow="Ihr Besuch" title="So läuft Ihr Termin ab" />
       <ol class="steps">

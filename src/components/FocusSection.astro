@@ -1,0 +1,123 @@
+---
+/**
+ * Nangs Schwerpunkt. Kurzfassung auf der Startseite, ausführlich mit
+ * Arbeitsweise auf „Über uns“. Texte kommen aus src/data/about.ts
+ * (dort auch die Hinweise zum Heilmittelwerbegesetz).
+ */
+import Icon from './Icon.astro';
+import ExperienceBadge from './ExperienceBadge.astro';
+import { about } from '../data/about';
+import { googleMapsUrl } from '../lib/links';
+
+interface Props {
+  detailed?: boolean;
+  id?: string;
+  class?: string;
+}
+
+const { detailed = false, id, class: className } = Astro.props;
+const titleId = `${id ?? 'schwerpunkt'}-title`;
+---
+
+<section id={id} class:list={['section', 'focus', className]} aria-labelledby={titleId}>
+  <div class="container focus__grid">
+    <div class="focus__text">
+      <p class="eyebrow">Nangs Schwerpunkt</p>
+      <h2 id={titleId}>Wo es festsitzt, <span class="accent">setzt sie an</span></h2>
+      <p class="lead">{about.focus.lead}</p>
+      <p>{about.focus.text}</p>
+
+      {
+        detailed && (
+          <>
+            <h3>So arbeitet Nang</h3>
+            <ul class="focus__approach">
+              {about.focus.approach.map((item) => (
+                <li>
+                  <Icon name="check" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+
+      <p class="focus__links">
+        {
+          !detailed && (
+            <a class="text-link" href="/ueber-uns/#schwerpunkt">
+              So arbeitet Nang <Icon name="arrow-right" />
+            </a>
+          )
+        }
+        <a class="text-link" href={googleMapsUrl} rel="noopener" target="_blank">
+          Was Gäste auf Google schreiben <Icon name="arrow-right" />
+        </a>
+      </p>
+      <p class="focus__note">{about.focus.note}</p>
+    </div>
+    <ExperienceBadge />
+  </div>
+</section>
+
+<style>
+  .focus__grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 60rem) {
+    .focus__grid {
+      grid-template-columns: 1.6fr 1fr;
+      gap: 4.5rem;
+    }
+  }
+
+  .focus__text > p:not(.eyebrow):not(.lead) {
+    color: var(--ink-700);
+  }
+
+  .focus__text h3 {
+    margin-top: 1.75rem;
+    font-size: 1.5rem;
+  }
+
+  .focus__approach {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .focus__approach li {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    color: var(--ink-700);
+  }
+
+  .focus__approach :global(.icon) {
+    margin-top: 0.2em;
+    color: var(--gold-600);
+  }
+
+  .focus__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .focus__note {
+    margin: 1.5rem 0 0;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--purple-200);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: rgb(255 255 255 / 0.55);
+    font-size: 0.9375rem;
+    color: var(--ink-500) !important;
+  }
+</style>

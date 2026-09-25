@@ -54,9 +54,9 @@ export const services: Service[] = [
   {
     slug: 'ruecken-nacken-schulter-massage',
     name: 'Rücken-, Nacken- und Schultermassage',
-    teaser: 'Gezielt für die Partie, die bei Schreibtischarbeit und Stress am meisten abbekommt.',
+    teaser: 'Rücken, Nacken, Schultern und auf Wunsch der Kopf: gezielt dort, wo sich Schreibtischarbeit und Stress festsetzen.',
     description: [
-      'Diese Massage konzentriert sich auf Rücken, Nacken und Schultern. Akupressur, Elemente aus dem Shiatsu, Dehnungen und Reflexzonentechniken ergeben zusammen eine wärmende, gründliche Massage des Oberkörpers.',
+      'Diese Massage konzentriert sich auf Rücken, Nacken und Schultern, auf Wunsch bezieht Nang auch den Kopf mit ein. Akupressur, Elemente aus dem Shiatsu, Dehnungen und Reflexzonentechniken ergeben zusammen eine wärmende, gründliche Massage des Oberkörpers.',
       'Ideal, wenn Sie viel sitzen, lange am Bildschirm arbeiten oder den Alltag buchstäblich im Nacken spüren.',
     ],
     suitedFor: 'Für alle, die viel sitzen und Verspannungen im Oberkörper spüren.',

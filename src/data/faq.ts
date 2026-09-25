@@ -1,3 +1,4 @@
+import { about, yearsOfExperience } from './about';
 import { business, hoursSummary } from './business';
 import { formatPrice, getService, minPrice } from './services';
 
@@ -20,6 +21,10 @@ export const faq: FaqItem[] = [
     answer: `Bei ${business.name} kostet die traditionelle Thaimassage ${thaiPrices.slice(0, -1).join(', ')} und ${thaiPrices.at(-1)}. Die Fußreflexzonenmassage gibt es ab ${formatPrice(minPrice(getService('fussreflexzonenmassage')))}, die Kräuterstempelmassage ab ${formatPrice(minPrice(getService('kraeuterstempelmassage')))}. Alle Preise sind Endpreise und stehen auf der Seite Leistungen.`,
   },
   {
+    question: 'Wie viel Erfahrung hat Nang?',
+    answer: `Nang hat die traditionelle Thaimassage gelernt und massiert seit ${yearsOfExperience} Jahren. Sie kennt Muskeln, Sehnen und die Druckpunkte der Thaimassage genau. Ihr Schwerpunkt sind ${listJoin(about.focusAreas)}, also die Partien, in denen sich Stress und langes Sitzen am meisten festsetzen.`,
+  },
+  {
     question: 'Wie bekomme ich einen Termin?',
     answer: `Rufen Sie an oder schreiben Sie per WhatsApp an ${business.phone.display}. Nennen Sie am besten gleich die gewünschte Massage, die Dauer und zwei, drei passende Zeiten. Wir sind ${hours} erreichbar und bestätigen Ihren Termin so schnell wie möglich.`,
   },
@@ -30,7 +35,7 @@ export const faq: FaqItem[] = [
   {
     question: 'Welche Massage passt zu mir?',
     answer:
-      'Wer kräftigen Druck und Dehnungen mag, wählt die traditionelle Thaimassage. Die Thai-Ölmassage ist ruhiger und fließender. Für verspannte Schultern passt die Rücken-, Nacken- und Schultermassage, für müde Füße die Fußreflexzonenmassage. Unsicher? Fragen Sie bei der Terminvereinbarung, wir beraten Sie gern.',
+      'Wer kräftigen Druck und Dehnungen mag, wählt die traditionelle Thaimassage. Die Thai-Ölmassage ist ruhiger und fließender. Für Nacken, Schultern und auf Wunsch den Kopf passt die Rücken-, Nacken- und Schultermassage, für müde Füße die Fußreflexzonenmassage. Unsicher? Fragen Sie bei der Terminvereinbarung, wir beraten Sie gern.',
   },
   {
     question: 'Wie lange sollte die erste Thaimassage dauern?',

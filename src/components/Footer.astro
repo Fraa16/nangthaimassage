@@ -5,7 +5,7 @@ import LatticeBand from './LatticeBand.astro';
 import { business, fullAddress, hoursSummary } from '../data/business';
 import { mainNav, legalNav } from '../data/navigation';
 import { services } from '../data/services';
-import { telHref, whatsappHref, directionsUrl, hasEmail, mailHref } from '../lib/links';
+import { telHref, whatsappHref, directionsUrl, googleMapsUrl, hasEmail, mailHref } from '../lib/links';
 
 const hours = hoursSummary();
 const year = new Date().getFullYear();
@@ -38,6 +38,10 @@ const year = new Date().getFullYear();
             <li>
               <Icon name="whatsapp" />
               <a href={whatsappHref()} rel="noopener" target="_blank">WhatsApp</a>
+            </li>
+            <li>
+              <Icon name="star" />
+              <a href={googleMapsUrl} rel="noopener" target="_blank">Bewertungen auf Google</a>
             </li>
             {
               hasEmail && (
