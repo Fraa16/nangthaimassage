@@ -14,7 +14,7 @@ const { items } = Astro.props;
     items.map((item, i) => (
       <details class="faq__item" open={i === 0}>
         <summary>
-          <span>{item.question}</span>
+          <h3 class="faq__question">{item.question}</h3>
           <Icon name="chevron-down" />
         </summary>
         <p>{item.answer}</p>
@@ -49,6 +49,16 @@ const { items } = Astro.props;
     color: var(--purple-800);
     cursor: pointer;
     list-style: none;
+  }
+
+  .faq__question {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    font-weight: 650;
+    line-height: 1.4;
+    letter-spacing: 0;
+    color: inherit;
   }
 
   .faq__item summary::-webkit-details-marker {

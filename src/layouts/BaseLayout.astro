@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { getImage } from 'astro:assets';
+import { GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from 'astro:env/server';
 import Fonts from '../components/Fonts.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -20,9 +21,13 @@ interface Props {
   /** Zusätzliche JSON-LD-Objekte */
   schema?: Record<string, unknown>[];
   noindex?: boolean;
+  /** Sprache der Seite, Standard Deutsch */
+  lang?: 'de' | 'en';
+  /** Sprachversionen derselben Seite für hreflang */
+  alternates?: { hreflang: string; href: string }[];
 }
 
-const { title, fullTitle, description, breadcrumbs, schema = [], noindex = false } = Astro.props;
+const { title, fullTitle, description, breadcrumbs, schema = [], noindex = false, lang = 'de', alternates = [] } = Astro.props;
 
 const site = Astro.site ?? new URL(Astro.url.origin);
 const pageTitle = fullTitle ?? `${title} | ${business.name}`;
@@ -40,13 +45,14 @@ const jsonLd = [
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
+    {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={new URL(alt.href, site).href} />)}
 
     <Fonts />
 
@@ -57,7 +63,7 @@ const jsonLd = [
     <meta name="format-detection" content="telephone=no" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'de_DE'} />
     <meta property="og:site_name" content={business.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -68,18 +74,21 @@ const jsonLd = [
     <meta property="og:image:alt" content={`${business.name} – Thaimassage in ${business.address.city}`} />
     <meta name="twitter:card" content="summary_large_image" />
 
+    {GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />}
+    {BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />}
+
     <meta name="geo.region" content="DE-BW" />
     <meta name="geo.placename" content={business.address.city} />
 
     {jsonLd.map((data) => <script type="application/ld+json" is:inline set:html={JSON.stringify(data)} />)}
   </head>
   <body>
-    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
-    <Header />
+    <a class="skip-link" href="#inhalt">{lang === 'en' ? 'Skip to content' : 'Zum Inhalt springen'}</a>
+    <Header lang={lang} />
     <main id="inhalt" tabindex="-1">
       <slot />
     </main>
-    <Footer />
-    <MobileCallBar />
+    <Footer lang={lang} />
+    <MobileCallBar lang={lang} />
   </body>
 </html>

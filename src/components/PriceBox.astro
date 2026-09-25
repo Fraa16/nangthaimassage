@@ -1,0 +1,138 @@
+---
+/** Dauer und Preis einer Massage, je Zeile mit WhatsApp-Anfrage. */
+import Icon from './Icon.astro';
+import { business } from '../data/business';
+import { type Service, formatPrice, formatMinutes } from '../data/services';
+import { telHref, whatsappHref } from '../lib/links';
+
+interface Props {
+  service: Service;
+  /** Kurzer Satz je Dauer, z. B. „ideal für das erste Mal“ */
+  guide?: Record<number, string>;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { service, guide, headingLevel: Heading = 'h3' } = Astro.props;
+const bookingText = (minutes: number) => `Hallo, ich möchte gern einen Termin für ${service.name} (${minutes} Min.) vereinbaren.`;
+---
+
+<div class="price-box">
+  <Heading class="price-box__title">Dauer &amp; Preis</Heading>
+  <ul>
+    {
+      service.options.map((o) => (
+        <li>
+          <span class="price-box__duration">
+            <Icon name="clock" /> {formatMinutes(o.minutes)}
+          </span>
+          <span class="price-box__price">{formatPrice(o.price)}</span>
+          <a
+            class="price-box__book"
+            href={whatsappHref(bookingText(o.minutes))}
+            rel="noopener"
+            target="_blank"
+            aria-label={`${service.name}, ${o.minutes} Minuten per WhatsApp anfragen`}
+          >
+            <Icon name="whatsapp" /> Anfragen
+          </a>
+          {guide?.[o.minutes] && <span class="price-box__guide">{guide[o.minutes]}</span>}
+        </li>
+      ))
+    }
+  </ul>
+  <a class="btn btn--gold price-box__call" href={telHref}>
+    <Icon name="phone" /> {business.phone.display}
+  </a>
+</div>
+
+<style>
+  .price-box {
+    padding: 1.5rem;
+    border: 1px solid var(--cream-300);
+    border-top: 3px solid var(--gold-500);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .price-box__title {
+    margin-bottom: 0.75rem;
+    font-family: var(--font-caps);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-700);
+  }
+
+  .price-box ul {
+    margin: 0 0 1.25rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .price-box li {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.25rem 1rem;
+    align-items: center;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--cream-200);
+  }
+
+  .price-box__duration {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--ink-700);
+  }
+
+  .price-box__duration :global(.icon) {
+    width: 1rem;
+    height: 1rem;
+    color: var(--gold-600);
+  }
+
+  .price-box__price {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--purple-700);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .price-box__book {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--cream-300);
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 650;
+    color: var(--purple-700);
+    text-decoration: none;
+  }
+
+  .price-box__book:hover {
+    border-color: var(--whatsapp);
+    background: #eafaf0;
+    color: var(--purple-800);
+  }
+
+  .price-box__book :global(.icon) {
+    width: 1rem;
+    height: 1rem;
+    color: var(--whatsapp);
+  }
+
+  .price-box__guide {
+    grid-column: 1 / -1;
+    font-size: 0.9375rem;
+    color: var(--ink-500);
+  }
+
+  .price-box__call {
+    width: 100%;
+  }
+</style>

@@ -1,0 +1,54 @@
+---
+/** „Gut zu wissen“ mit Wellness-Hinweis (Heilmittelwerbegesetz). */
+interface Props {
+  id?: string;
+  /** Zusätzliche Hinweise, z. B. zur Kleidung */
+  items?: string[];
+  title?: string;
+}
+
+const { id = 'hinweis-title', items = [], title = 'Gut zu wissen' } = Astro.props;
+const all = [
+  ...items,
+  'Kommen Sie am besten ein paar Minuten vor Ihrem Termin, damit Sie in Ruhe ankommen.',
+  'Sagen Sie vorab Bescheid, wenn Sie schwanger sind, kürzlich operiert wurden oder gesundheitliche Beschwerden haben.',
+  'Falls Sie einen Termin nicht wahrnehmen können, sagen Sie bitte kurz per Anruf oder WhatsApp Bescheid.',
+];
+---
+
+<div class="notice">
+  <h2 id={id}>{title}</h2>
+  <ul>
+    {all.map((item) => <li>{item}</li>)}
+  </ul>
+  <p class="notice__legal">
+    Unsere Massagen sind Wellnessmassagen. Sie dienen der Entspannung und dem Wohlbefinden und ersetzen keine ärztliche
+    Behandlung oder Physiotherapie.
+  </p>
+</div>
+
+<style>
+  .notice {
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--purple-200);
+    background: var(--purple-100);
+  }
+
+  .notice h2 {
+    font-size: 1.9rem;
+  }
+
+  .notice li {
+    margin-bottom: 0.5rem;
+    color: var(--ink-700);
+  }
+
+  .notice__legal {
+    margin: 1.25rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--purple-200);
+    font-size: 0.9375rem;
+    color: var(--ink-500);
+  }
+</style>

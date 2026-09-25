@@ -1,7 +1,9 @@
 # Nang Thai Massage – Website
 
 Website für **Nang Thai Massage**, Königstraße 25, 71139 Ehningen.
-Seiten: Startseite, Leistungen, Über uns, Kontakt sowie Impressum und Datenschutz (im Footer unter „Rechtliches“).
+Seiten: Startseite, Leistungen (Übersicht plus eine Unterseite je Massage), Über uns, Kontakt, eine englische
+Seite (`/en/`) sowie Impressum und Datenschutz (im Footer unter „Rechtliches“). Dazu `sitemap-index.xml`,
+`robots.txt` und `llms.txt` (Kurzprofil für KI-Suchmaschinen), alle aus denselben Daten erzeugt.
 
 Gebaut mit [Astro](https://astro.build) als rein statische Seite: kein Server, keine Datenbank, keine Cookies.
 Gehostet wird auf Vercel.
@@ -26,7 +28,9 @@ Fast alles steht in `src/data/`. Die Seiten lesen von dort, eine Änderung wirkt
 | Datei                   | Inhalt                                                                  |
 | ----------------------- | ----------------------------------------------------------------------- |
 | `src/data/business.ts`  | Name, Inhaberin, Adresse, Telefon, WhatsApp, E-Mail, Öffnungszeiten      |
-| `src/data/services.ts`  | Massagen, Beschreibungen, Dauer und Preise                              |
+| `src/data/services.ts`  | Massagen, Kurzbeschreibungen, Dauer und Preise, englische Namen         |
+| `src/data/service-details.ts` | Texte und Fragen der Unterseiten je Massage                       |
+| `src/data/reviews.ts`   | Ausgewählte Google-Bewertungen (Abschnitt erscheint erst, wenn gefüllt)  |
 | `src/data/faq.ts`       | Häufige Fragen auf der Startseite (Preis-Antwort rechnet automatisch)    |
 | `src/data/about.ts`     | Nangs Erfahrung, Schwerpunkt und Arbeitsweise; persönliche Geschichte (erscheint erst, wenn ausgefüllt) |
 | `src/data/navigation.ts`| Menüpunkte                                                              |
@@ -71,6 +75,19 @@ z. B. `SITE_URL=https://www.beispiel.de`.
 `vercel.json` sorgt außerdem für Weiterleitungen auf URLs mit Schrägstrich am Ende,
 Sicherheits-Header (inklusive Content-Security-Policy) und lange Cache-Zeiten für Bilder und Skripte.
 Die Vercel-Toolbar in Previews wird durch die CSP blockiert; das betrifft nur Previews.
+
+### Google Search Console und Bing
+
+Am einfachsten per DNS-Eintrag in Vercel. Alternativ die Methode „HTML-Tag“: nur den Code
+(ohne `<meta …>`) als Umgebungsvariable `GOOGLE_SITE_VERIFICATION` bzw. `BING_SITE_VERIFICATION`
+in Vercel eintragen und neu deployen. Danach die Sitemap `https://DOMAIN/sitemap-index.xml` einreichen.
+
+## Unterlagen außerhalb der Website
+
+- `docs/google-profil-und-eintraege.md`: kopierfertige Texte für Google-Profil, massageando,
+  Apple Karten, Bing und Co., plus Checkliste für den Livegang
+- `design/print/google-bewertung-karte-a6.pdf`: druckfertige A6-Karte mit QR-Code zum
+  Google-Profil (für die Kasse im Studio)
 
 ## Datenschutz
 

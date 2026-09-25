@@ -1,0 +1,410 @@
+---
+/**
+ * Englische Seite für internationale Gäste (Raum Böblingen/Sindelfingen).
+ * Gleiche Regeln wie auf Deutsch: keine Heilversprechen (Heilmittelwerbegesetz).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Faq from '../../components/Faq.astro';
+import Icon from '../../components/Icon.astro';
+import Ornament from '../../components/Ornament.astro';
+import LatticeBand from '../../components/LatticeBand.astro';
+import { business } from '../../data/business';
+import { services } from '../../data/services';
+import { yearsOfExperience } from '../../data/about';
+import { faqSchema } from '../../lib/schema';
+import { telHref, whatsappHref, directionsUrl, googleMapsUrl } from '../../lib/links';
+import type { FaqItem } from '../../data/faq';
+
+const euro = (n: number) => `€${n}`;
+const { opens, closes } = business.openingHours[0];
+const hour12 = (t: string) => {
+  const h = Number(t.slice(0, 2));
+  return `${h % 12 || 12} ${h < 12 ? 'am' : 'pm'}`;
+};
+const hoursText = `daily from ${hour12(opens)} to ${hour12(closes)}`;
+const durations = [...new Set(services.flatMap((s) => s.options.map((o) => o.minutes)))].sort((a, b) => a - b);
+const thai = services[0];
+const bookingMessage = 'Hello, I would like to book a massage appointment.';
+
+const faqEn: FaqItem[] = [
+  {
+    question: 'How much does a Thai massage in Ehningen cost?',
+    answer: `At ${business.name}, a traditional Thai massage costs ${thai.options.map((o) => `${euro(o.price)} for ${o.minutes} minutes`).join(', ').replace(/, ([^,]*)$/, ' and $1')}. All prices are final prices in euros, payment on site at your appointment.`,
+  },
+  {
+    question: 'How do I book an appointment?',
+    answer: `Call or send a WhatsApp message to ${business.phone.display} (+49 ${business.phone.display.replace(/^0/, '')}). Mention the massage, the duration and a few times that suit you. The studio is open ${hoursText}, including weekends and public holidays.`,
+  },
+  {
+    question: 'What should I wear?',
+    answer:
+      'Comfortable clothing is all you need. The traditional Thai massage is done without oil, so loose clothing is ideal. For the oil massage and the herbal compress massage, you decide beforehand what you would like to take off.',
+  },
+  {
+    question: 'Is Nang Thai Massage a professional studio?',
+    answer:
+      'Yes. Nang offers traditional Thai wellness massages only, no erotic services. The massages are meant for relaxation and well-being and do not replace medical treatment.',
+  },
+];
+---
+
+<BaseLayout
+  lang="en"
+  fullTitle={`Thai Massage in Ehningen near Böblingen | ${business.name}`}
+  title="English"
+  description={`Traditional Thai massage in Ehningen near Böblingen and Sindelfingen. ${yearsOfExperience} years of experience, open ${hoursText}, also on public holidays. From ${euro(30)}.`}
+  schema={[faqSchema(faqEn)]}
+  alternates={[
+    { hreflang: 'de', href: '/' },
+    { hreflang: 'en', href: '/en/' },
+    { hreflang: 'x-default', href: '/' },
+  ]}
+>
+  <PageHero
+    eyebrow="Nang Thai Massage · Ehningen"
+    title="Traditional Thai massage <span class='accent'>in Ehningen</span>"
+    lead={`Nang has ${yearsOfExperience} years of experience in traditional Thai massage. The studio is open ${hoursText}, including weekends and public holidays.`}
+  >
+    <div class="btn-row">
+      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> Call {business.phone.display}</a>
+      <a class="btn btn--outline-light" href={whatsappHref(bookingMessage)} rel="noopener" target="_blank">
+        <Icon name="whatsapp" /> Book via WhatsApp
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="section" aria-labelledby="prices-title">
+    <div class="container">
+      <SectionHeading
+        id="prices-title"
+        eyebrow="Massages & prices"
+        title="Five massages, <span class='accent'>one tradition</span>"
+        lead="From 30 minutes for a short break to a two-hour treat. All prices are final prices in euros, payment on site."
+      />
+      <div class="price-table-wrap" role="region" aria-label="Price list" tabindex="0">
+        <table class="price-table">
+          <caption class="visually-hidden">Prices by massage and duration</caption>
+          <thead>
+            <tr>
+              <th scope="col">Massage</th>
+              {durations.map((d) => <th scope="col">{d} min</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              services.map((s) => (
+                <tr>
+                  <th scope="row">{s.en.name}</th>
+                  {durations.map((d) => {
+                    const option = s.options.find((o) => o.minutes === d);
+                    return option ? (
+                      <td>{euro(option.price)}</td>
+                    ) : (
+                      <td class="price-table__empty">
+                        <span aria-hidden="true">–</span>
+                        <span class="visually-hidden">not offered</span>
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="services-en">
+        {
+          services.map((s) => (
+            <li>
+              <h3>{s.en.name}</h3>
+              <p>{s.en.teaser}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="focus-title">
+    <div class="container container--narrow focus-en">
+      <Ornament size={36} />
+      <p class="eyebrow">Nang's focus</p>
+      <h2 id="focus-title">Where it feels tight, <span class="accent">she starts</span></h2>
+      <p class="lead">Many guests come to Nang when their neck and shoulders feel tight and the tension reaches up into the head.</p>
+      <p>
+        {`Nang trained in traditional Thai massage and has been practising for ${yearsOfExperience} years. She knows the course of muscles and tendons and the pressure points of Thai massage very well. She finds the spots where tension sits and works on them precisely, with pressure, stretching and acupressure, as firm or as gentle as feels right for you.`}
+      </p>
+      <p class="focus-en__note">
+        Nang is not a doctor and does not make diagnoses. Severe, persistent or new headaches should be checked by a doctor.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="visit-title">
+    <div class="container visit">
+      <div>
+        <p class="eyebrow">Your visit</p>
+        <h2 id="visit-title">Opening hours and location</h2>
+        <table class="hours">
+          <caption class="visually-hidden">Opening hours</caption>
+          <tbody>
+            <tr><th scope="row">Monday to Sunday</th><td>{hour12(opens)} – {hour12(closes)}</td></tr>
+            {business.openOnHolidays && <tr><th scope="row">Public holidays</th><td>{hour12(opens)} – {hour12(closes)}</td></tr>}
+          </tbody>
+        </table>
+        {business.byAppointment && <p class="visit__note">Other times by arrangement.</p>}
+      </div>
+      <div>
+        <address class="visit__address">
+          <strong>{business.name}</strong>
+          <br />
+          {business.address.street}
+          <br />
+          {business.address.postalCode} {business.address.city}, Germany
+        </address>
+        <p>
+          {`Ehningen is in the district of Böblingen, a short drive from Böblingen, Sindelfingen and Herrenberg. By S-Bahn, take line S1 to Ehningen.`}
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--purple" href={directionsUrl} rel="noopener" target="_blank"><Icon name="route" /> Get directions</a>
+          <a class="btn btn--outline" href={googleMapsUrl} rel="noopener" target="_blank"><Icon name="star" /> Google reviews</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="faq-en-title">
+    <div class="container">
+      <SectionHeading id="faq-en-title" eyebrow="FAQ" title="Good to know before your visit" />
+      <Faq items={faqEn} />
+      <p class="legal-en">
+        The massages are wellness massages for relaxation and well-being. They do not replace medical treatment or
+        physiotherapy. Legal notice and privacy policy are available in German:{' '}
+        <a href="/impressum/" hreflang="de">Impressum</a>, <a href="/datenschutz/" hreflang="de">Datenschutz</a>.
+      </p>
+    </div>
+  </section>
+
+  <LatticeBand />
+  <section class="cta-en bg-damask" aria-labelledby="cta-en-title">
+    <div class="container container--narrow">
+      <Ornament size={40} />
+      <h2 id="cta-en-title">Book your appointment</h2>
+      <p class="lead">{`Open ${hoursText}, including weekends and public holidays. Call or send a WhatsApp message.`}</p>
+      <div class="btn-row">
+        <a class="btn btn--gold" href={telHref}><Icon name="phone" /> Call {business.phone.display}</a>
+        <a class="btn btn--outline-light" href={whatsappHref(bookingMessage)} rel="noopener" target="_blank">
+          <Icon name="whatsapp" /> WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .price-table-wrap {
+    position: relative;
+    overflow-x: auto;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .price-table {
+    min-width: 21rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .price-table th,
+  .price-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--cream-200);
+    text-align: center;
+  }
+
+  .price-table thead th {
+    background: var(--purple-700);
+    color: var(--gold-200);
+    font-family: var(--font-caps);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .price-table thead th:first-child,
+  .price-table tbody th {
+    text-align: left;
+  }
+
+  .price-table tbody th {
+    font-weight: 650;
+    color: var(--purple-800);
+  }
+
+  .price-table td {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--purple-700);
+    font-variant-numeric: lining-nums;
+  }
+
+  .price-table__empty {
+    color: var(--cream-300) !important;
+  }
+
+  .price-table tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 40rem) {
+    .price-table th,
+    .price-table td {
+      padding: 0.7rem 0.4rem;
+    }
+
+    .price-table thead th {
+      font-size: 0.6875rem;
+      letter-spacing: 0.04em;
+    }
+
+    .price-table tbody th {
+      padding-left: 0.75rem;
+      font-size: 0.9375rem;
+    }
+
+    .price-table td {
+      font-size: 1.1rem;
+      white-space: nowrap;
+    }
+  }
+
+  .services-en {
+    display: grid;
+    gap: 1rem 2rem;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 48rem) {
+    .services-en {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .services-en h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1.4rem;
+  }
+
+  .services-en p {
+    margin: 0;
+    color: var(--ink-700);
+  }
+
+  .focus-en {
+    text-align: center;
+  }
+
+  .focus-en :global(.ornament) {
+    margin-bottom: 1rem;
+  }
+
+  .focus-en > p:not(.eyebrow):not(.lead) {
+    color: var(--ink-700);
+  }
+
+  .focus-en__note {
+    margin: 1.5rem auto 0;
+    max-width: 36rem;
+    font-size: 0.9375rem;
+    color: var(--ink-500) !important;
+  }
+
+  .visit {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 56rem) {
+    .visit {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .hours {
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+
+  .hours th,
+  .hours td {
+    padding: 0.7rem 1.1rem;
+    border-bottom: 1px solid var(--cream-200);
+    text-align: left;
+  }
+
+  .hours tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .hours th {
+    font-weight: 650;
+    color: var(--purple-800);
+  }
+
+  .hours td {
+    text-align: right;
+    color: var(--ink-700);
+  }
+
+  .visit__note {
+    margin-top: 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--ink-500);
+  }
+
+  .visit__address {
+    margin-bottom: 1rem;
+    font-weight: 650;
+    color: var(--purple-800);
+  }
+
+  .visit p {
+    color: var(--ink-700);
+  }
+
+  .legal-en {
+    max-width: 50rem;
+    margin: 2rem auto 0;
+    font-size: 0.9375rem;
+    text-align: center;
+    color: var(--ink-500);
+  }
+
+  .cta-en {
+    padding-block: clamp(3rem, 7vw, 5rem);
+    text-align: center;
+  }
+
+  .cta-en h2 {
+    margin-top: 1rem;
+  }
+
+  .cta-en .btn-row {
+    justify-content: center;
+    margin-top: 1.75rem;
+  }
+</style>

@@ -9,12 +9,14 @@ import Signboard from '../components/Signboard.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import FocusSection from '../components/FocusSection.astro';
+import Reviews from '../components/Reviews.astro';
 import valance from '../assets/brand/valance.png';
 import nang from '../assets/brand/logo-nang.png';
 import { business, hoursSummary, hoursExtras } from '../data/business';
 import { services, formatPrice, lowestPrice, getService } from '../data/services';
 import { faq } from '../data/faq';
 import { yearsOfExperience } from '../data/about';
+import { unescoSource } from '../data/service-details';
 import { faqSchema } from '../lib/schema';
 import { telHref, whatsappHref, directionsUrl, googleMapsUrl } from '../lib/links';
 
@@ -51,6 +53,11 @@ const highlights = [
   title="Startseite"
   description={`Thaimassage in Ehningen mit ${yearsOfExperience} Jahren Erfahrung: traditionell, mit warmem Öl, Kräuterstempel oder Fußreflexzonen. ${hours ?? ''}, auch feiertags. Ab ${formatPrice(lowestPrice)}.`}
   schema={[faqSchema(faq)]}
+  alternates={[
+    { hreflang: 'de', href: '/' },
+    { hreflang: 'en', href: '/en/' },
+    { hreflang: 'x-default', href: '/' },
+  ]}
 >
   <section class="hero bg-damask-light" aria-labelledby="hero-title">
     <Image
@@ -127,6 +134,7 @@ const highlights = [
   </section>
 
   <FocusSection class="section--tint" id="nangs-schwerpunkt" />
+  <Reviews class="section--tint" />
 
   <section class="section bg-damask-light" aria-labelledby="leistungen-title">
     <div class="container">
@@ -180,9 +188,9 @@ const highlights = [
         <p>
           Der Überlieferung nach geht sie auf Jivaka Kumar Bhaccha zurück, einen Arzt zur Zeit Buddhas. Gelehrt wird sie
           bis heute in Tempelschulen wie dem Wat Pho in Bangkok. 2019 hat die UNESCO Nuad Thai in die Liste des
-          immateriellen Kulturerbes der Menschheit aufgenommen.
+          immateriellen Kulturerbes der Menschheit aufgenommen (<a href={unescoSource} rel="noopener" target="_blank">Beschluss der UNESCO, englisch</a>).
         </p>
-        <a class="text-link" href="/leistungen/#traditionelle-thaimassage">Zur traditionellen Thaimassage <Icon name="arrow-right" /></a>
+        <a class="text-link" href="/leistungen/traditionelle-thaimassage/">Ablauf und Preise der traditionellen Thaimassage <Icon name="arrow-right" /></a>
       </div>
       <aside class="facts" aria-label="Thaimassage auf einen Blick">
         <Ornament size={44} lines={false} />

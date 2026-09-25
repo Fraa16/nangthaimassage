@@ -1,8 +1,8 @@
 /** Strukturierte Daten (JSON-LD) für Google und KI-Suchmaschinen. */
 import { business } from '../data/business';
-import { services, lowestPrice, highestPrice, formatPrice } from '../data/services';
+import { services, lowestPrice, highestPrice, formatPrice, type Service } from '../data/services';
 import type { FaqItem } from '../data/faq';
-import { googleMapsUrl } from './links';
+import { googleMapsUrl, hasEmail } from './links';
 import { yearsOfExperience } from '../data/about';
 
 type JsonLd = Record<string, unknown>;
@@ -58,7 +58,38 @@ export function localBusinessSchema(site: URL, logoUrl: string): JsonLd {
         })),
       })),
     },
-    ...(business.googleProfileUrl ? { sameAs: [business.googleProfileUrl] } : {}),
+    knowsAbout: [
+      { '@type': 'Thing', name: 'Nuad Thai (traditionelle Thaimassage)', sameAs: 'https://www.wikidata.org/wiki/Q97306888' },
+      'Thai-Ölmassage',
+      'Kräuterstempelmassage',
+      'Fußreflexzonenmassage',
+      'Akupressur',
+    ],
+    sameAs: [business.googleProfileUrl, ...business.profiles].filter(Boolean),
+    ...(hasEmail ? { email: business.email } : {}),
+    ...(business.owner.startsWith('TODO')
+      ? {}
+      : { founder: { '@type': 'Person', name: business.owner, alternateName: 'Nang' } }),
+  };
+}
+
+/** Eine Massage als Service mit allen Preisen, verknüpft mit dem Studio. */
+export function serviceSchema(site: URL, service: Service, url: string, description: string): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.name,
+    serviceType: 'Massage',
+    description,
+    url: new URL(url, site).href,
+    provider: { '@id': businessId(site) },
+    areaServed: [business.address.city, ...business.nearbyTowns].map((name) => ({ '@type': 'City', name })),
+    offers: service.options.map((o) => ({
+      '@type': 'Offer',
+      name: `${service.name}, ${o.minutes} Minuten`,
+      price: o.price.toFixed(2),
+      priceCurrency: 'EUR',
+    })),
   };
 }
 

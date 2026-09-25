@@ -51,6 +51,8 @@ export const business = {
    * Solange leer, verlinkt die Seite auf eine Google-Maps-Suche nach dem Studio.
    */
   googleProfileUrl: 'https://share.google/IngWGfw2y5CjuSdL7',
+  /** Weitere offizielle Einträge des Studios (für sameAs in den strukturierten Daten). */
+  profiles: ['https://massageando.de/Home/Details/nang-thaimassage-ehningen-58'],
   /** Orte im Umkreis, die im Text und in den strukturierten Daten genannt werden. */
   nearbyTowns: ['Gärtringen', 'Aidlingen', 'Nufringen', 'Böblingen', 'Sindelfingen', 'Herrenberg', 'Holzgerlingen'],
 } as const;

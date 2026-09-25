@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import PriceBox from '../../components/PriceBox.astro';
+import WellnessNotice from '../../components/WellnessNotice.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { business } from '../../data/business';
+import { services, getService } from '../../data/services';
+import { getServiceDetail } from '../../data/service-details';
+import { faqSchema, serviceSchema } from '../../lib/schema';
+import { telHref, whatsappHref } from '../../lib/links';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const service = getService(slug);
+const detail = getServiceDetail(slug);
+const site = Astro.site ?? new URL(Astro.url.origin);
+const url = `/leistungen/${slug}/`;
+const breadcrumbs = [
+  { name: 'Leistungen & Preise', href: '/leistungen/' },
+  { name: service.name, href: url },
+];
+const others = services.filter((s) => s.slug !== slug);
+const bookingMessage = `Hallo, ich möchte gern einen Termin für ${service.name} vereinbaren.`;
+---
+
+<BaseLayout
+  title={detail.seoTitle}
+  description={detail.metaDescription}
+  breadcrumbs={breadcrumbs}
+  schema={[serviceSchema(site, service, url, detail.lead), faqSchema(detail.faq)]}
+>
+  <PageHero eyebrow={detail.eyebrow} title={service.name} lead={detail.lead} breadcrumbs={breadcrumbs}>
+    <div class="btn-row">
+      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> {business.phone.display} anrufen</a>
+      <a class="btn btn--outline-light" href={whatsappHref(bookingMessage)} rel="noopener" target="_blank">
+        <Icon name="whatsapp" /> Per WhatsApp anfragen
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="section" aria-labelledby="ablauf-title">
+    <div class="container detail">
+      <div class="detail__text">
+        <h2 id="ablauf-title">{detail.howTitle}</h2>
+        {detail.how.map((paragraph) => <p>{paragraph}</p>)}
+
+        <h2>{detail.forWhomTitle}</h2>
+        <p>{detail.forWhom}</p>
+
+        {
+          detail.links && (
+            <ul class="detail__links">
+              {detail.links.map((link) => (
+                <li>
+                  <a class="text-link" href={link.href} {...(link.external ? { rel: 'noopener', target: '_blank' } : {})}>
+                    {link.label} <Icon name="arrow-right" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+      <div class="detail__aside">
+        <PriceBox service={service} guide={detail.durationGuide} headingLevel="h2" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="fragen-title">
+    <div class="container">
+      <SectionHeading id="fragen-title" eyebrow={service.name} title="Häufige Fragen" />
+      <Faq items={detail.faq} />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="hinweis-title">
+    <div class="container container--narrow">
+      <WellnessNotice items={detail.notes} />
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="weitere-title">
+    <div class="container">
+      <SectionHeading id="weitere-title" eyebrow="Leistungen" title="Weitere Massagen bei Nang" />
+      <ul class="others">
+        {
+          others.map((other) => (
+            <li>
+              <ServiceCard service={other} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .detail {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 56rem) {
+    .detail {
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+    }
+
+    .detail__aside {
+      position: sticky;
+      top: calc(var(--header-h) + 1.5rem);
+    }
+  }
+
+  .detail__text h2 {
+    font-size: clamp(1.7rem, 1.4rem + 1.2vw, 2.3rem);
+  }
+
+  .detail__text h2 + p {
+    margin-top: 0.25rem;
+  }
+
+  .detail__text p + h2 {
+    margin-top: 2rem;
+  }
+
+  .detail__text p {
+    color: var(--ink-700);
+  }
+
+  .detail__links {
+    display: grid;
+    gap: 0.5rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .others {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 44rem) {
+    .others {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 72rem) {
+    .others {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // Domain für Canonical-URLs, Sitemap und Open Graph.
@@ -17,6 +17,16 @@ export default defineConfig({
   trailingSlash: 'always',
   build: {
     format: 'directory',
+    // CSS direkt ins HTML: spart den blockierenden Abruf vor dem ersten Rendern (besseres LCP).
+    inlineStylesheets: 'always',
+  },
+  // Optionale Bestätigungscodes für Google Search Console und Bing Webmaster Tools
+  // (Methode „HTML-Tag“). In Vercel als Umgebungsvariable eintragen, nur den Code.
+  env: {
+    schema: {
+      GOOGLE_SITE_VERIFICATION: envField.string({ context: 'server', access: 'public', optional: true }),
+      BING_SITE_VERIFICATION: envField.string({ context: 'server', access: 'public', optional: true }),
+    },
   },
   integrations: [
     sitemap({
