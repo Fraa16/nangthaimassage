@@ -35,6 +35,7 @@ export const GET: APIRoute = ({ site }) => {
     `- [Leistungen & Preise](${url('/leistungen/')}): Preistabelle, Beschreibung jeder Massage, häufige Fragen`,
     `- [Über uns](${url('/ueber-uns/')}): Nang, Erfahrung, Schwerpunkt und Arbeitsweise`,
     `- [Kontakt & Anfahrt](${url('/kontakt/')}): Adresse, Karte, Terminanfrage per WhatsApp`,
+    `- [English](${url('/en/')}): Thai massage in Ehningen, prices, opening hours and FAQ in English`,
     '',
     '## Hinweis',
     '',

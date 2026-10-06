@@ -2,13 +2,53 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import LatticeBand from './LatticeBand.astro';
-import { business, fullAddress, hoursSummary } from '../data/business';
-import { mainNav, legalNav } from '../data/navigation';
+import { business, dailyHours, formatTime12, fullAddress, hoursSummary, hoursSummaryEn } from '../data/business';
+import { mainNav, mainNavEn, legalNav, englishHref } from '../data/navigation';
 import { services } from '../data/services';
-import { telHref, whatsappHref, directionsUrl, googleMapsUrl, hasEmail, mailHref } from '../lib/links';
+import { telHref, whatsappHref, directionsUrl, googleMapsUrl } from '../lib/links';
 
-const hours = hoursSummary();
+interface Props {
+  lang?: 'de' | 'en';
+}
+
+const { lang = 'de' } = Astro.props;
+const en = lang === 'en';
 const year = new Date().getFullYear();
+const daily = dailyHours();
+const hours = en ? hoursSummaryEn() : hoursSummary();
+const t = en
+  ? {
+      about: `${business.name} is a studio for traditional Thai massage in ${business.address.city}, district of Böblingen. Professional massages in the Thai tradition, ${hours ? hours.replace('Daily', 'daily') : 'appointments by arrangement'}.`,
+      contact: 'Contact',
+      reviews: 'Reviews on Google',
+      hoursTitle: 'Opening hours',
+      days: 'Monday to Sunday',
+      time: daily ? `${formatTime12(daily.opens)} – ${formatTime12(daily.closes)}` : '',
+      holidays: 'including public holidays',
+      note: business.byAppointment ? 'Appointments by phone or WhatsApp, other times by arrangement.' : 'Appointments by phone or WhatsApp.',
+      massages: 'Massages',
+      pages: 'Pages',
+      legal: 'Legal (in German)',
+      nav: mainNavEn,
+      massageHref: (slug: string) => `/en/#${slug}`,
+      switchLink: { href: '/', lang: 'de', label: 'Deutsch' },
+    }
+  : {
+      about: `${business.name} ist ein Studio für traditionelle Thaimassage in ${business.address.city}, ${business.address.district}. Seriöse Massagen nach thailändischer Tradition, ${hours ? hours.replace('Täglich', 'täglich') : 'Termine nach Vereinbarung'}.`,
+      contact: 'Kontakt',
+      reviews: 'Bewertungen auf Google',
+      hoursTitle: 'Öffnungszeiten',
+      days: 'Montag bis Sonntag',
+      time: daily ? `${daily.opens} – ${daily.closes} Uhr` : '',
+      holidays: 'auch an Feiertagen',
+      note: business.byAppointment ? 'Termine per Anruf oder WhatsApp, auch nach Vereinbarung.' : 'Termine per Anruf oder WhatsApp.',
+      massages: 'Massagen',
+      pages: 'Seiten',
+      legal: 'Rechtliches',
+      nav: mainNav,
+      massageHref: (slug: string) => `/leistungen/#${slug}`,
+      switchLink: { href: englishHref(Astro.url.pathname), lang: 'en', label: 'English' },
+    };
 ---
 
 <footer class="site-footer">
@@ -17,14 +57,11 @@ const year = new Date().getFullYear();
     <div class="container site-footer__grid">
       <div class="site-footer__brand">
         <Logo width={168} loading="lazy" />
-        <p>
-          {business.name} ist ein Studio für traditionelle Thaimassage in {business.address.city}, {business.address.district}.
-          Seriöse Massagen nach thailändischer Tradition, {hours ? hours.replace('Täglich', 'täglich') : 'Termine nach Vereinbarung'}.
-        </p>
+        <p>{t.about}</p>
       </div>
 
       <div>
-        <h2 class="site-footer__title">Kontakt</h2>
+        <h2 class="site-footer__title">{t.contact}</h2>
         <address>
           <ul class="site-footer__list">
             <li>
@@ -41,62 +78,51 @@ const year = new Date().getFullYear();
             </li>
             <li>
               <Icon name="star" />
-              <a href={googleMapsUrl} rel="noopener" target="_blank">Bewertungen auf Google</a>
+              <a href={googleMapsUrl} rel="noopener" target="_blank">{t.reviews}</a>
             </li>
-            {
-              hasEmail && (
-                <li>
-                  <Icon name="mail" />
-                  <a href={mailHref}>{business.email}</a>
-                </li>
-              )
-            }
           </ul>
         </address>
       </div>
 
       <div>
-        <h2 class="site-footer__title">Öffnungszeiten</h2>
+        <h2 class="site-footer__title">{t.hoursTitle}</h2>
         {
-          hours ? (
+          daily ? (
             <p class="site-footer__hours">
               <Icon name="clock" />
               <span>
-                Montag bis Sonntag
+                {t.days}
                 <br />
-                {business.openingHours[0].opens} – {business.openingHours[0].closes} Uhr
-                {
-                  business.openOnHolidays && (
-                    <>
-                      <br />
-                      auch an Feiertagen
-                    </>
-                  )
-                }
+                {t.time}
+                {business.openOnHolidays && (
+                  <>
+                    <br />
+                    {t.holidays}
+                  </>
+                )}
               </span>
             </p>
           ) : (
             <ul class="site-footer__list">
               {business.openingHours.map((d) => (
                 <li>
-                  {d.day}: {d.opens}–{d.closes} Uhr
+                  {en ? d.schemaDay : d.day}: {d.opens}–{d.closes}
+                  {en ? '' : ' Uhr'}
                 </li>
               ))}
             </ul>
           )
         }
-        <p class="site-footer__note">
-          {business.byAppointment ? 'Termine per Anruf oder WhatsApp, auch nach Vereinbarung.' : 'Termine per Anruf oder WhatsApp.'}
-        </p>
+        <p class="site-footer__note">{t.note}</p>
       </div>
 
-      <nav aria-label="Leistungen">
-        <h2 class="site-footer__title">Massagen</h2>
+      <nav aria-label={t.massages}>
+        <h2 class="site-footer__title">{t.massages}</h2>
         <ul class="site-footer__links">
           {
             services.map((s) => (
               <li>
-                <a href={`/leistungen/#${s.slug}`}>{s.name}</a>
+                <a href={t.massageHref(s.slug)}>{en ? s.en.name : s.name}</a>
               </li>
             ))
           }
@@ -106,23 +132,30 @@ const year = new Date().getFullYear();
 
     <div class="container site-footer__bottom">
       <p>© {year} {business.name}</p>
-      <nav aria-label="Seiten">
+      <nav aria-label={t.pages}>
         <ul class="site-footer__inline">
           {
-            mainNav.map((item) => (
+            t.nav.map((item) => (
               <li>
                 <a href={item.href}>{item.label}</a>
               </li>
             ))
           }
+          <li>
+            <a class="site-footer__lang" href={t.switchLink.href} hreflang={t.switchLink.lang} lang={t.switchLink.lang}>
+              {t.switchLink.label}
+            </a>
+          </li>
         </ul>
       </nav>
-      <nav aria-label="Rechtliches">
+      <nav aria-label={t.legal}>
         <ul class="site-footer__inline">
           {
             legalNav.map((item) => (
               <li>
-                <a href={item.href}>{item.label}</a>
+                <a href={item.href} hreflang={en ? 'de' : undefined} lang={en ? 'de' : undefined}>
+                  {item.label}
+                </a>
               </li>
             ))
           }
@@ -235,5 +268,9 @@ const year = new Date().getFullYear();
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 1.25rem;
+  }
+
+  .site-footer__lang {
+    font-weight: 650;
   }
 </style>

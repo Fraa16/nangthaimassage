@@ -23,4 +23,3 @@ export const appleMapsUrl = `https://maps.apple.com/?address=${encodeURIComponen
 export const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(placeQuery)}&hl=de&z=16&output=embed`;
 
 export const hasEmail = !business.email.startsWith('TODO');
-export const mailHref = `mailto:${business.email}`;

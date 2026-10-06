@@ -29,7 +29,11 @@ export const business = {
   },
   /** Nummer für wa.me-Links: Ländervorwahl ohne „+“ und ohne führende Null. */
   whatsapp: '491791093532',
-  email: 'TODO: E-Mail-Adresse',
+  /**
+   * Pflichtangabe im Impressum (§ 5 DDG). Steht bewusst NUR dort und ohne Link:
+   * Nang möchte nicht per E-Mail kontaktiert werden, Termine laufen über Telefon und WhatsApp.
+   */
+  email: 'nang.thaimassage.ehningen@gmail.com',
   /** Umsatzsteuer-Identifikationsnummer, falls vorhanden. Leer lassen, wenn nicht. */
   vatId: '',
   /** Öffnungszeiten laut Flyer: täglich 10–20 Uhr. */
@@ -67,12 +71,23 @@ export const hosting = {
 
 export const fullAddress = `${business.address.street}, ${business.address.postalCode} ${business.address.city}`;
 
-/** „Täglich 10–20 Uhr“, wenn alle Tage gleich sind, sonst null. */
-export function hoursSummary(): string | null {
+/** Die Öffnungszeit, wenn alle sieben Tage gleich sind, sonst null. */
+export function dailyHours() {
   const [first] = business.openingHours;
   const same = business.openingHours.every((d) => d.opens === first.opens && d.closes === first.closes);
-  if (!same || business.openingHours.length !== 7) return null;
-  return `Täglich ${formatTime(first.opens)}–${formatTime(first.closes)} Uhr`;
+  return same && business.openingHours.length === 7 ? first : null;
+}
+
+/** „Täglich 10–20 Uhr“, wenn alle Tage gleich sind, sonst null. */
+export function hoursSummary(): string | null {
+  const daily = dailyHours();
+  return daily ? `Täglich ${formatTime(daily.opens)}–${formatTime(daily.closes)} Uhr` : null;
+}
+
+/** „Daily 10 am – 8 pm“ für die englische Seite, sonst null. */
+export function hoursSummaryEn(): string | null {
+  const daily = dailyHours();
+  return daily ? `Daily ${formatTime12(daily.opens)} – ${formatTime12(daily.closes)}` : null;
 }
 
 /** „auch an Feiertagen und nach Vereinbarung“ bzw. die Teile, die zutreffen; sonst null. */
@@ -84,4 +99,11 @@ export function hoursExtras(): string | null {
 /** „12:00“ → „12“, „12:30“ → „12:30“ */
 export function formatTime(t: string): string {
   return t.endsWith(':00') ? t.slice(0, -3) : t;
+}
+
+/** „10:00“ → „10 am“, „20:30“ → „8:30 pm“ */
+export function formatTime12(t: string): string {
+  const [hours, minutes] = t.split(':');
+  const h = Number(hours);
+  return `${h % 12 || 12}${minutes === '00' ? '' : `:${minutes}`} ${h < 12 ? 'am' : 'pm'}`;
 }

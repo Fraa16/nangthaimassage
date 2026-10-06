@@ -2,7 +2,7 @@
 import { business } from '../data/business';
 import { services, lowestPrice, highestPrice, formatPrice, type Service } from '../data/services';
 import type { FaqItem } from '../data/faq';
-import { googleMapsUrl, hasEmail } from './links';
+import { googleMapsUrl } from './links';
 import { yearsOfExperience } from '../data/about';
 
 type JsonLd = Record<string, unknown>;
@@ -66,7 +66,6 @@ export function localBusinessSchema(site: URL, logoUrl: string): JsonLd {
       'Akupressur',
     ],
     sameAs: [business.googleProfileUrl, ...business.profiles].filter(Boolean),
-    ...(hasEmail ? { email: business.email } : {}),
     ...(business.owner.startsWith('TODO')
       ? {}
       : { founder: { '@type': 'Person', name: business.owner, alternateName: 'Nang' } }),

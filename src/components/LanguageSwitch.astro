@@ -1,0 +1,72 @@
+---
+/**
+ * Sprachumschalter DE | EN. Englisch gibt es als eine Seite (/en/): Von einer
+ * deutschen Seite führt EN zum passenden Abschnitt dort, von /en/ führt DE zur Startseite.
+ */
+import { englishHref } from '../data/navigation';
+
+interface Props {
+  lang: 'de' | 'en';
+}
+
+const { lang } = Astro.props;
+const options = [
+  { code: 'de', short: 'DE', name: 'Deutsch', href: '/' },
+  { code: 'en', short: 'EN', name: 'English', href: englishHref(Astro.url.pathname) },
+];
+---
+
+<div class="lang-switch" role="group" aria-label={lang === 'en' ? 'Language' : 'Sprache'}>
+  {
+    options.map((o) =>
+      o.code === lang ? (
+        <span class="lang-switch__option" aria-current="true" lang={o.code}>
+          <span aria-hidden="true">{o.short}</span>
+          <span class="visually-hidden">{o.name}</span>
+        </span>
+      ) : (
+        <a class="lang-switch__option" href={o.href} hreflang={o.code} lang={o.code}>
+          <span aria-hidden="true">{o.short}</span>
+          <span class="visually-hidden">{o.name}</span>
+        </a>
+      ),
+    )
+  }
+</div>
+
+<style>
+  .lang-switch {
+    display: inline-flex;
+    flex: none;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid rgb(247 215 116 / 0.55);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.05);
+  }
+
+  .lang-switch__option {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.6rem;
+    height: 2.25rem;
+    padding-inline: 0.55rem;
+    border-radius: 999px;
+    font-family: var(--font-caps);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--cream-100);
+    text-decoration: none;
+  }
+
+  a.lang-switch__option:hover {
+    background: rgb(255 255 255 / 0.1);
+    color: var(--gold-300);
+  }
+
+  .lang-switch__option[aria-current] {
+    background: var(--gold-300);
+    color: var(--purple-900);
+  }
+</style>

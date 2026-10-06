@@ -2,6 +2,7 @@
 
 Stand: 25.09.2026. Quelle: `src/data/business.ts` und `src/data/services.ts`.
 Ändern sich Preise oder Zeiten, zuerst dort ändern, dann hier und in allen Einträgen.
+Website: https://nang-thaimassage-ehningen.de (englische Seite: /en/)
 
 Warum das wichtig ist: Google und KI-Suchen gleichen Website, Google-Profil und
 Verzeichnisse miteinander ab. Weichen Name, Adresse, Telefon oder Öffnungszeiten
@@ -20,7 +21,7 @@ Bitte in keinem Eintrag „hilft bei Migräne“, „gegen Schmerzen“ oder Äh
 | Adresse | Königstraße 25, 71139 Ehningen |
 | Telefon | 0179 1093532 |
 | WhatsApp | 0179 1093532 |
-| Website | https://DOMAIN/ (nach dem Livegang eintragen) |
+| Website | https://nang-thaimassage-ehningen.de/ (nach dem Livegang eintragen) |
 | Öffnungszeiten | Montag bis Sonntag 10:00–20:00 Uhr, auch an Feiertagen, weitere Termine nach Vereinbarung |
 
 Der Name steht heute in drei Schreibweisen im Netz (Nang Thai Massage, Nang Thai-Massage,
@@ -33,7 +34,7 @@ Nang Thaimassage). Überall **Nang Thai Massage** verwenden, so wie auf der Webs
 ### Sofort ändern
 
 1. **Website:** von massageando auf die neue Domain umstellen.
-2. **Terminlink:** `https://DOMAIN/kontakt/` (dort gibt es die WhatsApp-Terminanfrage).
+2. **Terminlink:** `https://nang-thaimassage-ehningen.de/kontakt/` (dort gibt es die WhatsApp-Terminanfrage).
 3. **Öffnungszeiten:** Montag bis Sonntag 10:00–20:00 Uhr.
 4. **Feiertage:** unter „Besondere Öffnungszeiten“ für jeden Feiertag 10:00–20:00 Uhr eintragen,
    sonst zeigt Google an Feiertagen „Öffnungszeiten können abweichen“.
@@ -113,7 +114,7 @@ Dieselben Fotos später auch auf die Website, dann ersetze ich dort die reinen O
 1. **Google Search Console:** Property für die Domain anlegen und bestätigen
    (DNS-Eintrag in Vercel oder Methode „HTML-Tag“: den Code als Umgebungsvariable
    `GOOGLE_SITE_VERIFICATION` in Vercel eintragen und neu deployen).
-2. **Sitemap einreichen:** `https://DOMAIN/sitemap-index.xml`
+2. **Sitemap einreichen:** `https://nang-thaimassage-ehningen.de/sitemap-index.xml`
 3. **Bing Webmaster Tools:** Website aus der Search Console importieren
    (oder Code als `BING_SITE_VERIFICATION` eintragen).
 4. **Prüfen:** Rich Results Test (search.google.com/test/rich-results) und

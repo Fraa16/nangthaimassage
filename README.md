@@ -1,9 +1,13 @@
 # Nang Thai Massage – Website
 
 Website für **Nang Thai Massage**, Königstraße 25, 71139 Ehningen.
-Seiten (fester Umfang): Startseite, Leistungen, Über uns, Kontakt sowie Impressum und Datenschutz
-(im Footer unter „Rechtliches“). Dazu `sitemap-index.xml`, `robots.txt` und `llms.txt`
-(Kurzprofil für KI-Suchmaschinen, eine Textdatei, keine Seite), alle aus denselben Daten erzeugt.
+Domain: **https://nang-thaimassage-ehningen.de**
+
+Seiten: Startseite, Leistungen, Über uns, Kontakt sowie Impressum und Datenschutz
+(im Footer unter „Rechtliches“). Dazu eine englische Seite (`/en/`) für internationale Gäste:
+Der Umschalter DE | EN steht oben in der Navigation, die englische Navigation springt zu den
+Abschnitten dieser einen Seite. Außerdem `sitemap-index.xml`, `robots.txt` und `llms.txt`
+(Kurzprofil für KI-Suchmaschinen), alle aus denselben Daten erzeugt.
 
 Gebaut mit [Astro](https://astro.build) als rein statische Seite: kein Server, keine Datenbank, keine Cookies.
 Gehostet wird auf Vercel.
@@ -28,12 +32,12 @@ Fast alles steht in `src/data/`. Die Seiten lesen von dort, eine Änderung wirkt
 | Datei                   | Inhalt                                                                  |
 | ----------------------- | ----------------------------------------------------------------------- |
 | `src/data/business.ts`  | Name, Inhaberin, Adresse, Telefon, WhatsApp, E-Mail, Öffnungszeiten      |
-| `src/data/services.ts`  | Massagen, Kurzbeschreibungen, Dauer und Preise                          |
+| `src/data/services.ts`  | Massagen, Kurzbeschreibungen, Dauer und Preise, englische Namen         |
 | `src/data/service-details.ts` | Ausführliche Texte und Fragen je Massage auf der Seite „Leistungen“ |
 | `src/data/reviews.ts`   | Ausgewählte Google-Bewertungen (Abschnitt erscheint erst, wenn gefüllt)  |
 | `src/data/faq.ts`       | Häufige Fragen auf der Startseite (Preis-Antwort rechnet automatisch)    |
 | `src/data/about.ts`     | Nangs Erfahrung, Schwerpunkt und Arbeitsweise; persönliche Geschichte (erscheint erst, wenn ausgefüllt) |
-| `src/data/navigation.ts`| Menüpunkte                                                              |
+| `src/data/navigation.ts`| Menüpunkte (deutsch und englisch), Ziele des Sprachumschalters          |
 
 Preise, Leistungen und Öffnungszeiten stammen aus Nangs Flyer (Stand 25.09.2026) und dem
 massageando-Eintrag (Stand 24.09.2026); wo beide abweichen, gilt der Flyer.
@@ -49,10 +53,11 @@ auf die die Website verlinkt. Diese Texte stehen gesammelt in `src/data/about.ts
 `npm run build` listet fehlende Angaben auf. Offen sind:
 
 - [ ] **Vor- und Nachname der Inhaberin** (`business.owner`), Pflicht fürs Impressum
-- [ ] **E-Mail-Adresse** (`business.email`), Pflicht fürs Impressum
+- [x] **E-Mail-Adresse** (`business.email`): Pflicht fürs Impressum (§ 5 DDG). Steht bewusst nur dort
+      und ohne Link, Nang möchte nicht per E-Mail kontaktiert werden.
 - [ ] Umsatzsteuer-ID, falls vorhanden (`business.vatId`)
 - [ ] Name exakt wie im Google-Profil schreiben (`business.name`)
-- [ ] Eigene Domain in Vercel verbinden
+- [ ] Domain `nang-thaimassage-ehningen.de` registrieren und in Vercel verbinden (`www` auf die Domain ohne `www` weiterleiten)
 - [ ] Optional, aber wirkungsvoll: persönliche Geschichte und Foto von Nang (`src/data/about.ts`)
 - [ ] Nach dem Livegang: im Google-Unternehmensprofil die Website von massageando auf die neue Domain umstellen
 - [ ] Öffnungszeiten (täglich 10–20 Uhr, auch an Feiertagen) und Preise im Google-Profil und bei massageando an den Flyer angleichen
@@ -68,9 +73,9 @@ Der Build läuft trotzdem durch. Wer vor dem Livegang sicher gehen will, baut mi
 2. Framework wird als Astro erkannt; Build-Befehl und Ausgabeordner stehen in `vercel.json`.
 3. Domain unter **Settings → Domains** hinzufügen.
 
-Canonical-URLs, Sitemap und Open-Graph-Links nutzen automatisch die Produktions-Domain
-(`VERCEL_PROJECT_PRODUCTION_URL`). Soll eine andere Adresse gelten, `SITE_URL` setzen,
-z. B. `SITE_URL=https://www.beispiel.de`.
+Canonical-URLs, Sitemap und Open-Graph-Links zeigen immer auf `https://nang-thaimassage-ehningen.de`
+(festgelegt in `astro.config.mjs`), auch in Vorschau-Deployments. Soll eine andere Adresse gelten,
+`SITE_URL` setzen, z. B. `SITE_URL=https://www.beispiel.de`.
 
 `vercel.json` sorgt außerdem für Weiterleitungen auf URLs mit Schrägstrich am Ende,
 Sicherheits-Header (inklusive Content-Security-Policy) und lange Cache-Zeiten für Bilder und Skripte.
@@ -80,7 +85,7 @@ Die Vercel-Toolbar in Previews wird durch die CSP blockiert; das betrifft nur Pr
 
 Am einfachsten per DNS-Eintrag in Vercel. Alternativ die Methode „HTML-Tag“: nur den Code
 (ohne `<meta …>`) als Umgebungsvariable `GOOGLE_SITE_VERIFICATION` bzw. `BING_SITE_VERIFICATION`
-in Vercel eintragen und neu deployen. Danach die Sitemap `https://DOMAIN/sitemap-index.xml` einreichen.
+in Vercel eintragen und neu deployen. Danach die Sitemap `https://nang-thaimassage-ehningen.de/sitemap-index.xml` einreichen.
 
 ## Unterlagen außerhalb der Website
 

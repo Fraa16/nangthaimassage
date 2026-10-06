@@ -19,6 +19,8 @@ export interface Service {
   /** Ein Satz für Karten und Übersichten. */
   teaser: string;
   options: PriceOption[];
+  /** Name und Kurztext für die englische Seite */
+  en: { name: string; teaser: string };
 }
 
 export const services: Service[] = [
@@ -26,6 +28,10 @@ export const services: Service[] = [
     slug: 'traditionelle-thaimassage',
     name: 'Traditionelle Thaimassage',
     teaser: 'Kräftiger Druck entlang der Energielinien und sanfte Dehnungen, von den Füßen bis zum Kopf.',
+    en: {
+      name: 'Traditional Thai massage',
+      teaser: 'Rhythmic pressure along the energy lines and gentle stretches, without oil and fully clothed.',
+    },
     options: [
       { minutes: 30, price: 30 },
       { minutes: 60, price: 55 },
@@ -37,6 +43,10 @@ export const services: Service[] = [
     slug: 'thai-oelmassage',
     name: 'Thai-Ölmassage',
     teaser: 'Lange, fließende Griffe mit warmem Öl. Ruhiger und sanfter als die klassische Thaimassage.',
+    en: {
+      name: 'Thai oil massage with warm oil',
+      teaser: 'Long, flowing strokes with warm oil, calmer and gentler than the traditional Thai massage.',
+    },
     options: [
       { minutes: 30, price: 30 },
       { minutes: 60, price: 55 },
@@ -48,6 +58,10 @@ export const services: Service[] = [
     slug: 'ruecken-nacken-schulter-massage',
     name: 'Rücken-, Nacken- und Schultermassage',
     teaser: 'Rücken, Nacken, Schultern und auf Wunsch der Kopf: gezielt dort, wo sich Schreibtischarbeit und Stress festsetzen.',
+    en: {
+      name: 'Back, neck and shoulder massage',
+      teaser: 'Focused on back, neck and shoulders, including the head on request.',
+    },
     options: [
       { minutes: 30, price: 30 },
       { minutes: 60, price: 45 },
@@ -59,6 +73,10 @@ export const services: Service[] = [
     slug: 'kraeuterstempelmassage',
     name: 'Kräuterstempelmassage',
     teaser: 'Warme Kräuterstempel, Akupressur und ätherische Öle für eine lange, ruhige Auszeit.',
+    en: {
+      name: 'Thai herbal compress massage',
+      teaser: 'Warm herbal compresses, acupressure and essential oils for a long, calm break.',
+    },
     options: [
       { minutes: 90, price: 90 },
       { minutes: 120, price: 120 },
@@ -68,6 +86,10 @@ export const services: Service[] = [
     slug: 'fussreflexzonenmassage',
     name: 'Fußreflexzonenmassage',
     teaser: 'Gezielter Druck auf die Reflexzonen der Füße. Wohltuend nach langen Tagen auf den Beinen.',
+    en: {
+      name: 'Foot reflexology massage',
+      teaser: 'Thai-style foot massage with targeted pressure on the reflex zones of the soles.',
+    },
     options: [
       { minutes: 30, price: 30 },
       { minutes: 60, price: 40 },

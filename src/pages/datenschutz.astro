@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Placeholder from '../components/Placeholder.astro';
 import { business, hosting } from '../data/business';
-import { telHref, hasEmail, mailHref } from '../lib/links';
+import { telHref } from '../lib/links';
 
 const breadcrumbs = [{ name: 'Datenschutz', href: '/datenschutz/' }];
 ---
@@ -34,8 +34,6 @@ const breadcrumbs = [{ name: 'Datenschutz', href: '/datenschutz/' }];
         {business.address.street}, {business.address.postalCode} {business.address.city}
         <br />
         Telefon: <a href={telHref}>{business.phone.display}</a>
-        <br />
-        E-Mail: {hasEmail ? <a href={mailHref}>{business.email}</a> : <Placeholder value={business.email} />}
       </p>
 
       <h2>2. Hosting und Server-Logfiles</h2>
@@ -75,9 +73,9 @@ const breadcrumbs = [{ name: 'Datenschutz', href: '/datenschutz/' }];
         von unserem eigenen Server geladen, dabei werden keine Daten an Dritte übertragen.
       </p>
 
-      <h2>5. Kontakt per Telefon, WhatsApp oder E-Mail</h2>
+      <h2>5. Kontaktaufnahme</h2>
       <p>
-        Wenn Sie uns anrufen, per WhatsApp schreiben oder eine E-Mail senden, verarbeiten wir Ihre Angaben (etwa Name,
+        Wenn Sie uns anrufen, per WhatsApp schreiben oder auf anderem Weg Kontakt aufnehmen, verarbeiten wir Ihre Angaben (etwa Name,
         Telefonnummer, Terminwunsch und Nachricht), um Ihre Anfrage zu beantworten und Ihren Termin zu vereinbaren.
         Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung und Durchführung eines Vertrags) sowie unser berechtigtes
         Interesse an der Beantwortung von Anfragen (Art. 6 Abs. 1 lit. f DSGVO). Wir löschen die Daten, sobald sie nicht mehr

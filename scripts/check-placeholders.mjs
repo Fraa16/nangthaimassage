@@ -13,12 +13,7 @@ const todos = source
   .map((line, i) => ({ line: i + 1, text: line.trim() }))
   .filter(({ text }) => /['"`]TODO:/.test(text));
 
-const siteUrl =
-  process.env.SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : '');
-
 const problems = todos.map(({ line, text }) => `src/data/business.ts:${line}  ${text}`);
-if (!siteUrl) problems.push('Keine Domain gesetzt (SITE_URL). Canonical-URLs und Sitemap zeigen auf localhost.');
 
 if (problems.length === 0) process.exit(0);
 

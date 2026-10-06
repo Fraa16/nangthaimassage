@@ -53,6 +53,11 @@ const highlights = [
   title="Startseite"
   description={`Thaimassage in Ehningen mit ${yearsOfExperience} Jahren Erfahrung: traditionell, mit warmem Öl, Kräuterstempel oder Fußreflexzonen. ${hours ?? ''}, auch feiertags. Ab ${formatPrice(lowestPrice)}.`}
   schema={[faqSchema(faq)]}
+  alternates={[
+    { hreflang: 'de', href: '/' },
+    { hreflang: 'en', href: '/en/' },
+    { hreflang: 'x-default', href: '/' },
+  ]}
 >
   <section class="hero bg-damask-light" aria-labelledby="hero-title">
     <Image

@@ -2,15 +2,9 @@
 import { defineConfig, envField } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Domain für Canonical-URLs, Sitemap und Open Graph.
-// Reihenfolge: SITE_URL (manuell) → Produktions-Domain von Vercel → lokal.
-// Vercel setzt VERCEL_PROJECT_PRODUCTION_URL automatisch auf die kürzeste
-// eigene Domain des Projekts (oder die .vercel.app-Adresse, solange es keine gibt).
-const SITE_URL =
-  process.env.SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : 'http://localhost:4321');
+// Domain für Canonical-URLs, Sitemap und Open Graph. Gilt auch für Vorschau-Deployments,
+// damit Google nur die echte Domain als Original sieht. SITE_URL überschreibt sie bei Bedarf.
+const SITE_URL = process.env.SITE_URL || 'https://nang-thaimassage-ehningen.de';
 
 export default defineConfig({
   site: SITE_URL,

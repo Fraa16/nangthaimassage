@@ -1,24 +1,53 @@
 ---
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
-import { mainNav, isCurrent } from '../data/navigation';
-import { business, hoursSummary } from '../data/business';
+import LanguageSwitch from './LanguageSwitch.astro';
+import { mainNav, mainNavEn, isCurrent } from '../data/navigation';
+import { business, hoursSummary, hoursSummaryEn } from '../data/business';
 import { telHref, whatsappHref } from '../lib/links';
 
+interface Props {
+  lang?: 'de' | 'en';
+}
+
+const { lang = 'de' } = Astro.props;
 const path = Astro.url.pathname;
-const hours = hoursSummary();
+const en = lang === 'en';
+const nav = en ? mainNavEn : mainNav;
+const hours = en ? hoursSummaryEn() : hoursSummary();
+const t = en
+  ? {
+      home: '/en/',
+      homeLabel: `${business.name} – home`,
+      nav: 'Main navigation',
+      navMobile: 'Main navigation (mobile)',
+      open: 'Open menu',
+      close: 'Close menu',
+      call: `Call ${business.phone.display}`,
+      whatsapp: 'Send a WhatsApp',
+    }
+  : {
+      home: '/',
+      homeLabel: `${business.name} – zur Startseite`,
+      nav: 'Hauptnavigation',
+      navMobile: 'Hauptnavigation mobil',
+      open: 'Menü öffnen',
+      close: 'Menü schließen',
+      call: `${business.phone.display} anrufen`,
+      whatsapp: 'WhatsApp schreiben',
+    };
 ---
 
 <header class="site-header bg-damask">
   <div class="container site-header__inner">
-    <a href="/" class="site-header__brand" aria-label={`${business.name} – zur Startseite`}>
+    <a href={t.home} class="site-header__brand" aria-label={t.homeLabel}>
       <Logo width={128} />
     </a>
 
-    <nav class="site-nav" aria-label="Hauptnavigation">
+    <nav class="site-nav" aria-label={t.nav}>
       <ul>
         {
-          mainNav.map((item) => (
+          nav.map((item) => (
             <li>
               <a href={item.href} aria-current={isCurrent(item.href, path) ? 'page' : undefined}>
                 {item.label}
@@ -34,7 +63,9 @@ const hours = hoursSummary();
       <span>{business.phone.display}</span>
     </a>
 
-    <button class="menu-toggle" type="button" popovertarget="mobile-menu" aria-label="Menü öffnen">
+    <LanguageSwitch lang={lang} />
+
+    <button class="menu-toggle" type="button" popovertarget="mobile-menu" aria-label={t.open}>
       <Icon name="menu" />
     </button>
   </div>
@@ -42,14 +73,17 @@ const hours = hoursSummary();
   <div id="mobile-menu" class="mobile-menu bg-damask" popover>
     <div class="mobile-menu__top">
       <Logo width={112} loading="lazy" />
-      <button class="menu-toggle" type="button" popovertarget="mobile-menu" popovertargetaction="hide" aria-label="Menü schließen">
-        <Icon name="close" />
-      </button>
+      <div class="mobile-menu__actions">
+        <LanguageSwitch lang={lang} />
+        <button class="menu-toggle" type="button" popovertarget="mobile-menu" popovertargetaction="hide" aria-label={t.close}>
+          <Icon name="close" />
+        </button>
+      </div>
     </div>
-    <nav aria-label="Hauptnavigation mobil">
+    <nav aria-label={t.navMobile}>
       <ul>
         {
-          mainNav.map((item) => (
+          nav.map((item) => (
             <li>
               <a href={item.href} aria-current={isCurrent(item.href, path) ? 'page' : undefined}>
                 {item.label}
@@ -60,12 +94,20 @@ const hours = hoursSummary();
       </ul>
     </nav>
     <div class="mobile-menu__contact">
-      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> {business.phone.display} anrufen</a>
-      <a class="btn btn--outline-light" href={whatsappHref()}><Icon name="whatsapp" /> WhatsApp schreiben</a>
+      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> {t.call}</a>
+      <a class="btn btn--outline-light" href={whatsappHref()}><Icon name="whatsapp" /> {t.whatsapp}</a>
       {hours && <p><Icon name="clock" /> {hours}</p>}
     </div>
   </div>
 </header>
+
+<script>
+  // Menü nach einem Klick auf einen Link schließen; nötig für Sprungmarken auf derselben Seite (englische Seite)
+  const menu = document.getElementById('mobile-menu');
+  menu?.addEventListener('click', (event) => {
+    if (event.target instanceof Element && event.target.closest('a') && menu.matches(':popover-open')) menu.hidePopover();
+  });
+</script>
 
 <style>
   .site-header {
@@ -160,12 +202,16 @@ const hours = hoursSummary();
     font-variant-numeric: tabular-nums;
   }
 
+  /* Sprachumschalter: mobil links neben dem Menüknopf, am Desktop ganz rechts */
+  .site-header__inner > :global(.lang-switch) {
+    margin-left: auto;
+  }
+
   .menu-toggle {
     display: inline-grid;
     place-items: center;
     width: 3rem;
     height: 3rem;
-    margin-left: auto;
     padding: 0;
     border: 1px solid rgb(247 215 116 / 0.55);
     border-radius: 50%;
@@ -183,6 +229,10 @@ const hours = hoursSummary();
     .site-nav,
     .site-header__call {
       display: flex;
+    }
+
+    .site-header__inner > :global(.lang-switch) {
+      margin-left: 0;
     }
 
     .site-header > .site-header__inner > .menu-toggle {
@@ -215,6 +265,12 @@ const hours = hoursSummary();
     justify-content: space-between;
     min-height: var(--header-h);
     border-bottom: 1px solid rgb(247 215 116 / 0.3);
+  }
+
+  .mobile-menu__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
   }
 
   .mobile-menu nav ul {

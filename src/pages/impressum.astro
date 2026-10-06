@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Placeholder from '../components/Placeholder.astro';
 import { business } from '../data/business';
-import { telHref, hasEmail, mailHref } from '../lib/links';
+import { telHref, hasEmail } from '../lib/links';
 
 const breadcrumbs = [{ name: 'Impressum', href: '/impressum/' }];
 ---
@@ -32,10 +32,11 @@ const breadcrumbs = [{ name: 'Impressum', href: '/impressum/' }];
 
       <h2>Kontakt</h2>
       <p>
-        Telefon: <a href={telHref}>{business.phone.display}</a>
+        Telefon und WhatsApp: <a href={telHref}>{business.phone.display}</a>
         <br />
-        E-Mail: {hasEmail ? <a href={mailHref}>{business.email}</a> : <Placeholder value={business.email} />}
+        E-Mail: {hasEmail ? business.email : <Placeholder value={business.email} />}
       </p>
+      <p>Termine vereinbaren Sie bitte telefonisch oder per WhatsApp.</p>
 
       {
         business.vatId && (
