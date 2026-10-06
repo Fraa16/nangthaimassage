@@ -1,8 +1,13 @@
 ---
-/** Echte Google-Bewertungen (aus src/data/reviews.ts). Ohne Einträge wird nichts ausgegeben. */
+/**
+ * Echte Google-Bewertungen (aus src/data/reviews.ts). Ohne Einträge wird nichts ausgegeben.
+ * Der Hinweis unter den Bewertungen ist Pflicht (§ 5b Abs. 3 UWG): Er sagt, ob geprüft wird,
+ * dass die Bewertungen von echten Gästen stammen. Keine strukturierten Daten (Review-Schema):
+ * Google wertet eigene Bewertungen eines Unternehmens nicht aus.
+ */
 import Icon from './Icon.astro';
 import SectionHeading from './SectionHeading.astro';
-import { reviews } from '../data/reviews';
+import { reviews, reviewsAsOf } from '../data/reviews';
 import { googleMapsUrl } from '../lib/links';
 
 interface Props {
@@ -21,12 +26,11 @@ const { class: className } = Astro.props;
           {reviews.map((review) => (
             <li>
               <figure>
-                <span class="reviews__stars" aria-hidden="true">
-                  <Icon name="star" />
-                  <Icon name="star" />
-                  <Icon name="star" />
-                  <Icon name="star" />
-                  <Icon name="star" />
+                <span class="reviews__stars">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <Icon name="star" class={n <= review.rating ? 'reviews__star--full' : undefined} />
+                  ))}
+                  <span class="visually-hidden">{`${review.rating} von 5 Sternen`}</span>
                 </span>
                 <blockquote>
                   <p>{`„${review.text}“`}</p>
@@ -36,6 +40,9 @@ const { class: className } = Astro.props;
             </li>
           ))}
         </ul>
+        <p class="reviews__note">
+          {`Auswahl aus den Google-Bewertungen von Nang Thai Massage (Stand: ${reviewsAsOf}), wörtlich übernommen; Kürzungen sind mit […] gekennzeichnet. Ob die Verfasser tatsächlich bei uns waren, prüfen wir nicht. Für Bewertungen auf Google gelten die Richtlinien von Google.`}
+        </p>
         <p class="reviews__more">
           <a class="text-link" href={googleMapsUrl} rel="noopener" target="_blank">
             Alle Bewertungen auf Google <Icon name="arrow-right" />
@@ -55,9 +62,15 @@ const { class: className } = Astro.props;
     list-style: none;
   }
 
-  @media (min-width: 48rem) {
+  @media (min-width: 40rem) {
     .reviews__list {
-      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .reviews__list {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
@@ -81,6 +94,9 @@ const { class: className } = Astro.props;
   .reviews__stars :global(.icon) {
     width: 1.1rem;
     height: 1.1rem;
+  }
+
+  .reviews__stars :global(.reviews__star--full) {
     fill: currentColor;
   }
 
@@ -99,8 +115,16 @@ const { class: className } = Astro.props;
     color: var(--purple-800);
   }
 
+  .reviews__note {
+    max-width: 46rem;
+    margin: 1.75rem auto 0;
+    font-size: 0.875rem;
+    text-align: center;
+    color: var(--ink-500);
+  }
+
   .reviews__more {
-    margin: 2rem 0 0;
+    margin: 1rem 0 0;
     text-align: center;
   }
 </style>
