@@ -1,9 +1,10 @@
 ---
 /**
  * Echte Google-Bewertungen (aus src/data/reviews.ts). Ohne Einträge wird nichts ausgegeben.
- * Der Hinweis unter den Bewertungen ist Pflicht (§ 5b Abs. 3 UWG): Er sagt, ob geprüft wird,
- * dass die Bewertungen von echten Gästen stammen. Keine strukturierten Daten (Review-Schema):
- * Google wertet eigene Bewertungen eines Unternehmens nicht aus.
+ * Der Hinweis darunter legt Auswahl, Stand und Kürzungen offen. Nach § 5b Abs. 3 UWG gehört
+ * dazu auch, ob und wie geprüft wird, dass die Verfasser echte Gäste sind; ein Satz, dass das
+ * nicht geprüft wird, ist auf Wunsch entfernt. Keine strukturierten Daten
+ * (Review-Schema): Google wertet eigene Bewertungen eines Unternehmens nicht aus.
  */
 import Icon from './Icon.astro';
 import SectionHeading from './SectionHeading.astro';
@@ -41,7 +42,7 @@ const { class: className } = Astro.props;
           ))}
         </ul>
         <p class="reviews__note">
-          {`Auswahl aus den Google-Bewertungen von Nang Thai Massage (Stand: ${reviewsAsOf}), wörtlich übernommen; Kürzungen sind mit […] gekennzeichnet. Ob die Verfasser tatsächlich bei uns waren, prüfen wir nicht. Für Bewertungen auf Google gelten die Richtlinien von Google.`}
+          {`Auswahl aus den Google-Bewertungen von Nang Thai Massage (Stand: ${reviewsAsOf}), wörtlich übernommen; Kürzungen sind mit […] gekennzeichnet. Für Bewertungen auf Google gelten die Richtlinien von Google.`}
         </p>
         <p class="reviews__more">
           <a class="text-link" href={googleMapsUrl} rel="noopener" target="_blank">
