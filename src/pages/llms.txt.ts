@@ -20,6 +20,7 @@ export const GET: APIRoute = ({ site }) => {
     `- Adresse: ${fullAddress}`,
     `- Telefon und WhatsApp: ${business.phone.display} (${business.phone.e164})`,
     `- Öffnungszeiten: ${hours}`,
+    `- Anfahrt: Parken direkt an der Straße, Eingang leicht zu finden; S-Bahn-Linie S1 bis Ehningen`,
     `- Termine: per Anruf oder WhatsApp`,
     `- Bezahlung: vor Ort beim Termin`,
     '',

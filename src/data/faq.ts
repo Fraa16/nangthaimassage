@@ -57,4 +57,9 @@ export const faq: FaqItem[] = [
     question: 'Wo finde ich das Studio?',
     answer: `In der ${business.address.street} in ${business.address.postalCode} ${business.address.city}, ${business.address.district}. Aus ${listJoin(business.nearbyTowns.slice(0, 5))} ist das Studio schnell zu erreichen. Die Route zeigt Ihnen Google Maps, der Link steht auf unserer Kontaktseite.`,
   },
+  {
+    question: 'Kann ich am Studio parken?',
+    answer:
+      'Ja, Sie parken direkt an der Straße, der Eingang ist leicht zu finden. Mit der S-Bahn fahren Sie mit der Linie S1 bis Ehningen.',
+  },
 ];
