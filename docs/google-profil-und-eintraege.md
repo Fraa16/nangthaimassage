@@ -114,7 +114,7 @@ Dieselben Fotos später auch auf die Website, dann ersetze ich dort die reinen O
 1. **Google Search Console:** Property für die Domain anlegen und bestätigen
    (DNS-Eintrag in Vercel oder Methode „HTML-Tag“: den Code als Umgebungsvariable
    `GOOGLE_SITE_VERIFICATION` in Vercel eintragen und neu deployen).
-2. **Sitemap einreichen:** `https://nang-thaimassage-ehningen.de/sitemap-index.xml`
+2. **Sitemap einreichen:** `https://nang-thaimassage-ehningen.de/sitemap.xml`
 3. **Bing Webmaster Tools:** Website aus der Search Console importieren
    (oder Code als `BING_SITE_VERIFICATION` eintragen).
 4. **Prüfen:** Rich Results Test (search.google.com/test/rich-results) und

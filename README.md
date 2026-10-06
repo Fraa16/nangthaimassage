@@ -6,7 +6,7 @@ Domain: **https://nang-thaimassage-ehningen.de** (live seit 06.10.2026)
 Seiten: Startseite, Leistungen, Über uns, Kontakt sowie Impressum und Datenschutz
 (im Footer unter „Rechtliches“). Dazu eine englische Seite (`/en/`) für internationale Gäste:
 Der Umschalter DE | EN steht oben in der Navigation, die englische Navigation springt zu den
-Abschnitten dieser einen Seite. Außerdem `sitemap-index.xml`, `robots.txt` und `llms.txt`
+Abschnitten dieser einen Seite. Außerdem `sitemap.xml` (mit Prioritäten), `robots.txt` und `llms.txt`
 (Kurzprofil für KI-Suchmaschinen), alle aus denselben Daten erzeugt.
 
 Gebaut mit [Astro](https://astro.build) als rein statische Seite: kein Server, keine Datenbank, keine Cookies.
@@ -87,7 +87,8 @@ Die Vercel-Toolbar in Previews wird durch die CSP blockiert; das betrifft nur Pr
 
 Am einfachsten per DNS-Eintrag in Vercel. Alternativ die Methode „HTML-Tag“: nur den Code
 (ohne `<meta …>`) als Umgebungsvariable `GOOGLE_SITE_VERIFICATION` bzw. `BING_SITE_VERIFICATION`
-in Vercel eintragen und neu deployen. Danach die Sitemap `https://nang-thaimassage-ehningen.de/sitemap-index.xml` einreichen.
+in Vercel eintragen und neu deployen. Danach die Sitemap `https://nang-thaimassage-ehningen.de/sitemap.xml` einreichen.
+Prioritäten und Änderungsfrequenz je Seite stehen in `src/pages/sitemap.xml.ts`.
 
 ## Unterlagen außerhalb der Website
 

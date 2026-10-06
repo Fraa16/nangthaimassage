@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 
 // Domain für Canonical-URLs, Sitemap und Open Graph. Gilt auch für Vorschau-Deployments,
 // damit Google nur die echte Domain als Original sieht. SITE_URL überschreibt sie bei Bedarf.
@@ -22,9 +21,4 @@ export default defineConfig({
       BING_SITE_VERIFICATION: envField.string({ context: 'server', access: 'public', optional: true }),
     },
   },
-  integrations: [
-    sitemap({
-      filter: (page) => !page.includes('/404'),
-    }),
-  ],
 });
