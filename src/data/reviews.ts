@@ -10,6 +10,10 @@
  * Solche Sätze werden weggekürzt. Gut geeignet sind Aussagen über Nangs Können,
  * die Atmosphäre, Freundlichkeit und Sauberkeit.
  * Keine Bewertungen mit Leistungen oder Preisen, die es nicht (mehr) gibt.
+ *
+ * WICHTIG – UWG: Unter den Bewertungen steht „Alle hier gezeigten Bewertungen stammen
+ * von Gästen, die Nang persönlich kennt.“ Neue Bewertungen deshalb nur aufnehmen,
+ * wenn Nang die Person als Gast kennt. Sonst den Hinweis anpassen.
  */
 /** Wann die Auswahl zuletzt mit Google abgeglichen wurde (steht im Hinweis unter den Bewertungen). */
 export const reviewsAsOf = 'Oktober 2026';
