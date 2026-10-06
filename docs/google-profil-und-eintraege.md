@@ -2,7 +2,7 @@
 
 Stand: 25.09.2026. Quelle: `src/data/business.ts` und `src/data/services.ts`.
 Ändern sich Preise oder Zeiten, zuerst dort ändern, dann hier und in allen Einträgen.
-Website: https://nang-thaimassage-ehningen.de (englische Seite: /en/)
+Website: https://nang-thaimassage-ehningen.de (live seit 06.10.2026, englische Seite: /en/)
 
 Warum das wichtig ist: Google und KI-Suchen gleichen Website, Google-Profil und
 Verzeichnisse miteinander ab. Weichen Name, Adresse, Telefon oder Öffnungszeiten
@@ -21,7 +21,7 @@ Bitte in keinem Eintrag „hilft bei Migräne“, „gegen Schmerzen“ oder Äh
 | Adresse | Königstraße 25, 71139 Ehningen |
 | Telefon | 0179 1093532 |
 | WhatsApp | 0179 1093532 |
-| Website | https://nang-thaimassage-ehningen.de/ (nach dem Livegang eintragen) |
+| Website | https://nang-thaimassage-ehningen.de/ |
 | Öffnungszeiten | Montag bis Sonntag 10:00–20:00 Uhr, auch an Feiertagen, weitere Termine nach Vereinbarung |
 
 Der Name steht heute in drei Schreibweisen im Netz (Nang Thai Massage, Nang Thai-Massage,

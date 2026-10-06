@@ -1,7 +1,7 @@
 # Nang Thai Massage – Website
 
 Website für **Nang Thai Massage**, Königstraße 25, 71139 Ehningen.
-Domain: **https://nang-thaimassage-ehningen.de**
+Domain: **https://nang-thaimassage-ehningen.de** (live seit 06.10.2026)
 
 Seiten: Startseite, Leistungen, Über uns, Kontakt sowie Impressum und Datenschutz
 (im Footer unter „Rechtliches“). Dazu eine englische Seite (`/en/`) für internationale Gäste:
@@ -57,7 +57,9 @@ auf die die Website verlinkt. Diese Texte stehen gesammelt in `src/data/about.ts
       und ohne Link, Nang möchte nicht per E-Mail kontaktiert werden.
 - [ ] Umsatzsteuer-ID, falls vorhanden (`business.vatId`)
 - [ ] Name exakt wie im Google-Profil schreiben (`business.name`)
-- [ ] Domain `nang-thaimassage-ehningen.de` registrieren und in Vercel verbinden (`www` auf die Domain ohne `www` weiterleiten)
+- [x] Domain `nang-thaimassage-ehningen.de` in Vercel verbunden (06.10.2026)
+- [ ] In Vercel prüfen: `www.nang-thaimassage-ehningen.de` leitet auf die Domain ohne `www` weiter
+      (die Canonical-URLs zeigen auf die Adresse ohne `www`)
 - [ ] Optional, aber wirkungsvoll: persönliche Geschichte und Foto von Nang (`src/data/about.ts`)
 - [ ] Nach dem Livegang: im Google-Unternehmensprofil die Website von massageando auf die neue Domain umstellen
 - [ ] Öffnungszeiten (täglich 10–20 Uhr, auch an Feiertagen) und Preise im Google-Profil und bei massageando an den Flyer angleichen
