@@ -17,10 +17,10 @@ const { eyebrow, title, lead, breadcrumbs = [] } = Astro.props;
   <div class="container page-hero__inner">
     {
       breadcrumbs.length > 0 && (
-        <nav class="breadcrumbs" aria-label="Brotkrumen">
+        <nav class="breadcrumbs" aria-label="เส้นทางนำทาง">
           <ol>
             <li>
-              <a href="/">Startseite</a>
+              <a href="/">หน้าแรก</a>
             </li>
             {breadcrumbs.map((crumb, i) => (
               <li>

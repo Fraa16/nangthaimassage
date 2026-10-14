@@ -11,21 +11,22 @@ interface Props {
 
 const { lang } = Astro.props;
 const options = [
-  { code: 'de', short: 'DE', name: 'Deutsch', href: '/' },
+  // Feedback-Version: Die „deutschen“ Seiten sind hier thailändisch übersetzt
+  { code: 'de', short: 'TH', name: 'ภาษาไทย', href: '/' },
   { code: 'en', short: 'EN', name: 'English', href: englishHref(Astro.url.pathname) },
 ];
 ---
 
-<div class="lang-switch" role="group" aria-label={lang === 'en' ? 'Language' : 'Sprache'}>
+<div class="lang-switch" role="group" aria-label={lang === 'en' ? 'Language' : 'ภาษา'}>
   {
     options.map((o) =>
       o.code === lang ? (
-        <span class="lang-switch__option" aria-current="true" lang={o.code}>
+        <span class="lang-switch__option" aria-current="true" lang={o.code === 'de' ? 'th' : o.code}>
           <span aria-hidden="true">{o.short}</span>
           <span class="visually-hidden">{o.name}</span>
         </span>
       ) : (
-        <a class="lang-switch__option" href={o.href} hreflang={o.code} lang={o.code}>
+        <a class="lang-switch__option" href={o.href} hreflang={o.code === 'de' ? 'th' : o.code} lang={o.code === 'de' ? 'th' : o.code}>
           <span aria-hidden="true">{o.short}</span>
           <span class="visually-hidden">{o.name}</span>
         </a>

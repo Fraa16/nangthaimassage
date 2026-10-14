@@ -16,7 +16,7 @@
  * wenn Nang die Person als Gast kennt. Sonst den Hinweis anpassen.
  */
 /** Wann die Auswahl zuletzt mit Google abgeglichen wurde (steht im Hinweis unter den Bewertungen). */
-export const reviewsAsOf = 'Oktober 2026';
+export const reviewsAsOf = 'ตุลาคม 2026';
 
 export interface Review {
   text: string;
@@ -27,32 +27,32 @@ export interface Review {
 
 export const reviews: Review[] = [
   {
-    text: 'Ich war schon einige Male bei Nang und kann es nur empfehlen! Sehr herzlich und sie findet alle verspannten Stellen. Tut richtig gut.',
+    text: 'มาหา Nang หลายครั้งแล้ว และขอแนะนำเลย! อบอุ่นเป็นกันเองมาก และเธอหาจุดที่ตึงเจอทุกจุด รู้สึกดีมากจริง ๆ',
     author: 'Bettina K.',
     rating: 5,
   },
   {
-    text: 'Sehr freundlich, sauber und absolut kompetent… Ich habe gleich den nächsten Termin vereinbart',
+    text: 'เป็นมิตรมาก สะอาด และเชี่ยวชาญจริง ๆ… นัดครั้งต่อไปไว้เลยทันที',
     author: 'T. E.',
     rating: 5,
   },
   {
-    text: 'Absolut zu empfehlen, Nang ist sehr kompetent und herzlich. Gleich Folgetermin ausgemacht',
+    text: 'แนะนำเลย Nang เก่งและอบอุ่นมาก นัดครั้งต่อไปไว้ทันที',
     author: 'Christine G.',
     rating: 5,
   },
   {
-    text: 'Sehr persönlich und freundlich. Tolle und entspannte Atmosphäre! […] Ich komme gerne wieder!',
+    text: 'ใส่ใจเป็นรายบุคคลและเป็นมิตร บรรยากาศดีและผ่อนคลาย! […] จะกลับมาอีกแน่นอน!',
     author: 'Julia A.',
     rating: 5,
   },
   {
-    text: 'Habe die Aroma-Öl Massage von meinem Mann geschenkt bekommen […] Ich habe mich sehr wohl gefühlt, Nang war super freundlich und auch der Raum war angenehm.',
+    text: 'ได้รับนวดน้ำมันอโรมาเป็นของขวัญจากสามี […] รู้สึกสบายมาก Nang เป็นมิตรสุด ๆ และห้องก็น่าอยู่',
     author: 'S. T.',
     rating: 5,
   },
   {
-    text: 'Sehr gute Massage, kann ich nur weiterempfehlen. Sehr freundlich und kompetent. Jederzeit wieder!!!',
+    text: 'นวดดีมาก แนะนำต่อได้เลย เป็นมิตรและเก่งมาก กลับมาอีกได้ทุกเมื่อ!!!',
     author: 'Fieth F.',
     rating: 5,
   },

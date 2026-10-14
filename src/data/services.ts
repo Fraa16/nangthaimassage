@@ -26,8 +26,8 @@ export interface Service {
 export const services: Service[] = [
   {
     slug: 'traditionelle-thaimassage',
-    name: 'Traditionelle Thaimassage',
-    teaser: 'Kräftiger Druck entlang der Energielinien und sanfte Dehnungen, von den Füßen bis zum Kopf.',
+    name: 'นวดแผนไทยแบบดั้งเดิม',
+    teaser: 'กดน้ำหนักแน่นตามแนวเส้นพลังงาน และยืดเหยียดอย่างนุ่มนวล ตั้งแต่เท้าจนถึงศีรษะ',
     en: {
       name: 'Traditional Thai massage',
       teaser: 'Rhythmic pressure along the energy lines and gentle stretches, without oil and fully clothed.',
@@ -41,8 +41,8 @@ export const services: Service[] = [
   },
   {
     slug: 'thai-oelmassage',
-    name: 'Thai-Ölmassage',
-    teaser: 'Lange, fließende Griffe mit warmem Öl. Ruhiger und sanfter als die klassische Thaimassage.',
+    name: 'นวดน้ำมันแบบไทย',
+    teaser: 'ลูบนวดยาวต่อเนื่องด้วยน้ำมันอุ่น สงบและนุ่มนวลกว่านวดแผนไทยแบบดั้งเดิม',
     en: {
       name: 'Thai oil massage with warm oil',
       teaser: 'Long, flowing strokes with warm oil, calmer and gentler than the traditional Thai massage.',
@@ -56,8 +56,8 @@ export const services: Service[] = [
   },
   {
     slug: 'ruecken-nacken-schulter-massage',
-    name: 'Rücken-, Nacken- und Schultermassage',
-    teaser: 'Rücken, Nacken, Schultern und auf Wunsch der Kopf: gezielt dort, wo sich Schreibtischarbeit und Stress festsetzen.',
+    name: 'นวดหลัง คอ และบ่าไหล่',
+    teaser: 'หลัง คอ บ่าไหล่ และศีรษะหากต้องการ: นวดตรงจุดที่ความตึงจากการนั่งทำงานและความเครียดสะสมอยู่',
     en: {
       name: 'Back, neck and shoulder massage',
       teaser: 'Focused on back, neck and shoulders, including the head on request.',
@@ -71,8 +71,8 @@ export const services: Service[] = [
   },
   {
     slug: 'kraeuterstempelmassage',
-    name: 'Kräuterstempelmassage',
-    teaser: 'Warme Kräuterstempel, Akupressur und ätherische Öle für eine lange, ruhige Auszeit.',
+    name: 'นวดประคบสมุนไพร',
+    teaser: 'ลูกประคบสมุนไพรอุ่น การกดจุด และน้ำมันหอมระเหย สำหรับการพักผ่อนที่ยาวนานและสงบ',
     en: {
       name: 'Thai herbal compress massage',
       teaser: 'Warm herbal compresses, acupressure and essential oils for a long, calm break.',
@@ -84,8 +84,8 @@ export const services: Service[] = [
   },
   {
     slug: 'fussreflexzonenmassage',
-    name: 'Fußreflexzonenmassage',
-    teaser: 'Gezielter Druck auf die Reflexzonen der Füße. Wohltuend nach langen Tagen auf den Beinen.',
+    name: 'นวดเท้ากดจุดสะท้อน',
+    teaser: 'กดจุดสะท้อนที่ฝ่าเท้าอย่างตรงจุด รู้สึกสบายหลังจากยืนหรือเดินมาทั้งวัน',
     en: {
       name: 'Foot reflexology massage',
       teaser: 'Thai-style foot massage with targeted pressure on the reflex zones of the soles.',
@@ -103,7 +103,7 @@ export const lowestPrice = Math.min(...services.map(minPrice));
 export const highestPrice = Math.max(...services.flatMap((s) => s.options.map((o) => o.price)));
 
 export const formatPrice = (euro: number) => `${euro.toLocaleString('de-DE')} €`;
-export const formatMinutes = (minutes: number) => `${minutes} Min.`;
+export const formatMinutes = (minutes: number) => `${minutes} นาที`;
 
 export const getService = (slug: string) => {
   const service = services.find((s) => s.slug === slug);

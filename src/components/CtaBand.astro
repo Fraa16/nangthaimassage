@@ -12,8 +12,8 @@ interface Props {
 
 const hours = hoursSummary();
 const {
-  title = 'Ihr Termin ist nur einen Anruf entfernt',
-  text = `${hours ? `${hours}, auch an Wochenenden und Feiertagen.` : ''} Rufen Sie an oder schreiben Sie uns per WhatsApp, wir finden einen passenden Termin.`,
+  title = 'นัดเวลาได้ง่าย ๆ แค่โทรมา',
+  text = `${hours ? `เปิด${hours} รวมถึงวันเสาร์ วันอาทิตย์ และวันหยุดนักขัตฤกษ์` : ''} โทรหรือส่งข้อความ WhatsApp มาได้เลย เราจะหาเวลาที่เหมาะกับคุณ`,
 } = Astro.props;
 ---
 
@@ -24,9 +24,9 @@ const {
     <h2>{title}</h2>
     <p class="lead">{text.trim()}</p>
     <div class="btn-row">
-      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> {business.phone.display} anrufen</a>
+      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> โทร {business.phone.display}</a>
       <a class="btn btn--outline-light" href={whatsappHref('Hallo, ich möchte gern einen Termin vereinbaren.')} rel="noopener" target="_blank">
-        <Icon name="whatsapp" /> Per WhatsApp anfragen
+        <Icon name="whatsapp" /> สอบถามทาง WhatsApp
       </a>
     </div>
   </div>

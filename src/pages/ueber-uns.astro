@@ -11,109 +11,105 @@ import { services, formatPrice, lowestPrice } from '../data/services';
 import { about, yearsOfExperience } from '../data/about';
 
 const hours = hoursSummary();
-const breadcrumbs = [{ name: 'Über uns', href: '/ueber-uns/' }];
+const breadcrumbs = [{ name: 'เกี่ยวกับเรา', href: '/ueber-uns/' }];
 
 const values = [
   {
     icon: 'star',
-    title: 'Thailändische Tradition',
-    text: 'Thaimassage, Kräuterstempel und Fußreflexzonen: Techniken aus der jahrhundertealten thailändischen Massagetradition.',
+    title: 'ประเพณีไทย',
+    text: 'นวดแผนไทย ประคบสมุนไพร และนวดเท้ากดจุดสะท้อน: เทคนิคจากประเพณีการนวดไทยที่สืบทอดมาหลายร้อยปี',
   },
   {
     icon: 'award',
-    title: `${yearsOfExperience} Jahre Erfahrung`,
-    text: 'Nang kennt Muskeln, Sehnen und Druckpunkte genau. Sie arbeitet gezielt, mit dem Druck, der Ihnen guttut.',
+    title: `ประสบการณ์ ${yearsOfExperience} ปี`,
+    text: 'Nang รู้จักกล้ามเนื้อ เส้นเอ็น และจุดกดเป็นอย่างดี เธอนวดตรงจุดด้วยน้ำหนักมือที่คุณรู้สึกสบาย',
   },
   {
     icon: 'clock',
-    title: 'Jeden Tag geöffnet',
-    text: `${hours ? hours.replace('Täglich ', 'Montag bis Sonntag, ') : 'Termine nach Vereinbarung'}. Auch an Wochenenden${business.openOnHolidays ? ' und Feiertagen' : ''}, wenn andere geschlossen haben.`,
+    title: 'เปิดทุกวัน',
+    text: `${hours ? hours.replace('ทุกวัน ', 'วันจันทร์ถึงวันอาทิตย์ ') : 'ตามนัดหมาย'} เปิดวันเสาร์ วันอาทิตย์${business.openOnHolidays ? ' และวันหยุดนักขัตฤกษ์' : ''}ด้วย ในวันที่ร้านอื่นปิด`,
   },
   {
     icon: 'map-pin',
-    title: 'Seriös und persönlich',
-    text: 'Ausschließlich klassische Wellnessmassagen in ruhiger Atmosphäre, mitten in Ehningen.',
+    title: 'สุภาพและเป็นกันเอง',
+    text: 'เฉพาะการนวดเพื่อสุขภาพแบบคลาสสิก ในบรรยากาศที่สงบ ใจกลาง Ehningen',
   },
 ] as const;
 
 const steps = [
   {
-    title: 'Termin vereinbaren',
-    text: `Per Anruf oder WhatsApp unter ${business.phone.display}. Nennen Sie Massage, Dauer und Wunschzeit.`,
+    title: 'นัดเวลา',
+    text: `โทรหรือส่ง WhatsApp มาที่ ${business.phone.display} บอกประเภทการนวด ระยะเวลา และเวลาที่ต้องการ`,
   },
   {
-    title: 'Ankommen',
-    text: `Kommen Sie ein paar Minuten vorher in die ${business.address.street}. Wir besprechen kurz Ihre Wünsche.`,
+    title: 'มาถึงร้าน',
+    text: `มาถึงที่ ${business.address.street} ก่อนเวลาสักสองสามนาที เราจะคุยกันสั้น ๆ ว่าคุณต้องการอะไร`,
   },
   {
-    title: 'Massage genießen',
-    text: 'Sie entspannen, wir massieren. Ist der Druck zu stark oder zu schwach, sagen Sie es einfach.',
+    title: 'เพลิดเพลินกับการนวด',
+    text: 'คุณผ่อนคลาย เรานวด ถ้าน้ำหนักมือแรงหรือเบาเกินไป บอกได้เลย',
   },
   {
-    title: 'In Ruhe gehen',
-    text: 'Bezahlt wird vor Ort. Den nächsten Termin können Sie gleich mit vereinbaren.',
+    title: 'กลับบ้านอย่างสบายใจ',
+    text: 'ชำระเงินที่ร้าน และนัดครั้งต่อไปไว้ได้เลย',
   },
 ];
 ---
 
 <BaseLayout
-  title="Über uns"
-  fullTitle={`Über uns | ${business.name} in Ehningen`}
-  description={`Nang massiert seit ${yearsOfExperience} Jahren nach thailändischer Tradition. Schwerpunkt: ${about.focusAreas.join(', ')}. Seriöse Massagen in Ehningen, ${hours ? hours.replace('Täglich', 'täglich') : 'nach Vereinbarung'}.`}
+  title="เกี่ยวกับเรา"
+  fullTitle={`เกี่ยวกับเรา | ${business.name} ใน Ehningen`}
+  description={`Nang นวดตามแบบไทยดั้งเดิมมาแล้ว ${yearsOfExperience} ปี ความถนัด: ${about.focusAreas.join(' ')} การนวดที่สุภาพใน Ehningen เปิด${hours ?? 'ตามนัดหมาย'}`}
   breadcrumbs={breadcrumbs}
 >
   <PageHero
-    eyebrow="Über uns"
-    title="Thailändische Tradition, <span class='accent'>mitten in Ehningen</span>"
-    lead={`Nang massiert seit ${yearsOfExperience} Jahren nach thailändischer Tradition. Ihr Schwerpunkt: ${about.focusAreas.slice(0, -1).join(', ')} und ${about.focusAreas.at(-1)}.`}
+    eyebrow="เกี่ยวกับเรา"
+    title="ประเพณีไทย <span class='accent'>ใจกลาง Ehningen</span>"
+    lead={`Nang นวดตามแบบไทยดั้งเดิมมาแล้ว ${yearsOfExperience} ปี ความถนัดของเธอคือ ${about.focusAreas.slice(0, -1).join(' ')} และ${about.focusAreas.at(-1)}`}
     breadcrumbs={breadcrumbs}
   />
 
   <section class="section" aria-labelledby="studio-title">
     <div class="container intro">
       <div class="intro__text">
-        <p class="eyebrow">Das Studio</p>
-        <h2 id="studio-title">Nang Thai Massage in Ehningen</h2>
+        <p class="eyebrow">ร้านของเรา</p>
+        <h2 id="studio-title">Nang Thai Massage ใน Ehningen</h2>
         <p class="lead">
-          {`${business.name} ist ein Studio für traditionelle Thaimassage in der ${business.address.street} in ${business.address.city}, ${business.address.district}.`}
+          {`${business.name} คือร้านนวดแผนไทยแบบดั้งเดิม ตั้งอยู่ที่ ${business.address.street} ใน ${business.address.city} ${business.address.district}`}
         </p>
         <p>
-          Wir bieten fünf Massagen nach thailändischer Tradition an: die klassische Thaimassage, die Thai-Ölmassage, eine
-          Massage für Rücken, Nacken und Schultern, die Kräuterstempelmassage und die Fußreflexzonenmassage, je nach
-          Massage in 30 bis 120 Minuten.
+          {'เรามีการนวด 5 แบบตามแบบไทยดั้งเดิม ได้แก่ นวดแผนไทยแบบคลาสสิก นวดน้ำมันแบบไทย นวดหลัง คอ และบ่าไหล่ นวดประคบสมุนไพร และนวดเท้ากดจุดสะท้อน ใช้เวลา 30 ถึง 120 นาทีแล้วแต่ประเภทการนวด'}
         </p>
         <p>
-          Aus {business.nearbyTowns.slice(0, 3).join(', ')} und {business.nearbyTowns[3]} ist das Studio schnell erreicht. Ob
-          kurze Pause in der Mittagszeit oder lange Auszeit am Wochenende: Sie wählen die Massage und die Dauer, die zu Ihrem
-          Tag passt.
+          {`เดินทางมาจาก ${business.nearbyTowns.slice(0, 3).join(' ')} และ ${business.nearbyTowns[3]} ได้สะดวก ไม่ว่าจะเป็นการพักสั้น ๆ ช่วงกลางวัน หรือการพักผ่อนยาว ๆ ในวันหยุด คุณเลือกการนวดและระยะเวลาที่เหมาะกับวันของคุณได้เอง`}
         </p>
       </div>
-      <aside class="intro__card" aria-label="Das Studio in Zahlen">
+      <aside class="intro__card" aria-label="ข้อมูลร้านโดยสรุป">
         <Ornament size={48} lines={false} />
         <dl>
           <div>
-            <dt>Adresse</dt>
+            <dt>ที่อยู่</dt>
             <dd>{fullAddress}</dd>
           </div>
           <div>
-            <dt>Erfahrung</dt>
-            <dd>seit {yearsOfExperience} Jahren</dd>
+            <dt>ประสบการณ์</dt>
+            <dd>{`${yearsOfExperience} ปี`}</dd>
           </div>
           <div>
-            <dt>Geöffnet</dt>
-            <dd>{hours ? `${hours}${business.openOnHolidays ? ', auch an Feiertagen' : ''}` : 'nach Vereinbarung'}</dd>
+            <dt>เวลาเปิด</dt>
+            <dd>{hours ? `${hours}${business.openOnHolidays ? ' รวมถึงวันหยุดนักขัตฤกษ์' : ''}` : 'ตามนัดหมาย'}</dd>
           </div>
           <div>
-            <dt>Massagen</dt>
-            <dd>{services.length} klassische Anwendungen</dd>
+            <dt>การนวด</dt>
+            <dd>{`${services.length} แบบคลาสสิก`}</dd>
           </div>
           <div>
-            <dt>Preise</dt>
-            <dd>ab {formatPrice(lowestPrice)} für 30 Minuten</dd>
+            <dt>ราคา</dt>
+            <dd>{`เริ่มต้น ${formatPrice(lowestPrice)} สำหรับ 30 นาที`}</dd>
           </div>
           <div>
-            <dt>Termin</dt>
-            <dd>{business.phone.display}, auch per WhatsApp</dd>
+            <dt>นัดเวลา</dt>
+            <dd>{`${business.phone.display} หรือทาง WhatsApp`}</dd>
           </div>
         </dl>
       </aside>
@@ -127,7 +123,7 @@ const steps = [
       <section class="section" aria-labelledby="story-title">
         <div class="container container--narrow prose story">
           <Ornament size={36} />
-          <h2 id="story-title">{about.storyTitle || 'Die Frau hinter Nang'}</h2>
+          <h2 id="story-title">{about.storyTitle || 'ผู้หญิงเบื้องหลัง Nang'}</h2>
           {about.story.map((p) => (
             <p>{p}</p>
           ))}
@@ -138,7 +134,7 @@ const steps = [
 
   <section class:list={['section', { 'section--tint': about.story.length > 0 }]} aria-labelledby="werte-title">
     <div class="container">
-      <SectionHeading id="werte-title" eyebrow="Unser Anspruch" title="Was Sie bei uns erwartet" />
+      <SectionHeading id="werte-title" eyebrow="สิ่งที่เรายึดถือ" title="สิ่งที่คุณจะได้รับจากเรา" />
       <ul class="values">
         {
           values.map((v) => (
@@ -157,7 +153,7 @@ const steps = [
 
   <section class:list={['section', { 'section--tint': about.story.length === 0 }]} aria-labelledby="ablauf-title">
     <div class="container">
-      <SectionHeading id="ablauf-title" eyebrow="Ihr Besuch" title="So läuft Ihr Termin ab" />
+      <SectionHeading id="ablauf-title" eyebrow="การมาใช้บริการ" title="ขั้นตอนเมื่อคุณมานวด" />
       <ol class="steps">
         {
           steps.map((step, i) => (

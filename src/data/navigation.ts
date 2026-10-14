@@ -4,15 +4,15 @@ export interface NavItem {
 }
 
 export const mainNav: NavItem[] = [
-  { href: '/', label: 'Startseite' },
-  { href: '/leistungen/', label: 'Leistungen' },
-  { href: '/ueber-uns/', label: 'Über uns' },
-  { href: '/kontakt/', label: 'Kontakt' },
+  { href: '/', label: 'หน้าแรก' },
+  { href: '/leistungen/', label: 'บริการ' },
+  { href: '/ueber-uns/', label: 'เกี่ยวกับเรา' },
+  { href: '/kontakt/', label: 'ติดต่อ' },
 ];
 
 export const legalNav: NavItem[] = [
-  { href: '/impressum/', label: 'Impressum' },
-  { href: '/datenschutz/', label: 'Datenschutz' },
+  { href: '/impressum/', label: 'ข้อมูลผู้ให้บริการ' },
+  { href: '/datenschutz/', label: 'ความเป็นส่วนตัว' },
 ];
 
 /** Englisch gibt es als eine Seite (/en/); die Navigation springt zu ihren Abschnitten. */

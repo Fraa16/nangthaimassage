@@ -9,57 +9,56 @@ export interface FaqItem {
 
 const thai = getService('traditionelle-thaimassage');
 const back60 = getService('ruecken-nacken-schulter-massage').options.find((o) => o.minutes === 60);
-const thaiPrices = thai.options.map((o) => `${formatPrice(o.price)} für ${o.minutes} Minuten`);
-const hours = hoursSummary()?.replace('Täglich', 'täglich') ?? 'zu unseren Öffnungszeiten';
+const thaiPrices = thai.options.map((o) => `${formatPrice(o.price)} สำหรับ ${o.minutes} นาที`);
+const hours = hoursSummary() ?? 'ในเวลาทำการ';
 
-/** „A, B und C“ */
-const listJoin = (items: readonly string[]) => `${items.slice(0, -1).join(', ')} und ${items.at(-1)}`;
+/** „A B และ C“ */
+const listJoin = (items: readonly string[]) => `${items.slice(0, -1).join(' ')} และ${items.at(-1)}`;
 
 /** Antworten bewusst 30–60 Wörter: vollständig, zitierfähig, ohne Einleitung. */
 export const faq: FaqItem[] = [
   {
-    question: 'Was kostet eine Thaimassage in Ehningen?',
-    answer: `Bei ${business.name} kostet die traditionelle Thaimassage ${thaiPrices.slice(0, -1).join(', ')} und ${thaiPrices.at(-1)}. ${back60 ? `Die Rücken-, Nacken- und Schultermassage kostet ${formatPrice(back60.price)} für 60 Minuten, die` : 'Die'} Fußreflexzonenmassage gibt es ab ${formatPrice(minPrice(getService('fussreflexzonenmassage')))}, die Kräuterstempelmassage ab ${formatPrice(minPrice(getService('kraeuterstempelmassage')))}. Alle Preise sind Endpreise.`,
+    question: 'นวดแผนไทยที่ Ehningen ราคาเท่าไร',
+    answer: `ที่ ${business.name} นวดแผนไทยแบบดั้งเดิมราคา ${thaiPrices.slice(0, -1).join(' ')} และ ${thaiPrices.at(-1)} ${back60 ? `นวดหลัง คอ และบ่าไหล่ราคา ${formatPrice(back60.price)} สำหรับ 60 นาที ` : ''}นวดเท้ากดจุดสะท้อนเริ่มต้นที่ ${formatPrice(minPrice(getService('fussreflexzonenmassage')))} และนวดประคบสมุนไพรเริ่มต้นที่ ${formatPrice(minPrice(getService('kraeuterstempelmassage')))} ทุกราคาเป็นราคาสุทธิ`,
   },
   {
-    question: 'Wie viel Erfahrung hat Nang?',
-    answer: `Nang hat die traditionelle Thaimassage gelernt und massiert seit ${yearsOfExperience} Jahren. Sie kennt Muskeln, Sehnen und die Druckpunkte der Thaimassage genau. Ihr Schwerpunkt sind ${listJoin(about.focusAreas)}, also die Partien, in denen sich Stress und langes Sitzen am meisten festsetzen.`,
+    question: 'Nang มีประสบการณ์มากแค่ไหน',
+    answer: `Nang เรียนนวดแผนไทยแบบดั้งเดิมมา และนวดมาแล้ว ${yearsOfExperience} ปี เธอรู้จักกล้ามเนื้อ เส้นเอ็น และจุดกดของการนวดไทยเป็นอย่างดี ความถนัดของเธอคือ ${listJoin(about.focusAreas)} ซึ่งเป็นส่วนที่ความเครียดและการนั่งนาน ๆ สะสมมากที่สุด`,
   },
   {
-    question: 'Wie bekomme ich einen Termin?',
-    answer: `Rufen Sie an oder schreiben Sie per WhatsApp an ${business.phone.display}. Nennen Sie am besten gleich die gewünschte Massage, die Dauer und zwei, drei passende Zeiten. Wir sind ${hours} erreichbar und bestätigen Ihren Termin so schnell wie möglich.`,
+    question: 'จะนัดเวลาได้อย่างไร',
+    answer: `โทรหรือส่ง WhatsApp มาที่ ${business.phone.display} บอกประเภทการนวด ระยะเวลา และเวลาที่สะดวกสักสองสามช่วงได้เลย ติดต่อเราได้${hours} และเราจะยืนยันนัดให้เร็วที่สุด`,
   },
   {
-    question: 'Haben Sie auch am Wochenende und an Feiertagen geöffnet?',
-    answer: `Ja. ${business.name} hat ${hours} geöffnet, auch samstags${business.openOnHolidays ? ', sonntags und an Feiertagen' : ' und sonntags'}.${business.byAppointment ? ' Andere Zeiten sind nach Vereinbarung möglich.' : ''} Gerade am Wochenende lohnt es sich, den Termin ein paar Tage vorher zu vereinbaren.`,
+    question: 'เปิดวันเสาร์ วันอาทิตย์ และวันหยุดนักขัตฤกษ์ไหม',
+    answer: `เปิด ${business.name} เปิด${hours} รวมถึงวันเสาร์${business.openOnHolidays ? ' วันอาทิตย์ และวันหยุดนักขัตฤกษ์' : ' และวันอาทิตย์'}${business.byAppointment ? ' เวลาอื่นนัดได้ตามสะดวก' : ''} โดยเฉพาะช่วงสุดสัปดาห์ แนะนำให้นัดล่วงหน้าสักสองสามวัน`,
   },
   {
-    question: 'Welche Massage passt zu mir?',
+    question: 'การนวดแบบไหนเหมาะกับฉัน',
     answer:
-      'Wer kräftigen Druck und Dehnungen mag, wählt die traditionelle Thaimassage. Die Thai-Ölmassage ist ruhiger und fließender. Für Nacken, Schultern und auf Wunsch den Kopf passt die Rücken-, Nacken- und Schultermassage, für müde Füße die Fußreflexzonenmassage. Unsicher? Fragen Sie bei der Terminvereinbarung, wir beraten Sie gern.',
+      'ถ้าชอบน้ำหนักมือแน่นและการยืดเหยียด เลือกนวดแผนไทยแบบดั้งเดิม นวดน้ำมันแบบไทยจะสงบและลื่นไหลกว่า สำหรับคอ บ่าไหล่ และศีรษะหากต้องการ เหมาะกับนวดหลัง คอ และบ่าไหล่ ส่วนเท้าที่เมื่อยล้าเหมาะกับนวดเท้ากดจุดสะท้อน ยังไม่แน่ใจ? สอบถามได้ตอนนัดเวลา เรายินดีให้คำแนะนำ',
   },
   {
-    question: 'Wie lange sollte die erste Thaimassage dauern?',
+    question: 'ครั้งแรกควรนวดแผนไทยนานเท่าไร',
     answer:
-      'Für den Einstieg empfehlen wir 60 Minuten. Das reicht für eine vollständige Massage des ganzen Körpers. Wer sich richtig Zeit nehmen möchte, bucht 90 oder 120 Minuten. Für eine kurze Pause zwischendurch gibt es die Thaimassage auch mit 30 Minuten.',
+      'สำหรับครั้งแรกเราแนะนำ 60 นาที ซึ่งเพียงพอสำหรับการนวดทั่วทั้งร่างกาย ถ้าอยากใช้เวลาเต็มที่ เลือก 90 หรือ 120 นาที และสำหรับพักสั้น ๆ ระหว่างวันก็มีนวดแผนไทย 30 นาทีด้วย',
   },
   {
-    question: 'Was ziehe ich zur Massage an?',
+    question: 'ควรใส่อะไรมานวด',
     answer:
-      'Bequeme Kleidung reicht. Die traditionelle Thaimassage wird ohne Öl ausgeführt, lockere Kleidung ist dafür ideal. Bei der Öl- und der Kräuterstempelmassage besprechen wir vorher mit Ihnen, was Sie ablegen möchten. Sie bestimmen, was für Sie angenehm ist.',
+      'ใส่เสื้อผ้าสบาย ๆ ก็พอ นวดแผนไทยแบบดั้งเดิมไม่ใช้น้ำมัน เสื้อผ้าหลวม ๆ จึงเหมาะที่สุด สำหรับนวดน้ำมันและนวดประคบสมุนไพร เราจะคุยกับคุณก่อนว่าต้องการถอดเสื้อผ้าชิ้นไหนออก คุณเป็นคนกำหนดว่าอะไรที่ทำให้คุณสบายใจ',
   },
   {
-    question: 'Ist Nang Thai Massage ein seriöses Massagestudio?',
+    question: 'Nang Thai Massage เป็นร้านนวดที่สุภาพและน่าเชื่อถือหรือไม่',
     answer:
-      'Ja. Wir bieten ausschließlich seriöse Massagen nach thailändischer Tradition an: Thaimassage, Thai-Ölmassage, Rücken-, Nacken- und Schultermassage, Kräuterstempelmassage und Fußreflexzonenmassage. Unsere Massagen dienen der Entspannung und dem Wohlbefinden.',
+      'ใช่ เราให้บริการเฉพาะการนวดที่สุภาพตามแบบไทยดั้งเดิมเท่านั้น ได้แก่ นวดแผนไทย นวดน้ำมันแบบไทย นวดหลัง คอ และบ่าไหล่ นวดประคบสมุนไพร และนวดเท้ากดจุดสะท้อน การนวดของเรามีไว้เพื่อการผ่อนคลายและความรู้สึกสบาย',
   },
   {
-    question: 'Wo finde ich das Studio?',
-    answer: `In der ${business.address.street} in ${business.address.postalCode} ${business.address.city}, ${business.address.district}. Aus ${listJoin(business.nearbyTowns.slice(0, 5))} ist das Studio schnell zu erreichen. Die Route zeigt Ihnen Google Maps, der Link steht auf unserer Kontaktseite.`,
+    question: 'ร้านอยู่ที่ไหน',
+    answer: `อยู่ที่ ${business.address.street}, ${business.address.postalCode} ${business.address.city} (${business.address.district}) เดินทางมาจาก ${listJoin(business.nearbyTowns.slice(0, 5))} ได้สะดวก ดูเส้นทางได้ใน Google Maps ลิงก์อยู่ในหน้าติดต่อของเรา`,
   },
   {
-    question: 'Kann ich am Studio parken?',
-    answer:
-      'Ja, Sie parken direkt an der Straße, der Eingang ist leicht zu finden. Mit der S-Bahn fahren Sie mit der Linie S1 bis Ehningen.',
+    question: 'จอดรถที่ร้านได้ไหม',
+    answer: 'ได้ จอดรถริมถนนได้เลย และทางเข้าหาง่าย ถ้ามาด้วยรถไฟ S-Bahn ให้นั่งสาย S1 มาลงที่ Ehningen',
   },
 ];

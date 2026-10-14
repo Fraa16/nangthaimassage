@@ -13,11 +13,11 @@ interface Props {
 }
 
 const { service, guide, headingLevel: Heading = 'h3' } = Astro.props;
-const bookingText = (minutes: number) => `Hallo, ich möchte gern einen Termin für ${service.name} (${minutes} Min.) vereinbaren.`;
+const bookingText = (minutes: number) => `สวัสดี ต้องการนัดเวลา${service.name} (${minutes} นาที)`;
 ---
 
 <div class="price-box">
-  <Heading class="price-box__title">Dauer &amp; Preis</Heading>
+  <Heading class="price-box__title">ระยะเวลาและราคา</Heading>
   <ul>
     {
       service.options.map((o) => (
@@ -31,9 +31,9 @@ const bookingText = (minutes: number) => `Hallo, ich möchte gern einen Termin f
             href={whatsappHref(bookingText(o.minutes))}
             rel="noopener"
             target="_blank"
-            aria-label={`${service.name}, ${o.minutes} Minuten per WhatsApp anfragen`}
+            aria-label={`${service.name} ${o.minutes} นาที สอบถามทาง WhatsApp`}
           >
-            <Icon name="whatsapp" /> Anfragen
+            <Icon name="whatsapp" /> สอบถาม
           </a>
           {guide?.[o.minutes] && <span class="price-box__guide">{guide[o.minutes]}</span>}
         </li>

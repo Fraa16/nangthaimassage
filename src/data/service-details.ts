@@ -27,164 +27,162 @@ export interface ServiceDetail {
 /** Beschluss der UNESCO zur Aufnahme von Nuad Thai (2019) */
 export const unescoSource = 'https://ich.unesco.org/en/Decisions/14.COM/10.b.37';
 
-/** „30 € für 30 Minuten, 55 € für 60 Minuten und 80 € für 90 Minuten“ */
+/** „30 € สำหรับ 30 นาที 55 € สำหรับ 60 นาที และ 80 € สำหรับ 90 นาที“ */
 export function priceSentence(service: Service): string {
-  const parts = service.options.map((o) => `${formatPrice(o.price)} für ${o.minutes} Minuten`);
-  return parts.length > 1 ? `${parts.slice(0, -1).join(', ')} und ${parts.at(-1)}` : parts[0];
+  const parts = service.options.map((o) => `${formatPrice(o.price)} สำหรับ ${o.minutes} นาที`);
+  return parts.length > 1 ? `${parts.slice(0, -1).join(' ')} และ ${parts.at(-1)}` : parts[0];
 }
 
 const p = (slug: string) => priceSentence(getService(slug));
 
 export const serviceDetails: Record<string, ServiceDetail> = {
   'traditionelle-thaimassage': {
-    eyebrow: 'Nuad Thai',
-    howTitle: 'Wie läuft eine traditionelle Thaimassage ab?',
+    eyebrow: 'นวดไทย (Nuad Thai)',
+    howTitle: 'นวดแผนไทยแบบดั้งเดิมมีขั้นตอนอย่างไร',
     how: [
-      'Die traditionelle Thaimassage, in Thailand Nuad Thai oder Nuat Phaen Boran genannt, wird ohne Öl und in bequemer Kleidung ausgeführt. Mit Daumen, Handballen und Ellbogen arbeitet Nang rhythmisch entlang der Energielinien, der sogenannten Sen. Dazu kommen passive Dehnungen: Sie werden sanft bewegt und gedehnt, ohne selbst mitzuarbeiten. Hierzulande heißt sie deshalb auch Thai-Yoga-Massage.',
-      'Die Massage bezieht den ganzen Körper ein, von den Füßen über Beine, Rücken und Arme bis zu Schultern, Nacken und Kopf. Vorher klären Sie kurz, wie kräftig es sein darf und ob es Stellen gibt, auf die Nang besonders achten soll.',
+      'นวดแผนไทยแบบดั้งเดิม ซึ่งในไทยเรียกว่า นวดไทย หรือ นวดแผนโบราณ ทำโดยไม่ใช้น้ำมันและสวมเสื้อผ้าที่สบาย Nang ใช้นิ้วโป้ง ฝ่ามือ และข้อศอก กดเป็นจังหวะตามแนวเส้นพลังงาน ที่เรียกว่า เส้น นอกจากนี้ยังมีการยืดเหยียดโดยที่คุณไม่ต้องออกแรงเอง: Nang จะขยับและยืดร่างกายของคุณอย่างนุ่มนวล ที่เยอรมนีจึงเรียกการนวดนี้อีกชื่อว่า Thai-Yoga-Massage',
+      'การนวดครอบคลุมทั้งร่างกาย ตั้งแต่เท้า ขา หลัง และแขน ไปจนถึงบ่าไหล่ คอ และศีรษะ ก่อนเริ่มนวด คุณบอกได้ว่าต้องการน้ำหนักมือแค่ไหน และมีจุดไหนที่อยากให้ Nang ใส่ใจเป็นพิเศษ',
     ],
     durationGuide: {
-      30: 'für eine kurze Pause zwischendurch',
-      60: 'die klassische Ganzkörpermassage, ideal für das erste Mal',
-      90: 'mehr Zeit für Dehnungen und für die Partien, die es besonders brauchen',
-      120: 'die ausführliche Variante für eine lange Auszeit',
+      30: 'สำหรับพักสั้น ๆ ระหว่างวัน',
+      60: 'นวดทั้งตัวแบบคลาสสิก เหมาะสำหรับครั้งแรก',
+      90: 'มีเวลายืดเหยียดมากขึ้น และนวดส่วนที่ต้องการเป็นพิเศษ',
+      120: 'แบบเต็มที่ สำหรับการพักผ่อนยาว ๆ',
     },
-    forWhomTitle: 'Für wen eignet sich die traditionelle Thaimassage?',
+    forWhomTitle: 'นวดแผนไทยแบบดั้งเดิมเหมาะกับใคร',
     forWhom:
-      'Für alle, die kräftigen Druck und Dehnungen mögen und eine Massage suchen, die den ganzen Körper einbezieht. Wer es lieber sanft und fließend mag, ist mit der Thai-Ölmassage besser beraten.',
+      'สำหรับทุกคนที่ชอบน้ำหนักมือแน่นและการยืดเหยียด และต้องการการนวดที่ครอบคลุมทั้งร่างกาย ถ้าชอบแบบนุ่มนวลและลื่นไหล นวดน้ำมันแบบไทยจะเหมาะกว่า',
     notes: [
-      'Tragen Sie bequeme, lockere Kleidung, in der Sie sich gut bewegen können.',
-      'Planen Sie die Massage am besten nicht direkt nach einer großen Mahlzeit.',
+      'ใส่เสื้อผ้าสบาย ๆ หลวม ๆ ที่เคลื่อนไหวได้สะดวก',
+      'ไม่ควรมานวดทันทีหลังรับประทานอาหารมื้อใหญ่',
     ],
     faq: [
       {
-        question: 'Tut eine Thaimassage weh?',
+        question: 'นวดแผนไทยเจ็บไหม',
         answer:
-          'Sie ist kräftiger als eine klassische Wellnessmassage, sollte aber nie unangenehm sein. Sagen Sie Nang einfach, wenn der Druck zu stark oder zu schwach ist. Sie passt ihn an, damit die Massage für Sie angenehm bleibt.',
+          'น้ำหนักมือแน่นกว่าการนวดผ่อนคลายทั่วไป แต่ไม่ควรรู้สึกไม่สบาย ถ้ารู้สึกว่าหนักหรือเบาเกินไป บอก Nang ได้เลย เธอจะปรับให้ เพื่อให้คุณรู้สึกสบายตลอดการนวด',
       },
       {
-        question: 'Wird bei der traditionellen Thaimassage Öl verwendet?',
+        question: 'นวดแผนไทยแบบดั้งเดิมใช้น้ำมันไหม',
         answer:
-          'Nein. Die traditionelle Thaimassage wird ohne Öl und in Kleidung ausgeführt. Mit warmem Öl massiert Nang bei der Thai-Ölmassage und bei der Kräuterstempelmassage.',
+          'ไม่ใช้ นวดแผนไทยแบบดั้งเดิมทำโดยไม่ใช้น้ำมันและสวมเสื้อผ้า Nang ใช้น้ำมันอุ่นในการนวดน้ำมันแบบไทยและการนวดประคบสมุนไพร',
       },
       {
-        question: 'Was bedeutet Nuad Thai?',
+        question: 'นวดไทย (Nuad Thai) หมายถึงอะไร',
         answer:
-          'Nuad Thai ist der thailändische Name der traditionellen Thaimassage. Nuat Phaen Boran heißt frei übersetzt „Massage nach altem Muster“. 2019 hat die UNESCO Nuad Thai in die Liste des immateriellen Kulturerbes der Menschheit aufgenommen.',
+          'Nuad Thai คือชื่อภาษาไทยของการนวดแผนไทยแบบดั้งเดิม ส่วน นวดแผนโบราณ แปลได้ว่า „การนวดตามแบบโบราณ“ ในปี 2019 องค์การยูเนสโกได้ขึ้นทะเบียนนวดไทยเป็นมรดกทางวัฒนธรรมที่จับต้องไม่ได้ของมนุษยชาติ',
       },
     ],
-    links: [{ href: unescoSource, label: 'UNESCO-Beschluss zu Nuad Thai (2019, englisch)', external: true }],
+    links: [{ href: unescoSource, label: 'มติของยูเนสโกเรื่องนวดไทย (ปี 2019 ภาษาอังกฤษ)', external: true }],
   },
 
   'thai-oelmassage': {
-    eyebrow: 'Mit warmem Öl',
-    howTitle: 'Wie läuft eine Thai-Ölmassage ab?',
+    eyebrow: 'ใช้น้ำมันอุ่น',
+    howTitle: 'นวดน้ำมันแบบไทยมีขั้นตอนอย่างไร',
     how: [
-      'Bei der Thai-Ölmassage gleiten die Hände mit warmem Öl in langen, ruhigen Bewegungen über den Körper. Dazu kommen Druckgriffe aus der traditionellen Thaimassage, die kräftigen Dehnungen fallen weg. So entsteht eine Ganzkörpermassage, bei der Sie vor allem abschalten können.',
-      'Vor der Massage besprechen Sie mit Nang, was Sie ablegen möchten. Sie bestimmen, was für Sie angenehm ist. Sagen Sie ihr auch, ob Sie eher sanften oder kräftigeren Druck mögen.',
+      'ในการนวดน้ำมันแบบไทย มือจะลูบไล้ไปบนร่างกายด้วยน้ำมันอุ่นอย่างช้า ๆ และต่อเนื่อง ผสมกับท่ากดจากนวดแผนไทยแบบดั้งเดิม แต่ไม่มีการยืดเหยียดแรง ๆ จึงเป็นการนวดทั้งตัวที่คุณได้ปล่อยวางและผ่อนคลายอย่างเต็มที่',
+      'ก่อนนวด คุณคุยกับ Nang ได้ว่าต้องการถอดเสื้อผ้าชิ้นไหนออก คุณเป็นคนกำหนดว่าอะไรที่ทำให้คุณสบายใจ และบอกเธอด้วยว่าชอบน้ำหนักมือเบาหรือแน่น',
     ],
     durationGuide: {
-      30: 'für eine kurze Auszeit',
-      60: 'die klassische Ganzkörpermassage',
-      90: 'mehr Ruhe und mehr Zeit für einzelne Partien',
-      120: 'die ausführliche Variante für eine lange Auszeit',
+      30: 'สำหรับพักสั้น ๆ',
+      60: 'นวดทั้งตัวแบบคลาสสิก',
+      90: 'ผ่อนคลายมากขึ้น และมีเวลานวดแต่ละส่วนมากขึ้น',
+      120: 'แบบเต็มที่ สำหรับการพักผ่อนยาว ๆ',
     },
-    forWhomTitle: 'Für wen eignet sich die Thai-Ölmassage?',
+    forWhomTitle: 'นวดน้ำมันแบบไทยเหมาะกับใคร',
     forWhom:
-      'Für alle, die eine ruhige, entspannende Massage suchen, und als Einstieg für alle, die Thaimassage zum ersten Mal ausprobieren. Wer kräftigen Druck und Dehnungen mag, wählt die traditionelle Thaimassage.',
-    notes: ['Nach der Massage kann etwas Öl auf der Haut bleiben. Empfindliche Kleidung lassen Sie am besten zu Hause.'],
+      'สำหรับทุกคนที่มองหาการนวดที่สงบและผ่อนคลาย และเป็นจุดเริ่มต้นที่ดีสำหรับคนที่ลองนวดไทยเป็นครั้งแรก ถ้าชอบน้ำหนักมือแน่นและการยืดเหยียด เลือกนวดแผนไทยแบบดั้งเดิม',
+    notes: ['หลังนวดอาจมีน้ำมันติดผิวอยู่บ้าง จึงไม่ควรใส่เสื้อผ้าที่เปื้อนง่ายมา'],
     faq: [
       {
-        question: 'Was ist der Unterschied zwischen Thai-Ölmassage und traditioneller Thaimassage?',
+        question: 'นวดน้ำมันแบบไทยต่างจากนวดแผนไทยแบบดั้งเดิมอย่างไร',
         answer:
-          'Die traditionelle Thaimassage wird ohne Öl und in Kleidung ausgeführt und arbeitet mit kräftigen Dehnungen. Die Thai-Ölmassage ist fließender und sanfter: warmes Öl, lange Streichungen und gezielter Druck, aber keine Dehnungen.',
+          'นวดแผนไทยแบบดั้งเดิมทำโดยไม่ใช้น้ำมัน สวมเสื้อผ้า และมีการยืดเหยียดแรง ๆ ส่วนนวดน้ำมันแบบไทยลื่นไหลและนุ่มนวลกว่า ใช้น้ำมันอุ่น ลูบยาว และกดตรงจุด แต่ไม่มีการยืดเหยียด',
       },
     ],
   },
 
   'ruecken-nacken-schulter-massage': {
-    eyebrow: 'Nangs Schwerpunkt',
-    howTitle: 'Wie läuft die Rücken-, Nacken- und Schultermassage ab?',
+    eyebrow: 'ความถนัดของ Nang',
+    howTitle: 'นวดหลัง คอ และบ่าไหล่มีขั้นตอนอย่างไร',
     how: [
-      'Diese Massage konzentriert sich auf den Oberkörper. Akupressur, Elemente aus dem Shiatsu, Dehnungen und Reflexzonentechniken ergeben zusammen eine wärmende, gründliche Massage. Nang arbeitet an Rücken, Nacken und Schultern und bezieht auf Wunsch auch den Kopf mit ein.',
-      'Nacken, Schultern und Kopf sind Nangs Schwerpunkt. Sie kennt den Verlauf der Muskulatur genau, findet die Stellen, an denen es festsitzt, und arbeitet gezielt daran, so kräftig oder sanft, wie es Ihnen guttut.',
+      'การนวดนี้เน้นที่ร่างกายช่วงบน การกดจุด เทคนิคจากชิอัตสึ การยืดเหยียด และเทคนิคจุดสะท้อน รวมกันเป็นการนวดที่อุ่นและทั่วถึง Nang นวดที่หลัง คอ และบ่าไหล่ และนวดศีรษะด้วยหากคุณต้องการ',
+      'คอ บ่าไหล่ และศีรษะเป็นความถนัดของ Nang เธอรู้แนวกล้ามเนื้อเป็นอย่างดี หาจุดที่ตึงเจอ และนวดตรงจุดนั้น หนักหรือเบาตามที่คุณรู้สึกสบาย',
     ],
     durationGuide: {
-      30: 'passt gut in eine Mittagspause',
-      60: 'gründlich für Rücken, Nacken und Schultern',
-      90: 'mit viel Zeit für Nacken und Kopf',
-      120: 'die ausführliche Variante für den ganzen Oberkörper',
+      30: 'เหมาะกับช่วงพักกลางวัน',
+      60: 'นวดหลัง คอ และบ่าไหล่อย่างทั่วถึง',
+      90: 'มีเวลานวดคอและศีรษะมากขึ้น',
+      120: 'แบบเต็มที่ สำหรับร่างกายช่วงบนทั้งหมด',
     },
-    forWhomTitle: 'Für wen eignet sich die Massage?',
+    forWhomTitle: 'การนวดนี้เหมาะกับใคร',
     forWhom:
-      'Für alle, die viel sitzen, lange am Bildschirm arbeiten oder den Alltag buchstäblich im Nacken spüren. Mit 30 Minuten passt sie auch in eine Mittagspause.',
+      'สำหรับทุกคนที่นั่งนาน ทำงานหน้าจอเป็นเวลานาน หรือรู้สึกว่าความเครียดในชีวิตประจำวันไปสะสมอยู่ที่ต้นคอ แบบ 30 นาทีก็เหมาะกับช่วงพักกลางวัน',
     notes: [],
     faq: [
       {
-        question: 'Was kostet eine Nackenmassage in Ehningen?',
-        answer: `Die Rücken-, Nacken- und Schultermassage kostet ${p('ruecken-nacken-schulter-massage')}. Alle Preise sind Endpreise, bezahlt wird vor Ort.`,
+        question: 'นวดคอที่ Ehningen ราคาเท่าไร',
+        answer: `นวดหลัง คอ และบ่าไหล่ราคา ${p('ruecken-nacken-schulter-massage')} ทุกราคาเป็นราคาสุทธิ ชำระเงินที่ร้าน`,
       },
       {
-        question: 'Wird bei der Rücken-, Nacken- und Schultermassage auch der Kopf massiert?',
+        question: 'นวดหลัง คอ และบ่าไหล่ นวดศีรษะด้วยไหม',
         answer:
-          'Auf Wunsch ja. Sagen Sie es bei der Terminvereinbarung oder vor der Massage, dann bezieht Nang den Kopf mit ein. Nacken, Schultern und Kopf gehören zu ihrem Schwerpunkt.',
+          'นวดได้หากคุณต้องการ บอกได้ตอนนัดเวลาหรือก่อนเริ่มนวด แล้ว Nang จะนวดศีรษะให้ด้วย คอ บ่าไหล่ และศีรษะเป็นความถนัดของเธอ',
       },
     ],
-    links: [{ href: '/ueber-uns/#schwerpunkt', label: 'So arbeitet Nang' }],
+    links: [{ href: '/ueber-uns/#schwerpunkt', label: 'วิธีการนวดของ Nang' }],
   },
 
   kraeuterstempelmassage: {
-    eyebrow: 'Luk Pra Kob',
-    howTitle: 'Wie läuft eine Kräuterstempelmassage ab?',
+    eyebrow: 'ลูกประคบ (Luk Pra Kob)',
+    howTitle: 'นวดประคบสมุนไพรมีขั้นตอนอย่างไร',
     how: [
-      'Für die Kräuterstempelmassage werden Stoffsäckchen mit Kräutern gefüllt und erwärmt. Nang führt die warmen Stempel mit sanftem Druck über den Körper und verbindet das mit Akupressur und warmen ätherischen Ölen. Wärme und Kräuterduft machen diese Massage besonders intensiv.',
-      'In Thailand heißt der Kräuterstempel Luk Pra Kob. Er gehört seit Generationen zur traditionellen thailändischen Massage. Damit genug Zeit für Wärme, Akupressur und Öl bleibt, gibt es die Kräuterstempelmassage mit 90 oder 120 Minuten.',
+      'สำหรับการนวดประคบสมุนไพร จะนำสมุนไพรห่อด้วยผ้าเป็นลูกประคบแล้วนำไปอุ่น Nang ใช้ลูกประคบอุ่นกดเบา ๆ ไปตามร่างกาย ร่วมกับการกดจุดและน้ำมันหอมระเหยอุ่น ๆ ความอุ่นและกลิ่นสมุนไพรทำให้การนวดนี้เข้มข้นเป็นพิเศษ',
+      'ในไทยเรียกว่า ลูกประคบ ซึ่งเป็นส่วนหนึ่งของการนวดแผนไทยมาหลายชั่วอายุคน เพื่อให้มีเวลาเพียงพอสำหรับความอุ่น การกดจุด และน้ำมัน การนวดประคบสมุนไพรจึงมีแบบ 90 และ 120 นาที',
     ],
     durationGuide: {
-      90: 'die klassische Kräuterstempelmassage',
-      120: 'mit noch mehr Ruhe für den ganzen Körper',
+      90: 'นวดประคบสมุนไพรแบบคลาสสิก',
+      120: 'ผ่อนคลายยิ่งขึ้นสำหรับทั้งร่างกาย',
     },
-    forWhomTitle: 'Für wen eignet sich die Kräuterstempelmassage?',
-    forWhom:
-      'Für alle, die sich bewusst eine lange Auszeit nehmen möchten, und für alle, die Wärme mögen, besonders in der kalten Jahreszeit.',
+    forWhomTitle: 'นวดประคบสมุนไพรเหมาะกับใคร',
+    forWhom: 'สำหรับทุกคนที่ตั้งใจให้เวลากับการพักผ่อนยาว ๆ และสำหรับคนที่ชอบความอุ่น โดยเฉพาะในช่วงอากาศหนาว',
     notes: [],
     faq: [
       {
-        question: 'Was ist ein Kräuterstempel?',
-        answer:
-          'Ein Stoffsäckchen, gefüllt mit Kräutern. Es wird erwärmt und dann mit sanftem Druck auf den Körper gedrückt und darüber gerollt. In Thailand heißt der Kräuterstempel Luk Pra Kob.',
+        question: 'ลูกประคบคืออะไร',
+        answer: 'คือห่อผ้าที่บรรจุสมุนไพร นำไปอุ่นแล้วกดเบา ๆ และคลึงไปบนร่างกาย ในไทยเรียกว่า ลูกประคบ',
       },
       {
-        question: 'Warum dauert die Kräuterstempelmassage mindestens 90 Minuten?',
+        question: 'ทำไมนวดประคบสมุนไพรต้องนานอย่างน้อย 90 นาที',
         answer:
-          'Die Stempel werden vorher erwärmt, und die Massage verbindet Wärme, Akupressur und ätherische Öle. Damit dafür genug Ruhe bleibt, gibt es sie mit 90 oder 120 Minuten.',
+          'ลูกประคบต้องอุ่นก่อน และการนวดผสานความอุ่น การกดจุด และน้ำมันหอมระเหยเข้าด้วยกัน เพื่อให้มีเวลาเพียงพอและไม่เร่งรีบ จึงมีแบบ 90 และ 120 นาที',
       },
     ],
   },
 
   fussreflexzonenmassage: {
-    eyebrow: 'Thai-Fußmassage',
-    howTitle: 'Wie läuft die Fußreflexzonenmassage ab?',
+    eyebrow: 'นวดเท้าแบบไทย',
+    howTitle: 'นวดเท้ากดจุดสะท้อนมีขั้นตอนอย่างไร',
     how: [
-      'Nang massiert die Füße mit gezieltem Druck auf die Zonen der Fußsohlen, dazu kommen streichende und knetende Griffe. Nach traditioneller Vorstellung spiegelt sich in den Füßen der ganze Körper wider.',
-      'Die Massage tut müden Füßen gut und entspannt spürbar. Sagen Sie Nang einfach, wie kräftig es sein darf.',
+      'Nang นวดเท้าด้วยการกดตรงจุดสะท้อนบนฝ่าเท้า ร่วมกับท่าลูบและบีบนวด ตามความเชื่อดั้งเดิม เท้าสะท้อนถึงร่างกายทั้งหมด',
+      'การนวดนี้ทำให้เท้าที่เมื่อยล้ารู้สึกสบาย และผ่อนคลายได้ชัดเจน บอก Nang ได้เลยว่าต้องการน้ำหนักมือแค่ไหน',
     ],
     durationGuide: {
-      30: 'als kurze Auszeit zwischendurch',
-      60: 'ausgiebig, mit viel Zeit für beide Füße',
+      30: 'สำหรับพักสั้น ๆ ระหว่างวัน',
+      60: 'แบบเต็มที่ มีเวลานวดเท้าทั้งสองข้างมาก',
     },
-    forWhomTitle: 'Für wen eignet sich die Fußmassage?',
-    forWhom: 'Für alle, die viel stehen oder gehen, nach einem langen Tag auf den Beinen oder als kurze Auszeit zwischendurch.',
+    forWhomTitle: 'นวดเท้าเหมาะกับใคร',
+    forWhom: 'สำหรับทุกคนที่ยืนหรือเดินมาก หลังจากวันยาว ๆ ที่ต้องอยู่บนเท้า หรือเป็นการพักสั้น ๆ ระหว่างวัน',
     notes: [],
     faq: [
       {
-        question: 'Was kostet eine Fußmassage in Ehningen?',
-        answer: `Die Fußreflexzonenmassage kostet ${p('fussreflexzonenmassage')}. Alle Preise sind Endpreise, bezahlt wird vor Ort.`,
+        question: 'นวดเท้าที่ Ehningen ราคาเท่าไร',
+        answer: `นวดเท้ากดจุดสะท้อนราคา ${p('fussreflexzonenmassage')} ทุกราคาเป็นราคาสุทธิ ชำระเงินที่ร้าน`,
       },
       {
-        question: 'Ist Fußmassage dasselbe wie Fußreflexzonenmassage?',
+        question: 'นวดเท้ากับนวดเท้ากดจุดสะท้อนเหมือนกันไหม',
         answer:
-          'Bei Nang Thai Massage ist es dieselbe Anwendung: eine Fußmassage nach thailändischer Tradition, die gezielt mit den Reflexzonen der Fußsohlen arbeitet. Sie buchen sie mit 30 oder 60 Minuten.',
+          'ที่ Nang Thai Massage เป็นบริการเดียวกัน: นวดเท้าแบบไทยดั้งเดิมที่กดจุดสะท้อนบนฝ่าเท้า จองได้แบบ 30 หรือ 60 นาที',
       },
     ],
   },

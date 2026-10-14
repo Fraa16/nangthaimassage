@@ -1,3 +1,10 @@
+> **Branch `feedback-thai`: nur zum Lesen für Nang, NIE in `main` mergen.**
+> Hier ist die Website ins Thailändische übersetzt, damit Nang die Inhalte prüfen und Rückmeldung
+> geben kann. Vercel zeigt diesen Branch nur als Vorschau. Jede Seite trägt ein rotes Hinweisbanner,
+> ist auf `noindex` gesetzt, und `robots.txt` sperrt alles. Würde der Stand trotzdem als Produktion
+> gebaut, bricht `scripts/guard-feedback.mjs` den Build ab und die deutsche Seite bleibt online.
+> Die englische Seite `/en/` ist unverändert englisch.
+
 # Nang Thai Massage – Website
 
 Website für **Nang Thai Massage**, Königstraße 25, 71139 Ehningen.

@@ -9,25 +9,25 @@ import { business, fullAddress, hoursSummary } from '../data/business';
 import { telHref, whatsappHref, directionsUrl, appleMapsUrl, googleMapsUrl } from '../lib/links';
 
 const hours = hoursSummary();
-const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
+const breadcrumbs = [{ name: 'ติดต่อและการเดินทาง', href: '/kontakt/' }];
 ---
 
 <BaseLayout
-  title="Kontakt & Anfahrt"
-  fullTitle={`Kontakt & Anfahrt | ${business.name} Ehningen`}
-  description={`Termin bei ${business.name} in Ehningen: Anruf oder WhatsApp unter ${business.phone.display}. ${fullAddress}. ${hours ? `${hours}, auch an Feiertagen.` : ''}`}
+  title="ติดต่อและการเดินทาง"
+  fullTitle={`ติดต่อและการเดินทาง | ${business.name} Ehningen`}
+  description={`นัดเวลากับ ${business.name} ใน Ehningen: โทรหรือ WhatsApp ที่ ${business.phone.display} ${fullAddress} ${hours ? `เปิด${hours} รวมถึงวันหยุดนักขัตฤกษ์` : ''}`}
   breadcrumbs={breadcrumbs}
 >
   <PageHero
-    eyebrow="Kontakt"
-    title="Kontakt &amp; Anfahrt"
-    lead={`Termine vereinbaren Sie am schnellsten per Anruf oder WhatsApp. ${hours ? `Wir sind ${hours.replace('Täglich', 'täglich')} für Sie da.` : ''}`}
+    eyebrow="ติดต่อ"
+    title="ติดต่อและการเดินทาง"
+    lead={`นัดเวลาได้เร็วที่สุดทางโทรศัพท์หรือ WhatsApp ${hours ? `เราพร้อมให้บริการ${hours}` : ''}`}
     breadcrumbs={breadcrumbs}
   >
     <div class="btn-row">
-      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> {business.phone.display} anrufen</a>
-      <a class="btn btn--outline-light" href={whatsappHref('Hallo, ich möchte gern einen Termin vereinbaren.')} rel="noopener" target="_blank">
-        <Icon name="whatsapp" /> WhatsApp schreiben
+      <a class="btn btn--gold" href={telHref}><Icon name="phone" /> โทร {business.phone.display}</a>
+      <a class="btn btn--outline-light" href={whatsappHref('สวัสดี ต้องการนัดเวลานวด')} rel="noopener" target="_blank">
+        <Icon name="whatsapp" /> ส่งข้อความ WhatsApp
       </a>
     </div>
   </PageHero>
@@ -35,14 +35,14 @@ const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
   <section class="section" aria-labelledby="kontaktwege-title">
     <div class="container contact">
       <div class="contact__info">
-        <h2 id="kontaktwege-title">So erreichen Sie uns</h2>
+        <h2 id="kontaktwege-title">ช่องทางติดต่อเรา</h2>
         <ul class="contact__cards">
           <li>
             <span class="contact__icon"><Icon name="phone" /></span>
             <div>
-              <h3>Telefon</h3>
+              <h3>โทรศัพท์</h3>
               <a href={telHref}>{business.phone.display}</a>
-              <p>Am schnellsten während der Öffnungszeiten.</p>
+              <p>ติดต่อได้เร็วที่สุดในเวลาทำการ</p>
             </div>
           </li>
           <li>
@@ -50,13 +50,13 @@ const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
             <div>
               <h3>WhatsApp</h3>
               <a href={whatsappHref()} rel="noopener" target="_blank">{business.phone.display}</a>
-              <p>Schreiben Sie uns jederzeit, wir antworten so schnell wie möglich.</p>
+              <p>ส่งข้อความมาได้ตลอดเวลา เราจะตอบกลับโดยเร็วที่สุด</p>
             </div>
           </li>
           <li>
             <span class="contact__icon"><Icon name="map-pin" /></span>
             <div>
-              <h3>Adresse</h3>
+              <h3>ที่อยู่</h3>
               <address>
                 {business.name}
                 <br />
@@ -65,25 +65,25 @@ const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
                 {business.address.postalCode} {business.address.city}
               </address>
               <p class="contact__links">
-                <a href={directionsUrl} rel="noopener" target="_blank">Route mit Google Maps</a>
-                <a href={appleMapsUrl} rel="noopener" target="_blank">Apple Karten</a>
-                <a href={googleMapsUrl} rel="noopener" target="_blank">Google-Bewertungen</a>
+                <a href={directionsUrl} rel="noopener" target="_blank">เส้นทางด้วย Google Maps</a>
+                <a href={appleMapsUrl} rel="noopener" target="_blank">Apple Maps</a>
+                <a href={googleMapsUrl} rel="noopener" target="_blank">รีวิวบน Google</a>
               </p>
             </div>
           </li>
         </ul>
 
         <div class="hours">
-          <h2 id="oeffnungszeiten">Öffnungszeiten</h2>
+          <h2 id="oeffnungszeiten">เวลาเปิดทำการ</h2>
           <table>
-            <caption class="visually-hidden">Öffnungszeiten von {business.name}</caption>
+            <caption class="visually-hidden">เวลาเปิดทำการของ {business.name}</caption>
             <tbody>
               {
                 business.openingHours.map((d) => (
                   <tr>
                     <th scope="row">{d.day}</th>
                     <td>
-                      {d.opens} – {d.closes} Uhr
+                      {`${d.opens} – ${d.closes} น.`}
                     </td>
                   </tr>
                 ))
@@ -91,9 +91,9 @@ const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
               {
                 business.openOnHolidays && (
                   <tr>
-                    <th scope="row">Feiertage</th>
+                    <th scope="row">วันหยุดนักขัตฤกษ์</th>
                     <td>
-                      {business.openingHours[0].opens} – {business.openingHours[0].closes} Uhr
+                      {`${business.openingHours[0].opens} – ${business.openingHours[0].closes} น.`}
                     </td>
                   </tr>
                 )
@@ -101,14 +101,14 @@ const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
             </tbody>
           </table>
           <p>
-            {`${business.byAppointment ? 'Andere Zeiten nach Vereinbarung. ' : ''}Am Wochenende am besten ein paar Tage vorher anfragen.`}
+            {`${business.byAppointment ? 'เวลาอื่นนัดได้ตามสะดวก ' : ''}ช่วงสุดสัปดาห์ แนะนำให้สอบถามล่วงหน้าสักสองสามวัน`}
           </p>
         </div>
       </div>
 
       <div class="contact__form">
-        <h2 id="anfrage-title">Terminanfrage per WhatsApp</h2>
-        <p>Wählen Sie Massage und Wunschzeit, wir bestätigen Ihnen den Termin per WhatsApp.</p>
+        <h2 id="anfrage-title">ขอนัดเวลาทาง WhatsApp</h2>
+        <p>เลือกการนวดและเวลาที่ต้องการ แล้วเราจะยืนยันนัดกับคุณทาง WhatsApp</p>
         <BookingRequest />
       </div>
     </div>
@@ -118,9 +118,9 @@ const breadcrumbs = [{ name: 'Kontakt & Anfahrt', href: '/kontakt/' }];
     <div class="container">
       <SectionHeading
         id="anfahrt-title"
-        eyebrow="Anfahrt"
-        title="Mitten in Ehningen"
-        lead={`${business.name} liegt in der ${business.address.street} in ${business.address.postalCode} ${business.address.city}, ${business.address.district}. Mit dem Auto parken Sie direkt an der Straße, der Eingang ist leicht zu finden. Mit der S-Bahn fahren Sie mit der Linie S1 bis Ehningen.`}
+        eyebrow="การเดินทาง"
+        title="ใจกลาง Ehningen"
+        lead={`${business.name} ตั้งอยู่ที่ ${business.address.street}, ${business.address.postalCode} ${business.address.city} (${business.address.district}) ถ้ามาด้วยรถยนต์ จอดได้ริมถนนเลย และทางเข้าหาง่าย ถ้ามาด้วยรถไฟ S-Bahn ให้นั่งสาย S1 มาลงที่ Ehningen`}
       />
       <MapEmbed />
     </div>

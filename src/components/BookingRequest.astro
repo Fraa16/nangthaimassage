@@ -8,7 +8,7 @@ import Icon from './Icon.astro';
 import { business } from '../data/business';
 import { services, formatPrice, formatMinutes } from '../data/services';
 
-const greeting = 'Hallo, ich möchte gern einen Termin vereinbaren.';
+const greeting = 'สวัสดี ต้องการนัดเวลานวด';
 
 const toMinutes = (t: string) => {
   const [h, m] = t.split(':').map(Number);
@@ -25,9 +25,9 @@ for (let m = toMinutes(opens); m <= toMinutes(closes) - 30; m += 30) {
   <input type="hidden" name="text" value={greeting} />
 
   <div class="booking__field booking__field--full">
-    <label for="booking-massage">Massage und Dauer</label>
+    <label for="booking-massage">การนวดและระยะเวลา</label>
     <select id="booking-massage" data-field="massage">
-      <option value="">Noch unsicher, bitte beraten Sie mich</option>
+      <option value="">ยังไม่แน่ใจ ขอคำแนะนำ</option>
       {
         services.map((s) => (
           <optgroup label={s.name}>
@@ -43,34 +43,34 @@ for (let m = toMinutes(opens); m <= toMinutes(closes) - 30; m += 30) {
   </div>
 
   <div class="booking__field">
-    <label for="booking-date">Wunschtag</label>
+    <label for="booking-date">วันที่ต้องการ</label>
     <input id="booking-date" type="date" data-field="date" />
   </div>
 
   <div class="booking__field">
-    <label for="booking-time">Uhrzeit</label>
+    <label for="booking-time">เวลา</label>
     <select id="booking-time" data-field="time">
-      <option value="">flexibel</option>
-      {times.map((t) => <option value={t}>{t} Uhr</option>)}
+      <option value="">เวลาใดก็ได้</option>
+      {times.map((t) => <option value={t}>{t} น.</option>)}
     </select>
   </div>
 
   <div class="booking__field booking__field--full">
-    <label for="booking-name">Ihr Name</label>
+    <label for="booking-name">ชื่อของคุณ</label>
     <input id="booking-name" type="text" autocomplete="name" data-field="name" />
   </div>
 
   <div class="booking__field booking__field--full">
-    <label for="booking-note">Anmerkung <span>(optional)</span></label>
-    <textarea id="booking-note" rows="2" data-field="note" placeholder="z. B. zweiter Wunschtermin oder gewünschte Druckstärke"></textarea>
+    <label for="booking-note">หมายเหตุ <span>(ไม่บังคับ)</span></label>
+    <textarea id="booking-note" rows="2" data-field="note" placeholder="เช่น วันเวลาสำรอง หรือน้ำหนักมือที่ต้องการ"></textarea>
   </div>
 
   <button class="btn btn--gold booking__submit" type="submit">
-    <Icon name="whatsapp" /> Anfrage per WhatsApp senden
+    <Icon name="whatsapp" /> ส่งคำขอนัดทาง WhatsApp
   </button>
   <p class="booking__privacy">
-    Ihre Angaben werden nicht auf dieser Website gespeichert. Der Button öffnet WhatsApp mit einer vorbereiteten Nachricht,
-    die Sie vor dem Absenden noch ändern können. Lieber telefonieren? <a href={`tel:${business.phone.e164}`}>{business.phone.display}</a>
+    {'ข้อมูลของคุณจะไม่ถูกบันทึกไว้ในเว็บไซต์นี้ ปุ่มนี้จะเปิด WhatsApp พร้อมข้อความที่เตรียมไว้ ซึ่งคุณแก้ไขได้ก่อนส่ง อยากโทรมากกว่า? '}
+    <a href={`tel:${business.phone.e164}`}>{business.phone.display}</a>
   </p>
 </form>
 
@@ -88,28 +88,28 @@ for (let m = toMinutes(opens); m <= toMinutes(closes) - 30; m += 30) {
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const lines = ['Hallo, ich möchte gern einen Termin vereinbaren.'];
+      const lines = ['สวัสดี ต้องการนัดเวลานวด'];
       const massage = value(form, 'massage');
-      lines.push(`Massage: ${massage || 'noch unsicher, bitte um Beratung'}`);
+      lines.push(`การนวด: ${massage || 'ยังไม่แน่ใจ ขอคำแนะนำ'}`);
 
       const day = value(form, 'date');
       const time = value(form, 'time');
       if (day || time) {
         const dayText = day
-          ? new Date(`${day}T12:00:00`).toLocaleDateString('de-DE', {
+          ? new Date(`${day}T12:00:00`).toLocaleDateString('th-TH', {
               weekday: 'long',
               day: '2-digit',
               month: '2-digit',
               year: 'numeric',
             })
-          : 'Tag flexibel';
-        lines.push(`Wunschtermin: ${dayText}, ${time ? `${time} Uhr` : 'Uhrzeit flexibel'}`);
+          : 'วันใดก็ได้';
+        lines.push(`วันเวลาที่ต้องการ: ${dayText} ${time ? `${time} น.` : 'เวลาใดก็ได้'}`);
       }
 
       const name = value(form, 'name');
-      if (name) lines.push(`Name: ${name}`);
+      if (name) lines.push(`ชื่อ: ${name}`);
       const note = value(form, 'note');
-      if (note) lines.push(`Anmerkung: ${note}`);
+      if (note) lines.push(`หมายเหตุ: ${note}`);
 
       const url = `${form.action}?text=${encodeURIComponent(lines.join('\n'))}`;
       window.open(url, '_blank', 'noopener');

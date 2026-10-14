@@ -4,13 +4,13 @@ import Ornament from './Ornament.astro';
 import { about, yearsOfExperience } from '../data/about';
 ---
 
-<aside class="badge" aria-label="Nangs Erfahrung und Schwerpunkt">
+<aside class="badge" aria-label="ประสบการณ์และความถนัดของ Nang">
   <Ornament size={44} lines={false} />
   <p class="badge__years">
     <span class="badge__number">{yearsOfExperience}</span>
-    <span class="badge__label">Jahre Erfahrung</span>
+    <span class="badge__label">ปีแห่งประสบการณ์</span>
   </p>
-  <p class="badge__title">Schwerpunkt</p>
+  <p class="badge__title">ความถนัด</p>
   <ul class="badge__areas">
     {about.focusAreas.map((area) => <li>{area}</li>)}
   </ul>

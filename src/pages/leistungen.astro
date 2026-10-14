@@ -14,7 +14,7 @@ import { faqSchema, serviceSchema } from '../lib/schema';
 
 const site = Astro.site ?? new URL(Astro.url.origin);
 const durations = [...new Set(services.flatMap((s) => s.options.map((o) => o.minutes)))].sort((a, b) => a - b);
-const breadcrumbs = [{ name: 'Leistungen & Preise', href: '/leistungen/' }];
+const breadcrumbs = [{ name: 'บริการและราคา', href: '/leistungen/' }];
 const sections = services.map((s) => ({ service: s, detail: getServiceDetail(s.slug) }));
 const questions = sections.flatMap((x) => x.detail.faq);
 const schema = [
@@ -24,28 +24,28 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Leistungen & Preise: Thaimassage ab 30 €"
-  description={`Thaimassage, Thai-Ölmassage, Rücken-Nacken-Schulter, Kräuterstempel und Fußmassage in Ehningen. 30 bis 120 Minuten, ab ${formatPrice(lowestPrice)}. Alle Preise auf einen Blick.`}
+  title="บริการและราคา: นวดแผนไทยเริ่มต้น 30 €"
+  description={`นวดแผนไทย นวดน้ำมันแบบไทย นวดหลัง คอ บ่าไหล่ นวดประคบสมุนไพร และนวดเท้าใน Ehningen 30 ถึง 120 นาที เริ่มต้น ${formatPrice(lowestPrice)} ดูราคาทั้งหมดได้ในหน้าเดียว`}
   breadcrumbs={breadcrumbs}
   schema={schema}
 >
   <PageHero
-    eyebrow="Leistungen & Preise"
-    title="Massagen und Preise"
-    lead="Fünf Massagen nach thailändischer Tradition, von 30 Minuten für zwischendurch bis zur zweistündigen Auszeit. Alle Preise sind Endpreise, bezahlt wird vor Ort."
+    eyebrow="บริการและราคา"
+    title="การนวดและราคา"
+    lead="การนวด 5 แบบตามแบบไทยดั้งเดิม ตั้งแต่ 30 นาทีสำหรับพักระหว่างวัน ไปจนถึงการพักผ่อนสองชั่วโมง ทุกราคาเป็นราคาสุทธิ ชำระเงินที่ร้าน"
     breadcrumbs={breadcrumbs}
   />
 
   <section class="section" aria-labelledby="preisliste-title">
     <div class="container">
-      <SectionHeading id="preisliste-title" eyebrow="Preisliste" title="Alle Preise auf einen Blick" />
-      <div class="price-table-wrap" role="region" aria-label="Preistabelle" tabindex="0">
+      <SectionHeading id="preisliste-title" eyebrow="รายการราคา" title="ราคาทั้งหมดในที่เดียว" />
+      <div class="price-table-wrap" role="region" aria-label="ตารางราคา" tabindex="0">
         <table class="price-table">
-          <caption class="visually-hidden">Preise nach Massage und Dauer in Euro</caption>
+          <caption class="visually-hidden">ราคาตามประเภทการนวดและระยะเวลา หน่วยเป็นยูโร</caption>
           <thead>
             <tr>
-              <th scope="col">Massage</th>
-              {durations.map((d) => <th scope="col">{d} Min.</th>)}
+              <th scope="col">การนวด</th>
+              {durations.map((d) => <th scope="col">{d} นาที</th>)}
             </tr>
           </thead>
           <tbody>
@@ -62,7 +62,7 @@ const schema = [
                     ) : (
                       <td class="price-table__empty">
                         <span aria-hidden="true">–</span>
-                        <span class="visually-hidden">nicht angeboten</span>
+                        <span class="visually-hidden">ไม่มีบริการ</span>
                       </td>
                     );
                   })}
@@ -72,7 +72,7 @@ const schema = [
           </tbody>
         </table>
       </div>
-      <p class="price-note">Alle Preise in Euro, inklusive aller Abgaben. Bezahlt wird vor Ort beim Termin.</p>
+      <p class="price-note">ราคาทั้งหมดเป็นยูโร รวมภาษีและค่าธรรมเนียมแล้ว ชำระเงินที่ร้านในวันนัด</p>
     </div>
   </section>
 
@@ -123,7 +123,7 @@ const schema = [
 
   <section class="section" aria-labelledby="fragen-title">
     <div class="container">
-      <SectionHeading id="fragen-title" eyebrow="Häufige Fragen" title="Gut zu wissen über die Massagen" />
+      <SectionHeading id="fragen-title" eyebrow="คำถามที่พบบ่อย" title="ข้อควรรู้เกี่ยวกับการนวด" />
       <Faq items={questions} />
     </div>
   </section>
@@ -134,7 +134,7 @@ const schema = [
     </div>
   </section>
 
-  <CtaBand title="Welche Massage darf es sein?" text="Sagen Sie uns Massage, Dauer und Wunschzeit. Unsicher, was passt? Wir beraten Sie gern am Telefon." />
+  <CtaBand title="อยากนวดแบบไหนดี?" text="บอกเราว่าต้องการนวดแบบไหน นานเท่าไร และเวลาที่สะดวก ไม่แน่ใจว่าแบบไหนเหมาะ? เรายินดีให้คำแนะนำทางโทรศัพท์" />
 </BaseLayout>
 
 <style>

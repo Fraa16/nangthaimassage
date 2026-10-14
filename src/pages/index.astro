@@ -27,31 +27,31 @@ const thai60 = getService('traditionelle-thaimassage').options.find((o) => o.min
 const highlights = [
   {
     icon: 'clock',
-    title: 'Täglich geöffnet',
-    text: `${hours ? hours.replace('Täglich ', 'Montag bis Sonntag, ') : 'Termine nach Vereinbarung'}.${extras ? ` Ebenso ${extras.replace(/^auch /, '')}.` : ''}`,
+    title: 'เปิดทุกวัน',
+    text: `${hours ? hours.replace('ทุกวัน ', 'วันจันทร์ถึงวันอาทิตย์ ') : 'ตามนัดหมาย'}${extras ? ` ${extras}` : ''}`,
   },
   {
     icon: 'award',
-    title: `${yearsOfExperience} Jahre Erfahrung`,
-    text: 'Nang kennt Muskeln, Sehnen und Druckpunkte genau und findet die Stellen, an denen es festsitzt.',
+    title: `ประสบการณ์ ${yearsOfExperience} ปี`,
+    text: 'Nang รู้จักกล้ามเนื้อ เส้นเอ็น และจุดกดเป็นอย่างดี และหาจุดที่ตึงเจอ',
   },
   {
     icon: 'tag',
-    title: 'Klare Preise',
-    text: `30 Minuten ab ${formatPrice(lowestPrice)}${thai60 ? `, eine Stunde Thaimassage ${formatPrice(thai60.price)}` : ''}. Alle Preise sind Endpreise.`,
+    title: 'ราคาชัดเจน',
+    text: `30 นาทีเริ่มต้นที่ ${formatPrice(lowestPrice)}${thai60 ? ` นวดแผนไทยหนึ่งชั่วโมง ${formatPrice(thai60.price)}` : ''} ทุกราคาเป็นราคาสุทธิ`,
   },
   {
     icon: 'check',
-    title: 'Seriös und traditionell',
-    text: 'Ausschließlich klassische Massagen nach thailändischer Tradition, in ruhiger Atmosphäre.',
+    title: 'สุภาพและเป็นแบบดั้งเดิม',
+    text: 'เฉพาะการนวดแบบคลาสสิกตามแบบไทยดั้งเดิม ในบรรยากาศที่สงบ',
   },
 ] as const;
 ---
 
 <BaseLayout
-  fullTitle={`Thaimassage in Ehningen | ${business.name}`}
-  title="Startseite"
-  description={`Thaimassage in Ehningen mit ${yearsOfExperience} Jahren Erfahrung: traditionell, mit warmem Öl, Kräuterstempel oder Fußreflexzonen. ${hours ?? ''}, auch feiertags. Ab ${formatPrice(lowestPrice)}.`}
+  fullTitle={`นวดแผนไทยใน Ehningen | ${business.name}`}
+  title="หน้าแรก"
+  description={`นวดแผนไทยใน Ehningen ประสบการณ์ ${yearsOfExperience} ปี: แบบดั้งเดิม น้ำมันอุ่น ประคบสมุนไพร หรือนวดเท้ากดจุดสะท้อน เปิด${hours ?? ''} รวมถึงวันหยุดนักขัตฤกษ์ เริ่มต้น ${formatPrice(lowestPrice)}`}
   schema={[faqSchema(faq)]}
   alternates={[
     { hreflang: 'de', href: '/' },
@@ -86,26 +86,26 @@ const highlights = [
         <span aria-hidden="true">Thai Massage</span>
       </div>
 
-      <h1 id="hero-title">Traditionelle Thaimassage <span class="hero__place">in Ehningen</span></h1>
+      <h1 id="hero-title">นวดแผนไทยแบบดั้งเดิม <span class="hero__place">ใน Ehningen</span></h1>
       <p class="lead hero__lead">
-        {`Nang massiert seit ${yearsOfExperience} Jahren nach thailändischer Tradition: klassische Thaimassage, Ölmassage, Kräuterstempel und Fußreflexzonen. ${hours ? `${hours}, auch an Wochenenden und Feiertagen.` : ''}`}
+        {`Nang นวดตามแบบไทยดั้งเดิมมาแล้ว ${yearsOfExperience} ปี: นวดแผนไทยแบบคลาสสิก นวดน้ำมัน ประคบสมุนไพร และนวดเท้ากดจุดสะท้อน ${hours ? `เปิด${hours} รวมถึงวันเสาร์ วันอาทิตย์ และวันหยุดนักขัตฤกษ์` : ''}`}
       </p>
 
       <div class="btn-row hero__actions">
         <a class="btn btn--gold" href={telHref}>
           <Icon name="phone" />
-          Jetzt anrufen: {business.phone.display}
+          {`โทรเลย: ${business.phone.display}`}
         </a>
-        <a class="btn btn--outline" href={whatsappHref('Hallo, ich möchte gern einen Termin vereinbaren.')} rel="noopener" target="_blank">
+        <a class="btn btn--outline" href={whatsappHref('สวัสดี ต้องการนัดเวลานวด')} rel="noopener" target="_blank">
           <Icon name="whatsapp" />
-          Per WhatsApp anfragen
+          สอบถามทาง WhatsApp
         </a>
       </div>
 
       <ul class="hero__facts">
-        <li><Icon name="award" /> {yearsOfExperience} Jahre Erfahrung</li>
-        <li><Icon name="clock" /> {hours ?? 'Termine nach Vereinbarung'}</li>
-        <li><Icon name="tag" /> Ab {formatPrice(lowestPrice)} für 30 Minuten</li>
+        <li><Icon name="award" /> {`ประสบการณ์ ${yearsOfExperience} ปี`}</li>
+        <li><Icon name="clock" /> {hours ?? 'ตามนัดหมาย'}</li>
+        <li><Icon name="tag" /> {`เริ่มต้น ${formatPrice(lowestPrice)} สำหรับ 30 นาที`}</li>
         <li>
           <Icon name="map-pin" />
           <a href={directionsUrl} rel="noopener" target="_blank">{business.address.street}, {business.address.city}</a>
@@ -116,7 +116,7 @@ const highlights = [
 
   <section class="section highlights" aria-labelledby="highlights-title">
     <div class="container">
-      <h2 id="highlights-title" class="visually-hidden">Das Wichtigste auf einen Blick</h2>
+      <h2 id="highlights-title" class="visually-hidden">ข้อมูลสำคัญโดยสรุป</h2>
       <ul class="highlights__list">
         {
           highlights.map((h) => (
@@ -140,9 +140,9 @@ const highlights = [
     <div class="container">
       <SectionHeading
         id="leistungen-title"
-        eyebrow="Leistungen & Preise"
-        title="Fünf Massagen, <span class='accent'>eine Tradition</span>"
-        lead="Von 30 Minuten für zwischendurch bis zur zweistündigen Auszeit. Alle Preise sind Endpreise, bezahlt wird vor Ort."
+        eyebrow="บริการและราคา"
+        title="การนวด 5 แบบ <span class='accent'>หนึ่งประเพณี</span>"
+        lead="ตั้งแต่ 30 นาทีสำหรับพักระหว่างวัน ไปจนถึงการพักผ่อนสองชั่วโมง ทุกราคาเป็นราคาสุทธิ ชำระเงินที่ร้าน"
       />
       <ul class="services-grid">
         {
@@ -154,7 +154,7 @@ const highlights = [
         }
       </ul>
       <p class="center-link">
-        <a class="text-link" href="/leistungen/">Alle Leistungen im Detail <Icon name="arrow-right" /></a>
+        <a class="text-link" href="/leistungen/">ดูรายละเอียดบริการทั้งหมด <Icon name="arrow-right" /></a>
       </p>
     </div>
   </section>
@@ -163,14 +163,14 @@ const highlights = [
     <div class="container">
       <SectionHeading
         id="besuch-title"
-        eyebrow="Ihr Besuch"
-        title="Mitten in Ehningen, <span class='accent'>jeden Tag für Sie da</span>"
-        lead={`Das Studio liegt in der ${business.address.street}. Aus ${business.nearbyTowns.slice(0, 4).join(', ')} und Umgebung ist es schnell zu erreichen.`}
+        eyebrow="การมาที่ร้าน"
+        title="อยู่ใจกลาง Ehningen <span class='accent'>เปิดให้บริการทุกวัน</span>"
+        lead={`ร้านตั้งอยู่ที่ ${business.address.street} เดินทางมาจาก ${business.nearbyTowns.slice(0, 4).join(' ')} และพื้นที่ใกล้เคียงได้สะดวก`}
       />
       <Signboard />
       <div class="btn-row besuch__actions">
-        <a class="btn btn--purple" href={directionsUrl} rel="noopener" target="_blank"><Icon name="route" /> Route planen</a>
-        <a class="btn btn--outline" href={googleMapsUrl} rel="noopener" target="_blank"><Icon name="star" /> Bewertungen auf Google</a>
+        <a class="btn btn--purple" href={directionsUrl} rel="noopener" target="_blank"><Icon name="route" /> วางแผนเส้นทาง</a>
+        <a class="btn btn--outline" href={googleMapsUrl} rel="noopener" target="_blank"><Icon name="star" /> รีวิวบน Google</a>
       </div>
     </div>
   </section>
@@ -178,29 +178,25 @@ const highlights = [
   <section class="section section--tint thai" aria-labelledby="thai-title">
     <div class="container thai__grid">
       <div>
-        <p class="eyebrow">Nuad Thai</p>
-        <h2 id="thai-title">Was ist traditionelle Thaimassage?</h2>
+        <p class="eyebrow">นวดไทย (Nuad Thai)</p>
+        <h2 id="thai-title">นวดแผนไทยแบบดั้งเดิมคืออะไร</h2>
         <p>
-          Die traditionelle Thaimassage, in Thailand Nuad Thai genannt, ist eine über Jahrhunderte überlieferte
-          Massagetechnik. Sie verbindet rhythmischen Druck entlang der Energielinien des Körpers mit passiven Dehnungen,
-          die an Yoga erinnern. Massiert wird traditionell ohne Öl und in bequemer Kleidung.
+          {'นวดแผนไทยแบบดั้งเดิม ซึ่งในไทยเรียกว่า นวดไทย เป็นศาสตร์การนวดที่สืบทอดกันมาหลายร้อยปี ผสมผสานการกดเป็นจังหวะตามแนวเส้นพลังงานของร่างกายเข้ากับการยืดเหยียดโดยที่ผู้รับนวดไม่ต้องออกแรง ซึ่งคล้ายกับโยคะ ตามแบบดั้งเดิมจะนวดโดยไม่ใช้น้ำมันและสวมเสื้อผ้าที่สบาย'}
         </p>
         <p>
-          Der Überlieferung nach geht sie auf Jivaka Kumar Bhaccha zurück, einen Arzt zur Zeit Buddhas. Gelehrt wird sie
-          bis heute in Tempelschulen wie dem Wat Pho in Bangkok. 2019 hat die UNESCO Nuad Thai in die Liste des
-          immateriellen Kulturerbes der Menschheit aufgenommen (<a href={unescoSource} rel="noopener" target="_blank">Beschluss der UNESCO, englisch</a>).
+          {'ตามตำนานเล่าว่า การนวดไทยมีต้นกำเนิดมาจากหมอชีวกโกมารภัจจ์ แพทย์ในสมัยพุทธกาล ปัจจุบันยังคงมีการสอนในโรงเรียนนวดของวัด เช่น วัดโพธิ์ในกรุงเทพฯ ในปี 2019 องค์การยูเนสโกได้ขึ้นทะเบียนนวดไทยเป็นมรดกทางวัฒนธรรมที่จับต้องไม่ได้ของมนุษยชาติ ('}<a href={unescoSource} rel="noopener" target="_blank">มติของยูเนสโก ภาษาอังกฤษ</a>)
         </p>
-        <a class="text-link" href="/leistungen/#traditionelle-thaimassage">Ablauf und Preise der traditionellen Thaimassage <Icon name="arrow-right" /></a>
+        <a class="text-link" href="/leistungen/#traditionelle-thaimassage">ขั้นตอนและราคาของนวดแผนไทยแบบดั้งเดิม <Icon name="arrow-right" /></a>
       </div>
-      <aside class="facts" aria-label="Thaimassage auf einen Blick">
+      <aside class="facts" aria-label="นวดแผนไทยโดยสรุป">
         <Ornament size={44} lines={false} />
-        <h3>Auf einen Blick</h3>
+        <h3>โดยสรุป</h3>
         <dl>
-          <div><dt>Herkunft</dt><dd>Thailand</dd></div>
-          <div><dt>Thailändischer Name</dt><dd>Nuad Thai, Nuat Phaen Boran</dd></div>
-          <div><dt>Technik</dt><dd>Druck, Dehnung, Akupressur</dd></div>
-          <div><dt>Kulturerbe</dt><dd>UNESCO, seit 2019</dd></div>
-          <div><dt>Dauer bei uns</dt><dd>30 bis 120 Minuten</dd></div>
+          <div><dt>ต้นกำเนิด</dt><dd>ประเทศไทย</dd></div>
+          <div><dt>ชื่อภาษาไทย</dt><dd>นวดไทย, นวดแผนโบราณ</dd></div>
+          <div><dt>เทคนิค</dt><dd>การกด การยืด การกดจุด</dd></div>
+          <div><dt>มรดกทางวัฒนธรรม</dt><dd>ยูเนสโก ตั้งแต่ปี 2019</dd></div>
+          <div><dt>ระยะเวลาที่ร้านเรา</dt><dd>30 ถึง 120 นาที</dd></div>
         </dl>
       </aside>
     </div>
@@ -208,7 +204,7 @@ const highlights = [
 
   <section class="section" aria-labelledby="faq-title">
     <div class="container">
-      <SectionHeading id="faq-title" eyebrow="Häufige Fragen" title="Gut zu wissen vor Ihrem Termin" />
+      <SectionHeading id="faq-title" eyebrow="คำถามที่พบบ่อย" title="ข้อควรทราบก่อนมานวด" />
       <Faq items={faq} />
     </div>
   </section>

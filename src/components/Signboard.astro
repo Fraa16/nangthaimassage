@@ -10,7 +10,7 @@ import Icon from './Icon.astro';
 import { business, hoursSummary } from '../data/business';
 import { telHref, directionsUrl } from '../lib/links';
 
-const hours = hoursSummary() ?? 'Termine nach Vereinbarung';
+const hours = hoursSummary() ?? 'ตามนัดหมาย';
 ---
 
 <div class="signboard">
@@ -27,19 +27,19 @@ const hours = hoursSummary() ?? 'Termine nach Vereinbarung';
   <ul class="signboard__panels">
     <li class="signboard__panel">
       <Icon name="clock" />
-      <span class="signboard__label">Öffnungszeiten</span>
+      <span class="signboard__label">เวลาเปิดทำการ</span>
       <strong class="signboard__main">{hours}</strong>
-      <span class="signboard__sub">{business.openOnHolidays ? 'auch sonn- & feiertags' : 'auch samstags & sonntags'}</span>
+      <span class="signboard__sub">{business.openOnHolidays ? 'วันอาทิตย์และวันหยุดก็เปิด' : 'เปิดวันเสาร์และวันอาทิตย์'}</span>
     </li>
     <li class="signboard__panel signboard__panel--center">
       <Icon name="phone" />
-      <span class="signboard__label">Termin vereinbaren</span>
+      <span class="signboard__label">นัดเวลา</span>
       <a class="signboard__main" href={telHref}>{business.phone.display}</a>
-      <span class="signboard__sub">Anruf oder WhatsApp</span>
+      <span class="signboard__sub">โทรหรือ WhatsApp</span>
     </li>
     <li class="signboard__panel">
       <Icon name="map-pin" />
-      <span class="signboard__label">Adresse</span>
+      <span class="signboard__label">ที่อยู่</span>
       <a class="signboard__main" href={directionsUrl} rel="noopener" target="_blank">{business.address.street}</a>
       <span class="signboard__sub">{business.address.postalCode} {business.address.city}</span>
     </li>

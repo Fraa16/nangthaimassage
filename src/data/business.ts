@@ -14,12 +14,12 @@ export const business = {
   /** Muss exakt so geschrieben sein wie im Google-Unternehmensprofil. */
   name: 'Nang Thai Massage',
   alternateName: 'Nang Thaimassage',
-  owner: 'TODO: Vor- und Nachname der Inhaberin',
+  owner: 'TODO: ชื่อและนามสกุลของเจ้าของร้าน',
   address: {
     street: 'Königstraße 25',
     postalCode: '71139',
     city: 'Ehningen',
-    district: 'Landkreis Böblingen',
+    district: 'เขต Böblingen',
     region: 'Baden-Württemberg',
     country: 'DE',
   },
@@ -38,13 +38,13 @@ export const business = {
   vatId: '',
   /** Öffnungszeiten laut Flyer: täglich 10–20 Uhr. */
   openingHours: [
-    { day: 'Montag', schemaDay: 'Monday', opens: '10:00', closes: '20:00' },
-    { day: 'Dienstag', schemaDay: 'Tuesday', opens: '10:00', closes: '20:00' },
-    { day: 'Mittwoch', schemaDay: 'Wednesday', opens: '10:00', closes: '20:00' },
-    { day: 'Donnerstag', schemaDay: 'Thursday', opens: '10:00', closes: '20:00' },
-    { day: 'Freitag', schemaDay: 'Friday', opens: '10:00', closes: '20:00' },
-    { day: 'Samstag', schemaDay: 'Saturday', opens: '10:00', closes: '20:00' },
-    { day: 'Sonntag', schemaDay: 'Sunday', opens: '10:00', closes: '20:00' },
+    { day: 'วันจันทร์', schemaDay: 'Monday', opens: '10:00', closes: '20:00' },
+    { day: 'วันอังคาร', schemaDay: 'Tuesday', opens: '10:00', closes: '20:00' },
+    { day: 'วันพุธ', schemaDay: 'Wednesday', opens: '10:00', closes: '20:00' },
+    { day: 'วันพฤหัสบดี', schemaDay: 'Thursday', opens: '10:00', closes: '20:00' },
+    { day: 'วันศุกร์', schemaDay: 'Friday', opens: '10:00', closes: '20:00' },
+    { day: 'วันเสาร์', schemaDay: 'Saturday', opens: '10:00', closes: '20:00' },
+    { day: 'วันอาทิตย์', schemaDay: 'Sunday', opens: '10:00', closes: '20:00' },
   ],
   /** Laut Flyer auch an Feiertagen geöffnet. */
   openOnHolidays: true,
@@ -81,7 +81,7 @@ export function dailyHours() {
 /** „Täglich 10–20 Uhr“, wenn alle Tage gleich sind, sonst null. */
 export function hoursSummary(): string | null {
   const daily = dailyHours();
-  return daily ? `Täglich ${formatTime(daily.opens)}–${formatTime(daily.closes)} Uhr` : null;
+  return daily ? `ทุกวัน ${daily.opens}–${daily.closes}\u00a0น.` : null;
 }
 
 /** „Daily 10 am – 8 pm“ für die englische Seite, sonst null. */
@@ -92,8 +92,8 @@ export function hoursSummaryEn(): string | null {
 
 /** „auch an Feiertagen und nach Vereinbarung“ bzw. die Teile, die zutreffen; sonst null. */
 export function hoursExtras(): string | null {
-  const parts = [business.openOnHolidays && 'an Feiertagen', business.byAppointment && 'nach Vereinbarung'].filter(Boolean);
-  return parts.length ? `auch ${parts.join(' und ')}` : null;
+  const parts = [business.openOnHolidays && 'วันหยุดนักขัตฤกษ์ก็เปิด', business.byAppointment && 'นัดเวลาอื่นได้'].filter(Boolean);
+  return parts.length ? parts.join(' และ') : null;
 }
 
 /** „12:00“ → „12“, „12:30“ → „12:30“ */

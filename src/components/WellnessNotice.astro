@@ -7,12 +7,12 @@ interface Props {
   title?: string;
 }
 
-const { id = 'hinweis-title', items = [], title = 'Gut zu wissen' } = Astro.props;
+const { id = 'hinweis-title', items = [], title = 'ข้อควรทราบ' } = Astro.props;
 const all = [
   ...items,
-  'Kommen Sie am besten ein paar Minuten vor Ihrem Termin, damit Sie in Ruhe ankommen.',
-  'Sagen Sie vorab Bescheid, wenn Sie schwanger sind, kürzlich operiert wurden oder gesundheitliche Beschwerden haben.',
-  'Falls Sie einen Termin nicht wahrnehmen können, sagen Sie bitte kurz per Anruf oder WhatsApp Bescheid.',
+  'ควรมาถึงก่อนเวลานัดสักสองสามนาที จะได้ไม่ต้องรีบ',
+  'กรุณาแจ้งล่วงหน้าหากคุณตั้งครรภ์ เพิ่งผ่าตัด หรือมีปัญหาสุขภาพ',
+  'หากมาตามนัดไม่ได้ กรุณาแจ้งให้เราทราบทางโทรศัพท์หรือ WhatsApp',
 ];
 ---
 
@@ -22,8 +22,7 @@ const all = [
     {all.map((item) => <li>{item}</li>)}
   </ul>
   <p class="notice__legal">
-    Unsere Massagen sind Wellnessmassagen. Sie dienen der Entspannung und dem Wohlbefinden und ersetzen keine ärztliche
-    Behandlung oder Physiotherapie.
+    {'การนวดของเราเป็นการนวดเพื่อสุขภาพและการผ่อนคลาย มีไว้เพื่อการพักผ่อนและความรู้สึกสบาย ไม่สามารถใช้แทนการรักษาทางการแพทย์หรือกายภาพบำบัดได้'}
   </p>
 </div>
 

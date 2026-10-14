@@ -18,17 +18,17 @@ export const yearsOfExperience = Math.floor(
 
 export const about = {
   /** Körperpartien, auf die Nang sich besonders versteht. */
-  focusAreas: ['Nacken', 'Schultern', 'Kopf', 'Rücken'],
+  focusAreas: ['คอ', 'บ่าไหล่', 'ศีรษะ', 'หลัง'],
   focus: {
-    lead: 'Viele Gäste kommen zu Nang, wenn Nacken und Schultern fest sind und die Anspannung bis in den Kopf zieht.',
-    text: `Nang hat die traditionelle Thaimassage gelernt und massiert seit ${yearsOfExperience} Jahren. Sie kennt den Verlauf von Muskeln und Sehnen und die Druckpunkte der Thaimassage genau. Deshalb findet sie die Stellen, an denen es festsitzt, und arbeitet gezielt daran: mit Druck, Dehnung und Akupressur, so kräftig oder sanft, wie es Ihnen guttut.`,
+    lead: 'ลูกค้าหลายคนมาหา Nang เมื่อคอและบ่าไหล่ตึง และความตึงลามขึ้นไปถึงศีรษะ',
+    text: `Nang เรียนนวดแผนไทยแบบดั้งเดิมมา และนวดมาแล้ว ${yearsOfExperience} ปี เธอรู้จักแนวกล้ามเนื้อและเส้นเอ็น รวมถึงจุดกดของการนวดไทยเป็นอย่างดี จึงหาจุดที่ตึงเจอและนวดตรงจุดนั้นได้อย่างแม่นยำ ด้วยการกด การยืด และการกดจุด หนักหรือเบาตามที่คุณรู้สึกสบาย`,
     approach: [
-      'Sie fragt nach: Wo zieht es, seit wann, was tut Ihnen gut?',
-      'Sie tastet die Muskulatur ab und findet die festen Stellen.',
-      'Sie arbeitet gezielt statt nach Schema, auch an Nacken und Kopf.',
-      'Sie sagt ehrlich, wenn eine Massage nicht das Richtige ist.',
+      'เธอถามก่อน: ตึงตรงไหน เป็นมานานเท่าไร และแบบไหนที่คุณรู้สึกสบาย',
+      'เธอคลำกล้ามเนื้อและหาจุดที่ตึง',
+      'เธอนวดตรงจุด ไม่ได้นวดตามสูตรเดิม ๆ รวมถึงที่คอและศีรษะ',
+      'เธอบอกตรง ๆ หากการนวดไม่เหมาะกับคุณ',
     ],
-    note: 'Nang ist keine Ärztin und stellt keine Diagnosen. Starke, anhaltende oder neue Kopfschmerzen gehören ärztlich abgeklärt.',
+    note: 'Nang ไม่ใช่แพทย์และไม่ได้วินิจฉัยโรค หากปวดศีรษะรุนแรง ปวดต่อเนื่อง หรือเพิ่งเริ่มปวดแบบใหม่ ควรไปพบแพทย์',
   },
   /**
    * Persönliche Geschichte (Herkunft, wo sie gelernt hat, seit wann in Ehningen).

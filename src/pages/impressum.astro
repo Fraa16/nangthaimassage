@@ -5,45 +5,45 @@ import Placeholder from '../components/Placeholder.astro';
 import { business } from '../data/business';
 import { telHref, hasEmail } from '../lib/links';
 
-const breadcrumbs = [{ name: 'Impressum', href: '/impressum/' }];
+const breadcrumbs = [{ name: 'ข้อมูลผู้ให้บริการ (Impressum)', href: '/impressum/' }];
 ---
 
 <BaseLayout
-  title="Impressum"
-  description={`Impressum von ${business.name}, ${business.address.street}, ${business.address.postalCode} ${business.address.city}.`}
+  title="ข้อมูลผู้ให้บริการ (Impressum)"
+  description={`ข้อมูลผู้ให้บริการของ ${business.name}, ${business.address.street}, ${business.address.postalCode} ${business.address.city}`}
   breadcrumbs={breadcrumbs}
 >
-  <PageHero title="Impressum" breadcrumbs={breadcrumbs} />
+  <PageHero title="ข้อมูลผู้ให้บริการ (Impressum)" lead="ข้อมูลที่กฎหมายเยอรมันกำหนดให้ทุกเว็บไซต์ธุรกิจต้องแสดง" breadcrumbs={breadcrumbs} />
 
   <section class="section">
     <div class="container container--narrow prose">
-      <h2>Angaben gemäß § 5 DDG</h2>
+      <h2>ข้อมูลตามมาตรา 5 DDG (กฎหมายบริการดิจิทัล)</h2>
       <p>
         {business.name}
         <br />
-        Inhaberin: <Placeholder value={business.owner} />
+        {'เจ้าของร้าน: '}<Placeholder value={business.owner} />
         <br />
         {business.address.street}
         <br />
         {business.address.postalCode} {business.address.city}
         <br />
-        Deutschland
+        ประเทศเยอรมนี
       </p>
 
-      <h2>Kontakt</h2>
+      <h2>ติดต่อ</h2>
       <p>
-        Telefon und WhatsApp: <a href={telHref}>{business.phone.display}</a>
+        {'โทรศัพท์และ WhatsApp: '}<a href={telHref}>{business.phone.display}</a>
         <br />
-        E-Mail: {hasEmail ? business.email : <Placeholder value={business.email} />}
+        {'อีเมล: '}{hasEmail ? business.email : <Placeholder value={business.email} />}
       </p>
-      <p>Termine vereinbaren Sie bitte telefonisch oder per WhatsApp.</p>
+      <p>กรุณานัดเวลาทางโทรศัพท์หรือ WhatsApp</p>
 
       {
         business.vatId && (
           <>
-            <h2>Umsatzsteuer-ID</h2>
+            <h2>เลขประจำตัวผู้เสียภาษีมูลค่าเพิ่ม</h2>
             <p>
-              Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
+              เลขประจำตัวผู้เสียภาษีมูลค่าเพิ่มตามมาตรา 27a กฎหมายภาษีมูลค่าเพิ่ม:
               <br />
               {business.vatId}
             </p>
@@ -51,30 +51,26 @@ const breadcrumbs = [{ name: 'Impressum', href: '/impressum/' }];
         )
       }
 
-      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <h2>ผู้รับผิดชอบเนื้อหาตามมาตรา 18 วรรค 2 MStV (สนธิสัญญาสื่อของรัฐ)</h2>
       <p>
         <Placeholder value={business.owner} />
         <br />
         {business.address.street}, {business.address.postalCode} {business.address.city}
       </p>
 
-      <h2>Verbraucherstreitbeilegung</h2>
+      <h2>การระงับข้อพิพาทกับผู้บริโภค</h2>
       <p>
-        Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
-        teilzunehmen.
+        {'เราไม่ประสงค์และไม่มีหน้าที่ต้องเข้าร่วมกระบวนการระงับข้อพิพาทต่อหน่วยงานไกล่เกลี่ยข้อพิพาทผู้บริโภค'}
       </p>
 
-      <h2>Haftung für Links</h2>
+      <h2>ความรับผิดชอบต่อลิงก์</h2>
       <p>
-        Diese Website enthält Links zu Websites Dritter, etwa zu Google Maps und WhatsApp. Auf deren Inhalte haben wir keinen
-        Einfluss, dafür ist der jeweilige Anbieter verantwortlich. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße
-        erkennbar. Werden uns Rechtsverletzungen bekannt, entfernen wir die betreffenden Links umgehend.
+        {'เว็บไซต์นี้มีลิงก์ไปยังเว็บไซต์ของบุคคลอื่น เช่น Google Maps และ WhatsApp เราไม่มีอิทธิพลต่อเนื้อหาของเว็บไซต์เหล่านั้น ผู้ให้บริการแต่ละรายเป็นผู้รับผิดชอบเอง ในขณะที่ใส่ลิงก์ไม่พบการกระทำผิดกฎหมาย หากเราทราบว่ามีการละเมิดกฎหมาย เราจะลบลิงก์นั้นทันที'}
       </p>
 
-      <h2>Hinweis zu den Massagen</h2>
+      <h2>หมายเหตุเกี่ยวกับการนวด</h2>
       <p>
-        Die angebotenen Massagen sind Wellnessmassagen. Sie dienen der Entspannung und dem Wohlbefinden und ersetzen keine
-        ärztliche Behandlung, Diagnose oder Physiotherapie.
+        {'การนวดที่ให้บริการเป็นการนวดเพื่อสุขภาพและการผ่อนคลาย มีไว้เพื่อการพักผ่อนและความรู้สึกสบาย ไม่สามารถใช้แทนการรักษา การวินิจฉัยโรคทางการแพทย์ หรือกายภาพบำบัดได้'}
       </p>
     </div>
   </section>

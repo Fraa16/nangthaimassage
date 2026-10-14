@@ -22,7 +22,7 @@ const { class: className } = Astro.props;
   reviews.length > 0 && (
     <section class:list={['section', 'reviews', className]} aria-labelledby="bewertungen-title">
       <div class="container">
-        <SectionHeading id="bewertungen-title" eyebrow="Bewertungen" title="Was Gäste über Nang schreiben" />
+        <SectionHeading id="bewertungen-title" eyebrow="รีวิว" title="ลูกค้าพูดถึง Nang อย่างไร" />
         <ul class="reviews__list">
           {reviews.map((review) => (
             <li>
@@ -31,22 +31,22 @@ const { class: className } = Astro.props;
                   {[1, 2, 3, 4, 5].map((n) => (
                     <Icon name="star" class={n <= review.rating ? 'reviews__star--full' : undefined} />
                   ))}
-                  <span class="visually-hidden">{`${review.rating} von 5 Sternen`}</span>
+                  <span class="visually-hidden">{`${review.rating} จาก 5 ดาว`}</span>
                 </span>
                 <blockquote>
                   <p>{`„${review.text}“`}</p>
                 </blockquote>
-                <figcaption>{`${review.author}, Google-Bewertung`}</figcaption>
+                <figcaption>{`${review.author}, รีวิวบน Google`}</figcaption>
               </figure>
             </li>
           ))}
         </ul>
         <p class="reviews__note">
-          {`Auswahl aus den Google-Bewertungen von Nang Thai Massage (Stand: ${reviewsAsOf}), wörtlich übernommen; Kürzungen sind mit […] gekennzeichnet. Alle hier gezeigten Bewertungen stammen von Gästen, die Nang persönlich kennt.`}
+          {`คัดเลือกจากรีวิวบน Google ของ Nang Thai Massage (ข้อมูล ณ ${reviewsAsOf}) ยกมาตามต้นฉบับ ส่วนที่ตัดออกมีเครื่องหมาย […] รีวิวทั้งหมดที่แสดงที่นี่มาจากลูกค้าที่ Nang รู้จักเป็นการส่วนตัว (ในเว็บไซต์จริงรีวิวเป็นภาษาเยอรมันตามต้นฉบับ ที่นี่แปลเป็นภาษาไทยให้อ่าน)`}
         </p>
         <p class="reviews__more">
           <a class="text-link" href={googleMapsUrl} rel="noopener" target="_blank">
-            Alle Bewertungen auf Google <Icon name="arrow-right" />
+            ดูรีวิวทั้งหมดบน Google <Icon name="arrow-right" />
           </a>
         </p>
       </div>

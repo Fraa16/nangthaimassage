@@ -11,7 +11,7 @@ const { lang = 'de' } = Astro.props;
 const t =
   lang === 'en'
     ? { nav: 'Quick contact', call: 'Call', route: 'Directions', message: 'Hello, I would like to book a massage appointment.' }
-    : { nav: 'Schnellkontakt', call: 'Anrufen', route: 'Route', message: 'Hallo, ich möchte gern einen Termin vereinbaren.' };
+    : { nav: 'ติดต่อด่วน', call: 'โทร', route: 'เส้นทาง', message: 'สวัสดี ต้องการนัดเวลานวด' };
 ---
 
 <nav class="call-bar" aria-label={t.nav}>
