@@ -14,7 +14,7 @@ export const business = {
   /** Muss exakt so geschrieben sein wie im Google-Unternehmensprofil. */
   name: 'Nang Thai Massage',
   alternateName: 'Nang Thaimassage',
-  owner: 'TODO: Vor- und Nachname der Inhaberin',
+  owner: 'Somphan Breite',
   address: {
     street: 'Königstraße 25',
     postalCode: '71139',

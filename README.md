@@ -52,7 +52,7 @@ auf die die Website verlinkt. Diese Texte stehen gesammelt in `src/data/about.ts
 
 `npm run build` listet fehlende Angaben auf. Offen sind:
 
-- [ ] **Vor- und Nachname der Inhaberin** (`business.owner`), Pflicht fürs Impressum
+- [x] **Vor- und Nachname der Inhaberin** (`business.owner`): Somphan Breite
 - [x] **E-Mail-Adresse** (`business.email`): Pflicht fürs Impressum (§ 5 DDG). Steht bewusst nur dort
       und ohne Link, Nang möchte nicht per E-Mail kontaktiert werden.
 - [ ] Umsatzsteuer-ID, falls vorhanden (`business.vatId`)
